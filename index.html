@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coach JP — Performance Matrix</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --fire: #FF3D00;
+    --fire-glow: #FF6D3A;
+    --gold: #FFD600;
+    --purple: #7C4DFF;
+    --teal: #00BFA5;
+    --blue: #2979FF;
+    --bg: #0E0E0F;
+    --bg-card: #161617;
+    --bg-card-hover: #1C1C1E;
+    --bg-surface: #111112;
+    --text-primary: #F2F2F2;
+    --text-secondary: #8A8A8A;
+    --text-muted: #484848;
+    --border: rgba(255,255,255,0.07);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: rgba(14,14,15,0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.25rem;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo {
+    width: 32px; height: 32px;
+    background: var(--fire);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo svg { width: 17px; height: 17px; fill: white; }
+  .nav-wordmark {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.3rem; letter-spacing: 0.03em;
+    color: var(--text-primary);
+  }
+  .nav-wordmark span { color: var(--fire); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-pill {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 4px 11px; border-radius: 20px;
+  }
+  .nav-pill.athletes {
+    background: rgba(255,214,0,0.1); border: 1px solid rgba(255,214,0,0.25);
+    color: var(--gold);
+  }
+  .nav-pill.week {
+    background: rgba(255,61,0,0.1); border: 1px solid rgba(255,61,0,0.25);
+    color: var(--fire-glow);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 2rem 1.25rem 1.5rem;
+    max-width: 1140px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--fire); margin-bottom: 0.5rem;
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(1.9rem, 5.5vw, 3rem);
+    line-height: 1.05; letter-spacing: 0.01em; margin-bottom: 0.5rem;
+  }
+  .hero h1 em { font-style: normal; color: var(--fire); }
+  .hero-sub { color: var(--text-secondary); font-size: 0.9rem; max-width: 480px; }
+
+  /* ── WEEK TABS ── */
+  .week-tabs-wrap {
+    background: rgba(14,14,15,0.9);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 58px; z-index: 100;
+    overflow-x: auto;
+  }
+  .week-tabs {
+    max-width: 1140px; margin: 0 auto;
+    display: flex; padding: 0 1.25rem;
+    min-width: max-content;
+    gap: 0;
+  }
+  .day-tab {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0.7rem 1.1rem; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.18s ease;
+    gap: 2px; min-width: 80px;
+    user-select: none;
+  }
+  .day-tab:hover { background: rgba(255,255,255,0.03); }
+  .day-tab.active { border-bottom-color: var(--fire); }
+  .day-tab.rest-day { opacity: 0.45; cursor: default; }
+  .day-tab.rest-day:hover { background: transparent; }
+  .day-tab.completed-day .day-dot { background: var(--teal); }
+  .tab-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-secondary);
+    transition: color 0.18s;
+  }
+  .day-tab.active .tab-name { color: var(--fire-glow); }
+  .tab-label {
+    font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .day-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--text-muted); margin-top: 3px;
+    transition: background 0.18s;
+  }
+  .day-tab.active .day-dot { background: var(--fire); }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    max-width: 1140px; margin: 0 auto;
+    padding: 0.8rem 1.25rem 0;
+  }
+  .progress-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+  }
+  .progress-track {
+    flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px;
+  }
+  .progress-fill {
+    height: 100%; background: var(--fire); border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .progress-label { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+  .progress-count { font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1140px; margin: 0 auto;
+    padding: 0 1.25rem 4rem;
+  }
+
+  /* ── DAY VIEW ── */
+  .day-view { display: none; }
+  .day-view.active { display: block; }
+
+  .day-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 1rem; margin-bottom: 1.5rem; padding-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .day-title-group {}
+  .day-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;
+  }
+  .day-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.2rem);
+    letter-spacing: 0.01em; line-height: 1.1;
+  }
+  .day-athletes {
+    display: flex; gap: 7px; margin-top: 0.5rem; flex-wrap: wrap;
+  }
+  .athlete-chip {
+    background: rgba(255,214,0,0.08); border: 1px solid rgba(255,214,0,0.2);
+    color: #C8A600; font-size: 11px; font-weight: 600;
+    padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em;
+  }
+  .day-complete-btn {
+    background: rgba(255,61,0,0.1); border: 1px solid rgba(255,61,0,0.3);
+    color: var(--fire-glow); font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 9px 20px;
+    border-radius: var(--radius-md); cursor: pointer;
+    transition: all 0.18s ease; white-space: nowrap; align-self: flex-start;
+  }
+  .day-complete-btn:hover { background: rgba(255,61,0,0.2); }
+  .day-complete-btn.done {
+    background: rgba(0,191,165,0.12); border-color: rgba(0,191,165,0.3);
+    color: var(--teal);
+  }
+
+  /* ── BLOCKS ── */
+  .blocks-stack { display: flex; flex-direction: column; gap: 1rem; }
+
+  .block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .block-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+    transition: background 0.15s;
+  }
+  .block-header:hover { background: rgba(255,255,255,0.02); }
+
+  .block-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+  }
+  .bi-warmup { background: rgba(255,165,0,0.12); }
+  .bi-oly    { background: rgba(255,214,0,0.12); }
+  .bi-strength { background: rgba(255,61,0,0.12); }
+  .bi-metcon { background: rgba(124,77,255,0.15); }
+  .bi-cardio { background: rgba(41,121,255,0.12); }
+  .bi-accessory { background: rgba(0,191,165,0.1); }
+  .bi-rest   { background: rgba(255,255,255,0.05); }
+
+  .block-header-text { flex: 1; }
+  .block-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .bl-warmup   { color: #FFA726; }
+  .bl-oly      { color: var(--gold); }
+  .bl-strength { color: var(--fire-glow); }
+  .bl-metcon   { color: #B39DDB; }
+  .bl-cardio   { color: #64B5F6; }
+  .bl-accessory{ color: var(--teal); }
+  .bl-rest     { color: var(--text-secondary); }
+
+  .block-subtitle {
+    font-size: 11px; color: var(--text-muted); margin-top: 1px;
+  }
+  .block-chevron {
+    color: var(--text-muted); font-size: 13px;
+    transition: transform 0.22s ease; flex-shrink: 0;
+  }
+  .block.collapsed .block-chevron { transform: rotate(-90deg); }
+
+  .block-body {
+    padding: 0.9rem 1.1rem;
+    display: flex; flex-direction: column; gap: 0.1rem;
+  }
+  .block.collapsed .block-body { display: none; }
+
+  /* ── SECTION (within block) ── */
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin: 0.8rem 0 0.4rem; padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ── EXERCISE ROW ── */
+  .ex-row {
+    display: flex; gap: 10px; padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+  }
+  .ex-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .ex-bullet {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--text-muted); flex-shrink: 0; margin-top: 7px;
+  }
+  .ex-name { font-size: 0.88rem; font-weight: 600; flex: 1; line-height: 1.4; }
+  .ex-detail {
+    font-size: 12px; color: var(--text-secondary);
+    text-align: right; flex-shrink: 0; line-height: 1.5; max-width: 160px;
+  }
+  .ex-detail strong {
+    display: block; color: var(--text-primary); font-weight: 600; font-size: 13px;
+  }
+
+  /* ── COMPLEX ROW (highlighted) ── */
+  .ex-row.complex {
+    background: rgba(255,214,0,0.04);
+    border: 1px solid rgba(255,214,0,0.08);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.75rem; margin: 0.3rem 0;
+  }
+  .ex-row.complex .ex-bullet { background: var(--gold); }
+
+  /* ── COACH NOTE ── */
+  .coach-note {
+    background: rgba(255,61,0,0.05);
+    border-left: 2px solid rgba(255,61,0,0.4);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 0.6rem 0.9rem; margin-top: 0.75rem;
+    font-size: 12px; color: #C06040; line-height: 1.55;
+  }
+  .coach-note strong { color: var(--fire-glow); display: block; margin-bottom: 2px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .scaling-note {
+    background: rgba(41,121,255,0.05);
+    border-left: 2px solid rgba(41,121,255,0.3);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 0.6rem 0.9rem; margin-top: 0.5rem;
+    font-size: 12px; color: #5888C8; line-height: 1.55;
+  }
+  .scaling-note strong { color: #64B5F6; display: block; margin-bottom: 2px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── REST DAY VIEW ── */
+  .rest-view {
+    text-align: center; padding: 4rem 1rem;
+    color: var(--text-muted);
+  }
+  .rest-view .rest-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .rest-view h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1.5rem;
+    color: var(--text-secondary); margin-bottom: 0.5rem;
+  }
+  .rest-view p { font-size: 0.9rem; max-width: 300px; margin: 0 auto; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.75rem; }
+    .day-tab { min-width: 64px; padding: 0.65rem 0.7rem; }
+    .tab-label { font-size: 9px; }
+    .block-label { font-size: 0.85rem; }
+    .ex-detail { max-width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo">
+      <svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.99 12 12.01 11 22l8.91-10.99-7.91.98z"/></svg>
+    </div>
+    <span class="nav-wordmark">COACH<span>&nbsp;JP</span></span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-pill athletes">JUAMPI &amp; CECI</span>
+    <span class="nav-pill week">Semana Carga</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Performance Matrix — Alto Rendimiento</p>
+  <h1>Semana de <em>Carga.</em></h1>
+  <p class="hero-sub">6 días de programación de élite para Juampi &amp; Ceci. Cada bloque tiene un propósito. Ejecutá con intención.</p>
+</section>
+
+<!-- WEEK TABS -->
+<div class="week-tabs-wrap">
+  <div class="week-tabs" id="week-tabs">
+    <div class="day-tab active" data-day="0">
+      <span class="tab-name">LUN</span>
+      <span class="tab-label">Cleans + Metcon</span>
+      <div class="day-dot"></div>
+    </div>
+    <div class="day-tab" data-day="1">
+      <span class="tab-name">MAR</span>
+      <span class="tab-label">Push/Pull + EMOM</span>
+      <div class="day-dot"></div>
+    </div>
+    <div class="day-tab" data-day="2">
+      <span class="tab-name">MIÉ</span>
+      <span class="tab-label">Snatch + Deadlift</span>
+      <div class="day-dot"></div>
+    </div>
+    <div class="day-tab rest-day" data-day="3">
+      <span class="tab-name">JUE</span>
+      <span class="tab-label">Descanso</span>
+      <div class="day-dot"></div>
+    </div>
+    <div class="day-tab" data-day="4">
+      <span class="tab-name">VIE</span>
+      <span class="tab-label">C&amp;J + Leaders WOD</span>
+      <div class="day-dot"></div>
+    </div>
+    <div class="day-tab" data-day="5">
+      <span class="tab-name">SÁB</span>
+      <span class="tab-label">Engine + Partner</span>
+      <div class="day-dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap">
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <span class="progress-count" id="progress-count">0 / 5 días</span>
+    <span class="progress-label">completados</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ════════════════════ LUNES ════════════════════ -->
+  <div class="day-view active" id="day-0">
+    <div class="day-header">
+      <div class="day-title-group">
+        <div class="day-eyebrow">Lunes — Día 1</div>
+        <div class="day-title">OLY Cleans + Squats + Metcon</div>
+        <div class="day-athletes">
+          <span class="athlete-chip">⚡ JUAMPI</span>
+          <span class="athlete-chip">⚡ CECI</span>
+        </div>
+      </div>
+      <button class="day-complete-btn" data-day="0">Marcar día completo</button>
+    </div>
+    <div class="blocks-stack">
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-warmup">🔥</div>
+          <div class="block-header-text">
+            <div class="block-label bl-warmup">Warm Up &amp; Activación</div>
+            <div class="block-subtitle">Bloque de intervalos + EMOM técnico</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">Bloque 1 — Intervalos 2 Rondas (20s ON / 40s OFF)</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Clean Deadlift</span><span class="ex-detail">20s trabajo<br>40s descanso</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Muscle Clean (desde la cadera)</span><span class="ex-detail">20s trabajo<br>40s descanso</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Low Hang Power Clean</span><span class="ex-detail">20s trabajo<br>40s descanso</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Front Squat</span><span class="ex-detail">20s trabajo<br>40s descanso</span></div>
+          <div class="section-label">Bloque 2 — EMOM x 6 Minutos</div>
+          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">1 Muscle Clean + 1 Power Clean</span><span class="ex-detail"><strong>Ascendente</strong>30% → 40% RM</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-oly">🏋️</div>
+          <div class="block-header-text">
+            <div class="block-label bl-oly">OLY Strength — Cleans</div>
+            <div class="block-subtitle">A1 Aproximación + A2 Time Trial</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">A1 — Cada 90s × 5 series (Aproximación)</div>
+          <div class="ex-row complex">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">1 Power Clean + 2 Squat Cleans (singles)</span>
+            <span class="ex-detail"><strong>5 series</strong>@ 60% RM</span>
+          </div>
+          <div class="coach-note"><strong>Coach Target</strong>Calentamiento técnico estricto orientado al bloque A2. Descanso completo de 3 minutos antes de comenzar A2.</div>
+
+          <div class="section-label">A2 — Time Trial (Todas las reps como singles)</div>
+          <div class="ex-row">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">Set 1: 9 Squat Cleans</span>
+            <span class="ex-detail"><strong>@ 72% RM</strong>Rest: 2 min</span>
+          </div>
+          <div class="ex-row">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">Set 2: 6 Squat Cleans</span>
+            <span class="ex-detail"><strong>@ 82% RM</strong>Rest: 2 min</span>
+          </div>
+          <div class="ex-row">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">Set 3: 3 Squat Cleans</span>
+            <span class="ex-detail"><strong>@ 92% RM</strong>—</span>
+          </div>
+          <div class="coach-note"><strong>Coach Target</strong>Set-up ultra rápido y eficiente en cada levantamiento. Dominar el balance exacto entre velocidad y técnica bajo fatiga.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-strength">🦵</div>
+          <div class="block-header-text">
+            <div class="block-label bl-strength">Strength — Squats</div>
+            <div class="block-subtitle">Paused Back Squat — Fuerza de salida</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">B — Cada 2:30 min × 6 series</div>
+          <div class="ex-row complex">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">2 Paused Back Squats + 3 Back Squats</span>
+            <span class="ex-detail"><strong>6 series</strong>@ 70% RM</span>
+          </div>
+          <div class="coach-note"><strong>Coach Target</strong>2 reps con 3 segundos de pausa estricta abajo. Las últimas 3: capturar el rebote mecánico para subir de forma explosiva. Semanas de pausa para optimizar el drive desde la posición más baja.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-metcon">💥</div>
+          <div class="block-header-text">
+            <div class="block-label bl-metcon">Metcon — Grind Intervals</div>
+            <div class="block-subtitle">3 Sets For Time · Rest 4:00 entre sets</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">C — 3 Sets For Time (RX)</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Burpees Box Jump Overs</span><span class="ex-detail"><strong>21 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Handstand Walk</span><span class="ex-detail"><strong>3 tramos</strong>1 HSW = 7.5 m</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Wall Balls</span><span class="ex-detail"><strong>21 reps</strong>9 kg / 6 kg</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Farmer Carry</span><span class="ex-detail"><strong>200 metros</strong>Pesado</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>Sesión de "grind" puro: ritmo constante y pesado. Dosificar la transición, foco quirúrgico en la caminata de manos. Priorizar consistencia en los 3 sets.</div>
+          <div class="scaling-note"><strong>Scaling</strong>2 tramos de HSW por ronda (no unbroken requerido). Si se reduce el Farmer Carry, mantener volumen de carrera original.</div>
+        </div>
+      </div>
+
+      <div class="block collapsed">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-accessory">🎯</div>
+          <div class="block-header-text">
+            <div class="block-label bl-accessory">Accessory &amp; Core</div>
+            <div class="block-subtitle">Hip Thrusts + Nordic Curls · 3–4 series</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">D — 3 a 4 Series por calidad</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Barbell Hip Thrusts</span><span class="ex-detail"><strong>10 reps</strong>1s iso en top</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Nordic Curls</span><span class="ex-detail"><strong>4–8 reps</strong>Excéntrica lenta</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>Descanso libre según necesidad. Enfocarse en calidad absoluta de ejecución.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ MARTES ════════════════════ -->
+  <div class="day-view" id="day-1">
+    <div class="day-header">
+      <div class="day-title-group">
+        <div class="day-eyebrow">Martes — Día 2</div>
+        <div class="day-title">Push &amp; Pull + EMOM 40 min</div>
+        <div class="day-athletes">
+          <span class="athlete-chip">⚡ JUAMPI</span>
+          <span class="athlete-chip">⚡ CECI</span>
+        </div>
+      </div>
+      <button class="day-complete-btn" data-day="1">Marcar día completo</button>
+    </div>
+    <div class="blocks-stack">
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-warmup">🔥</div>
+          <div class="block-header-text">
+            <div class="block-label bl-warmup">Warm Up &amp; Activación</div>
+            <div class="block-subtitle">SkiErg técnico + Aproximación Bench &amp; Pull Ups</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">Bloque de Resistencia — 3 Series</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">SkiErg — Técnica regular</span><span class="ex-detail"><strong>100 m</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">SkiErg — Extensiones de tríceps</span><span class="ex-detail"><strong>100 m</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">SkiErg — Vuelos posteriores (reverse flys)</span><span class="ex-detail"><strong>100 m</strong>Rest: 60s</span></div>
+          <div class="section-label">Posterior — 10 a 15 min</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Aproximación Bench Press + Pull Ups</span><span class="ex-detail">Construir hasta pesos de trabajo</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-strength">💪</div>
+          <div class="block-header-text">
+            <div class="block-label bl-strength">Strength — Push &amp; Pull</div>
+            <div class="block-subtitle">2 bloques de superserie · Bench + Pull Ups</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">A — 3 Rondas en Superserie (× 2 Bloques completos)</div>
+          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Bench Press</span><span class="ex-detail"><strong>3 reps</strong>80–85% RM</span></div>
+          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Strict Weighted Pull Ups <span style="color:var(--gold);font-size:10px">JUAMPI</span></span><span class="ex-detail"><strong>3 reps</strong>Máx lastre</span></div>
+          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Eccentric Banded Pull Ups <span style="color:#C06080;font-size:10px">CECI</span></span><span class="ex-detail"><strong>7 reps</strong>Excéntrica ctrl.</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>Construir el peso durante 10 min hasta 80–85% BP (RIR 2). Mismo estímulo pesado en Pull Ups. Rest 3:00 min entre bloques completos.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-cardio">⏱️</div>
+          <div class="block-header-text">
+            <div class="block-label bl-cardio">Cardio + Skill — EMOM 40 min</div>
+            <div class="block-subtitle">Volumen de resistencia con skill gymnástico</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">B — EMOM × 40 Minutos (ciclo de 5 min)</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 1: Row</span><span class="ex-detail"><strong>Máx 50s</strong>de trabajo</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 2: Strict HSPU</span><span class="ex-detail"><strong>10 reps</strong>+ déficit si aplica</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 3: Row</span><span class="ex-detail"><strong>Máx 50s</strong>de trabajo</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 4: GHD Sit Ups + Legless Rope Climb</span><span class="ex-detail"><strong>10–15 + 1</strong>subida legless</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 5: Descanso completo</span><span class="ex-detail"><strong>REST</strong>—</span></div>
+          <div class="coach-note"><strong>Strict HSPU</strong>10 reps altamente exigentes. Con déficit si tienen la capacidad. Escalar: 3 Strict + 7 Kipping HSPU.</div>
+          <div class="coach-note"><strong>Legless</strong>Piernas en bajada solo cuando sea crítico. Ganar la mayor altura posible usando únicamente el tren superior al inicio de cada rep.</div>
+        </div>
+      </div>
+
+      <div class="block collapsed">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-accessory">🎯</div>
+          <div class="block-header-text">
+            <div class="block-label bl-accessory">Shoulder Accessory</div>
+            <div class="block-subtitle">C1 · C2 · C3 — Salud articular de hombro</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">C1 — 3 Series · Rest 90s</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">YTWs</span><span class="ex-detail"><strong>21 reps</strong>7 por dirección</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">KB Bottoms Up Hold</span><span class="ex-detail"><strong>20–30s</strong>—</span></div>
+          <div class="section-label">C2 — 3 Series · Rest 90s</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Bulletproof Shoulders</span><span class="ex-detail"><strong>10 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Banded Thoracic Openers</span><span class="ex-detail"><strong>10 reps</strong>por lado</span></div>
+          <div class="section-label">C3 — 3 Series · Rest 90s</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Parallette Shoot Throughs</span><span class="ex-detail"><strong>10 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Russian Plate Twists</span><span class="ex-detail"><strong>24 reps</strong>Brazos bloqueados</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ MIÉRCOLES ════════════════════ -->
+  <div class="day-view" id="day-2">
+    <div class="day-header">
+      <div class="day-title-group">
+        <div class="day-eyebrow">Miércoles — Día 3</div>
+        <div class="day-title">Snatch Positions + Heavy Deadlift</div>
+        <div class="day-athletes">
+          <span class="athlete-chip">⚡ JUAMPI</span>
+          <span class="athlete-chip">⚡ CECI</span>
+        </div>
+      </div>
+      <button class="day-complete-btn" data-day="2">Marcar día completo</button>
+    </div>
+    <div class="blocks-stack">
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-warmup">🔥</div>
+          <div class="block-header-text">
+            <div class="block-label bl-warmup">Warm Up &amp; Activación</div>
+            <div class="block-subtitle">Cardio base + Activación OHS y Snatch</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">SkiErg o Remo — esfuerzo fácil-moderado</span><span class="ex-detail"><strong>1000 m</strong>—</span></div>
+          <div class="section-label">Activación — 2 Series</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">KB Windmill</span><span class="ex-detail"><strong>5 reps</strong>por brazo</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Behind The Neck Barbell Push Press</span><span class="ex-detail"><strong>10 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Squat Hold (posición más baja)</span><span class="ex-detail"><strong>30s</strong>—</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-oly">🏋️</div>
+          <div class="block-header-text">
+            <div class="block-label bl-oly">OLY Strength — Snatch Positions</div>
+            <div class="block-subtitle">Tempo OHS 33X1 · Profundidad y tensión</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">A — 4 Series · Rest 60s</div>
+          <div class="ex-row complex">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">Tempo Overhead Squats — 33X1</span>
+            <span class="ex-detail"><strong>5 reps</strong>30–40% RM Snatch</span>
+          </div>
+          <div class="coach-note"><strong>Tempo 33X1</strong>3s descenso · 3s pausa isométrica abajo · Subida explosiva (X) · 1s estabilización arriba. Respirar y presionar la barra hacia el techo durante la pausa.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-oly">⚡</div>
+          <div class="block-header-text">
+            <div class="block-label bl-oly">OLY — Fast Intervals (Snatch)</div>
+            <div class="block-subtitle">Cada 2:00 min · Ascendente hasta fallo técnico</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">B — Cada 2:00 min hasta fallo técnico · Time cap: 1:00 min por set</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Burpee Box Jump Overs</span><span class="ex-detail"><strong>6 reps</strong>—</span></div>
+          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Snatches (Power o Squat)</span><span class="ex-detail"><strong>6 reps</strong>Ascendente</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>Arrancar al 50% del RM e incrementar +5% por ronda. Finaliza cuando no logren los 6 snatches antes del minuto 1:00. Meta realista: 6–7 series (75–85% RM). Calcular toda la escalera de pesos antes de arrancar.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-strength">🔩</div>
+          <div class="block-header-text">
+            <div class="block-label bl-strength">Strength — Deadlifts</div>
+            <div class="block-subtitle">C1 Heavy Singles + C2 Banded Superserie</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">C1 — Heavy Deadlift · 5 series × 1 rep · Rest 90s–2min</div>
+          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Deadlift — Singles muy pesados</span><span class="ex-detail"><strong>5 × 1</strong>80%+ RM</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>80% es base. Trabajar muy pesado garantizando que columna y postura no se deformen en ningún levantamiento.</div>
+
+          <div class="section-label">C2 — 3 Superseries · Rest 90s</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Banded Deadlift</span><span class="ex-detail"><strong>10 reps</strong>50% DL + banda</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Banded Russian KB Swings</span><span class="ex-detail"><strong>20 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Deadbugs</span><span class="ex-detail"><strong>20 reps</strong>—</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>Aceleración máxima desde el suelo y control riguroso en la bajada. Subir ligeramente las cargas respecto a hace dos semanas.</div>
+        </div>
+      </div>
+
+      <div class="block collapsed">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-accessory">🎯</div>
+          <div class="block-header-text">
+            <div class="block-label bl-accessory">Accessory — Isometric Holds</div>
+            <div class="block-subtitle">3 Rondas · Chin Over Bar + Ring + L-Sit</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">D — 3 Rondas por calidad</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Chin Over Bar Hold</span><span class="ex-detail"><strong>Máx tiempo</strong>Rest: 20s</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Ring Support Hold</span><span class="ex-detail"><strong>Máx tiempo</strong>Rest: 20s</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">L-Sit Hold (en soporte / paralelas)</span><span class="ex-detail"><strong>Máx tiempo</strong>Rest: 60s</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ JUEVES ════════════════════ -->
+  <div class="day-view" id="day-3">
+    <div class="rest-view">
+      <div class="rest-icon">💤</div>
+      <h2>Día de Descanso</h2>
+      <p>Hidratación, descarga y movilidad pasiva. El cuerpo se fortalece cuando descansa.</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════ VIERNES ════════════════════ -->
+  <div class="day-view" id="day-4">
+    <div class="day-header">
+      <div class="day-title-group">
+        <div class="day-eyebrow">Viernes — Día 5</div>
+        <div class="day-title">Leaders Matrix + C&amp;J Complex</div>
+        <div class="day-athletes">
+          <span class="athlete-chip">⚡ JUAMPI</span>
+          <span class="athlete-chip">⚡ CECI</span>
+        </div>
+      </div>
+      <button class="day-complete-btn" data-day="4">Marcar día completo</button>
+    </div>
+    <div class="blocks-stack">
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-warmup">🔥</div>
+          <div class="block-header-text">
+            <div class="block-label bl-warmup">Warm Up &amp; Activación</div>
+            <div class="block-subtitle">BikeErg + Aproximación C&amp;J + Ritmo específico</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">Bloque 1 — BikeErg</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">BikeErg</span><span class="ex-detail"><strong>90s ON / 30s OFF</strong>2–4 series</span></div>
+          <div class="section-label">Bloque 2</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Aproximación pesos de Clean &amp; Jerk para el Metcon</span><span class="ex-detail"><strong>10 min</strong>—</span></div>
+          <div class="section-label">Bloque 3 — Ritmo Específico (2 Series)</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Bike + 2 C&amp;J (peso WOD) + Bike + 7.5m KB Lunge Walk</span><span class="ex-detail"><strong>30s + 2 + 30s</strong>Rest: 60s</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-metcon">💥</div>
+          <div class="block-header-text">
+            <div class="block-label bl-metcon">Metcon — Leaders Matrix</div>
+            <div class="block-subtitle">3 Rondas For Time · Time Cap 15:00</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">A — 3 Rondas For Time</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Clean and Jerks</span><span class="ex-detail"><strong>8 reps</strong>80 kg / 45 kg</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Dual KB Front Rack Lunge Walk</span><span class="ex-detail"><strong>15 metros</strong>32 kg / 24 kg</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Run</span><span class="ex-detail"><strong>400 metros</strong>—</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>El ritmo lo dicta la capacidad de mover la barra bajo fatiga en rondas 2 y 3. Si la barra está en zona pesada, dosificar para no perder tiempo descansando entre reps individuales.</div>
+          <div class="scaling-note"><strong>RX Modificado</strong>Si los 8 C&amp;J tomarán más de 90s en fatiga: bajar a 70 kg / 35 kg y KB Lunges a 24 kg / 16 kg.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-oly">🏋️</div>
+          <div class="block-header-text">
+            <div class="block-label bl-oly">OLY — C&amp;J Complex (Post-Metcon)</div>
+            <div class="block-subtitle">Iniciar dentro de los 5 min post-WOD · Daily Max</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">B — Cada 2:00 min × 8 series (Unbroken)</div>
+          <div class="ex-row complex">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">1 Deadlift + 1 TNG Clean + 1 Hang Clean + 1 Jerk</span>
+            <span class="ex-detail"><strong>8 series</strong>50% → Daily Max</span>
+          </div>
+          <div class="coach-note"><strong>Coach Target</strong>Complex unbroken (sin soltar la barra). Arrancar al 50% del RM de C&amp;J e incrementar carga en cada serie. Objetivo de cierre: tocar el 90% del RM.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-strength">🦵</div>
+          <div class="block-header-text">
+            <div class="block-label bl-strength">Strength — Front Squats</div>
+            <div class="block-subtitle">Cada 3:00 min × 5 series</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">C — Cada 3:00 min × 5 series</div>
+          <div class="ex-row complex">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">Front Squats</span>
+            <span class="ex-detail"><strong>3 reps</strong>75–85% RM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block collapsed">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-accessory">🎯</div>
+          <div class="block-header-text">
+            <div class="block-label bl-accessory">Accessory — D1 · D2 · D3</div>
+            <div class="block-subtitle">Good Mornings · Dips · Abdominal Finisher</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">D1 — 4 Rondas · Descanso libre</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Seated Barbell Good Mornings</span><span class="ex-detail"><strong>10 reps</strong>Carga ligera, ROM profundo</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Reverse Nordics</span><span class="ex-detail"><strong>4–8 reps</strong>—</span></div>
+          <div class="section-label">D2 — 4 Rondas · Descanso libre</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Strict Ring Dips</span><span class="ex-detail"><strong>5–15 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Dual DB Lateral Raises</span><span class="ex-detail"><strong>10 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Pronated Grip Barbell Curls</span><span class="ex-detail"><strong>10 reps</strong>Agarre prono</span></div>
+          <div class="section-label">D3 — Finisher Abdominal · 2 Rondas continuas</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">V-Ups</span><span class="ex-detail"><strong>20 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Hollow Rocks</span><span class="ex-detail"><strong>20 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Crunches</span><span class="ex-detail"><strong>20 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Russian Twists</span><span class="ex-detail"><strong>40 reps</strong>—</span></div>
+          <div class="coach-note"><strong>D3</strong>Mínimo descanso posible entre ejercicios y rondas.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ SÁBADO ════════════════════ -->
+  <div class="day-view" id="day-5">
+    <div class="day-header">
+      <div class="day-title-group">
+        <div class="day-eyebrow">Sábado — Día 6</div>
+        <div class="day-title">Engine + Push Jerk + Partner WOD</div>
+        <div class="day-athletes">
+          <span class="athlete-chip">⚡ JUAMPI</span>
+          <span class="athlete-chip">⚡ CECI</span>
+        </div>
+      </div>
+      <button class="day-complete-btn" data-day="5">Marcar día completo</button>
+    </div>
+    <div class="blocks-stack">
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-warmup">🔥</div>
+          <div class="block-header-text">
+            <div class="block-label bl-warmup">Warm Up &amp; Activación</div>
+            <div class="block-subtitle">Echo Bike + Saltos de cuerda</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Echo Bike — esfuerzo creciente</span><span class="ex-detail"><strong>40s ON / 20s OFF</strong>4–6 min</span></div>
+          <div class="section-label">Bloque de Saltos</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">50 Single Unders → 25 Double Unders → 50 SU → 25 DU</span><span class="ex-detail"><strong>1 ronda</strong>—</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-cardio">🚴</div>
+          <div class="block-header-text">
+            <div class="block-label bl-cardio">Engine — AMRAP 15 min</div>
+            <div class="block-subtitle">Cardio Starter · Run + Double Unders ascendentes</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">A — 15 Minute AMRAP (secuencia ascendente)</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">400m Run → 50 DU → 400m Run → 100 DU → 400m Run → 150 DU → 400m Run → 200 DU → 400m Run</span><span class="ex-detail"><strong>Secuencia única</strong>Max 500 DU</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>Si se completa la 5ta carrera de 400m antes del límite (15:00), detener el trabajo. 500 DU es el límite estricto. Paso firme, duro pero sostenible.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-oly">🏋️</div>
+          <div class="block-header-text">
+            <div class="block-label bl-oly">OLY — Shoulder to Overhead</div>
+            <div class="block-subtitle">B1 Activación · B2 Push Jerk pesado</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">B1 — 4 Rondas en Superserie · Rest 60s</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Dual DB Overhead Box Step Ups</span><span class="ex-detail"><strong>10 reps</strong>5 por pierna · Cajón 50cm</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Dual KB Russian Swings</span><span class="ex-detail"><strong>10 reps</strong>—</span></div>
+          <div class="coach-note"><strong>Coach Target</strong>Primer activador específico para el Jerk. Carga de mancuernas que exija bloqueo absoluto sobre la cabeza, desafiando estabilidad y movilidad torácica.</div>
+
+          <div class="section-label">B2 — Cada 2:00 min × 5 series</div>
+          <div class="ex-row complex">
+            <div class="ex-bullet"></div>
+            <span class="ex-name">Push Jerks</span>
+            <span class="ex-detail"><strong>3 reps</strong>75–85% RM</span>
+          </div>
+          <div class="coach-note"><strong>Coach Target</strong>Pausa obligatoria de 1 segundo en la posición de recepción (catch) de cada rep para aumentar el tiempo bajo tensión y consolidar la estabilidad articular.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-metcon">🔥</div>
+          <div class="block-header-text">
+            <div class="block-label bl-metcon">Partner WOD</div>
+            <div class="block-subtitle">3 Rondas For Time · En Pareja</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">C — 3 Rondas For Time (En Pareja · 2 atletas)</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Shoulder to Overhead</span><span class="ex-detail"><strong>30 reps</strong>80 kg / 50–45 kg</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Toes to Bar (Sincronizados / SYNC)</span><span class="ex-detail"><strong>30 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Goblet Box Step Ups</span><span class="ex-detail"><strong>40 reps</strong>KB 24 kg / 16 kg · Cajón 50cm</span></div>
+          <div class="coach-note"><strong>Reglas Partner WOD</strong>Atletas en lados opuestos del cajón mirándose de frente. Atleta 1 completa un step up; al bajar y liberar el cajón, Atleta 2 inicia. Ningún atleta puede tener los pies sobre el cajón al mismo tiempo. Equivale a 20 reps exactas por atleta por ronda.</div>
+        </div>
+      </div>
+
+      <div class="block collapsed">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="block-icon bi-accessory">🎯</div>
+          <div class="block-header-text">
+            <div class="block-label bl-accessory">Accessory — Arms &amp; Core</div>
+            <div class="block-subtitle">3–4 Series · Tríceps · Bíceps · Ring Plank</div>
+          </div>
+          <span class="block-chevron">▼</span>
+        </div>
+        <div class="block-body">
+          <div class="section-label">D — 3 a 4 Series · Rest 60s</div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Banded Tricep Extensions</span><span class="ex-detail"><strong>30 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Dual DB Bicep Curls</span><span class="ex-detail"><strong>15 reps</strong>—</span></div>
+          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Ring Plank Hold</span><span class="ex-detail"><strong>30–45s</strong>Plancha estricta en anillas</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+const completedDays = new Set();
+
+// Tab navigation
+document.querySelectorAll('.day-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const idx = tab.dataset.day;
+    if (tab.classList.contains('rest-day') && idx === '3') {
+      // allow viewing rest day
+    }
+    document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.day-view').forEach(v => v.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('day-' + idx).classList.add('active');
+  });
+});
+
+// Toggle block collapse
+function toggleBlock(header) {
+  const block = header.parentElement;
+  block.classList.toggle('collapsed');
+}
+
+// Day complete buttons
+document.querySelectorAll('.day-complete-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const day = parseInt(btn.dataset.day);
+    if (completedDays.has(day)) {
+      completedDays.delete(day);
+      btn.textContent = 'Marcar día completo';
+      btn.classList.remove('done');
+      document.querySelector(`.day-tab[data-day="${day}"]`).classList.remove('completed-day');
+    } else {
+      completedDays.add(day);
+      btn.textContent = '✓ Día completado';
+      btn.classList.add('done');
+      document.querySelector(`.day-tab[data-day="${day}"]`).classList.add('completed-day');
+    }
+    updateProgress();
+  });
+});
+
+function updateProgress() {
+  const total = 5; // active training days (no thursday)
+  const done = completedDays.size;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-count').textContent = done + ' / ' + total + ' días';
+}
+</script>
+</body>
+</html>
