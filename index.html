@@ -1,4 +1,4 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -388,7 +388,7 @@ html_content = """<!DOCTYPE html>
 </head>
 <body>
 
-<nav>
+<nav {id="source-1"}>
   <a class="nav-brand" href="#">
     <div class="nav-logo">
       <svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.99 12 12.01 11 22l8.91-10.99-7.91.98z"/></svg>
@@ -452,6 +452,7 @@ html_content = """<!DOCTYPE html>
 
 <div class="main">
 
+  <!-- ══════════ LUNES ══════════ -->
   <div class="day-view active" id="day-0">
     <div class="day-header">
       <div class="day-title-group">
@@ -463,6 +464,7 @@ html_content = """<!DOCTYPE html>
     </div>
     <div class="blocks-stack">
 
+      <!-- WARM UP -->
       <div class="block">
         <div class="block-header" onclick="toggleBlock(this)">
           <div class="block-icon bi-warmup">🔥</div>
@@ -493,6 +495,7 @@ html_content = """<!DOCTYPE html>
         </div>
       </div>
 
+      <!-- C&J CYCLING -->
       <div class="block">
         <div class="block-header" onclick="toggleBlock(this)">
           <div class="block-icon bi-oly">🏋️</div>
@@ -513,11 +516,12 @@ html_content = """<!DOCTYPE html>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Set 7: 6 Power Clean &amp; Jerks</span><span class="ex-detail"><span class="pct">@ 74% RM</span></span></div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Set 8: 6 Power Clean &amp; Jerks</span><span class="ex-detail"><span class="pct">@ 78% RM</span></span></div>
           
-          <div class="coach-note"><strong>Coach Target</strong>El objetivo es completar las 6 reps en 40–60s, permitiendo 60–80s de recuperación. Si tardas más de 60s en un set, frena el peso allí, no aumentes más y suma 1 minuto de descanso. Resistencia lumbar y de set-up.</div>
-          <div class="scaling-note"><strong>Ceci — Alerta Hombro Posterior</strong>En la fase de descenso (recibir la barra desde overhead al rack position y luego al piso), controla la bajada usando los dorsales. No dejes que la barra caiga de golpe estirando pasivamente los brazos, ya que esto genera una tracción violenta sobre la cápsula posterior del hombro que exacerba tu molestia. Si el Jerk molesta al fijar, ejecuta transiciones de Push Press continuas.</div>
+          <div class="coach-note"><strong>Coach Target</strong>El objetivo es completar las 6 reps en 40–60s, permitiendo 60–80s de recuperación. Si tardas más de 60s en un set, frená el peso allí, no aumentes más y suma 1 minuto de descanso. Resistencia lumbar y de set-up.</div>
+          <div class="scaling-note"><strong>Ceci — Alerta Hombro Posterior</strong>En la fase de descenso (recibir la barra desde overhead al rack position y luego al piso), controlá la bajada usando los dorsales. No dejes que la barra caiga de golpe estirando pasivamente los brazos, ya que esto genera una tracción violenta sobre la cápsula posterior del hombro que exacerba tu molestia. Si el Jerk molesta al fijar, ejecutá transiciones de Push Press continuas.</div>
         </div>
       </div>
 
+      <!-- SQUATS -->
       <div class="block">
         <div class="block-header" onclick="toggleBlock(this)">
           <div class="block-icon bi-strength">🦵</div>
@@ -543,6 +547,7 @@ html_content = """<!DOCTYPE html>
         </div>
       </div>
 
+      <!-- METCON -->
       <div class="block">
         <div class="block-header" onclick="toggleBlock(this)">
           <div class="block-icon bi-metcon">💥</div>
@@ -559,24 +564,25 @@ html_content = """<!DOCTYPE html>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 3: Toes to Bar (TTB)</span><span class="ex-detail"><strong>45s trabajo</strong>15s rest</span></div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 4: Descanso Completo</span><span class="ex-detail"><strong>REST</strong>15s rest</span></div>
           
-          <div class="scaling-note"><strong>Ceci — Hombro Posterior / Modificación</strong>El kipping en HSPU genera una carga de impacto excéntrica fuerte en el deltoides posterior al recibir el peso abajo. Al ser descarga, realiza las repeticiones <strong>Estrictas sin déficit</strong> o reduce el volumen a un conteo fijo bajo (ej. 6-8 reps lentas). En los TTB, mantén la compresión abdominal activa en el balanceo; si sientes tirón atrás del hombro al colgarte pasivamente, escala a colgarte activos reduciendo el arco del kipping o realiza V-Ups en piso.</div>
+          <div class="scaling-note"><strong>Ceci — Hombro Posterior / Modificación</strong>El kipping en HSPU genera una carga de impacto excéntrica fuerte en el deltoides posterior al recibir el peso abajo. Al ser descarga, realizá las repeticiones <strong>Estrictas sin déficit</strong> o reducí el volumen a un conteo fijo bajo (ej. 6-8 reps lentas). En los TTB, mantené la compresión abdominal activa en el balanceo; si sentís tirón atrás del hombro al colgarte pasivamente, escalá a colgarte activos reduciendo el arco del kipping o realizá V-Ups en piso.</div>
 
           <div class="block-insights insights-metcon">
             <div class="insights-header">💥 Estrategia del Coach</div>
             <div class="insights-body">
-              <div class="insight-item"><span class="insight-icon">💡</span><div class="insight-content"><div class="insight-label">Estrategia</div><div class="insight-text">Mantén un RPE 7-8. Define un número plano de repeticiones por ronda desde el minuto 1 y replícalo de forma exacta. Trátalo como un AMRAP largo, no como un sprint.</div></div></div>
+              <div class="insight-item"><span class="insight-icon">💡</span><div class="insight-content"><div class="insight-label">Estrategia</div><div class="insight-text">Mantené un RPE 7-8. Definí un número plano de repeticiones por ronda desde el minuto 1 y replícalo de forma exacta. Tratalo como un AMRAP largo, no como un sprint.</div></div></div>
             </div>
           </div>
           
           <div class="section-label">C2 — Core Finisher (3 Series sin pausa)</div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">20 Hollow Rocks → Rest 15s → 20–30s Ring Support Hold → Rest 15s → 20–30s Chin Over Bar Hold</span><span class="ex-detail"><strong>3 vueltas</strong>Calidad</span></div>
-          <div class="scaling-note"><strong>Ceci — Nota Holds</strong>En el Chin Over Bar Hold, mantén los omóplatos compactos y deprimidos. Si la molestia posterior pincha, sustitúyelo por una plancha isométrica alta empujando el suelo para activar el serrato anterior y aliviar la zona posterior.</div>
+          <div class="scaling-note"><strong>Ceci — Nota Holds</strong>En el Chin Over Bar Hold, mantené los omóplatos compactos y deprimidos. Si la molestia posterior pincha, sustituilo por una plancha isométrica alta empujando el suelo para activar el serrato anterior y aliviar la zona posterior.</div>
         </div>
       </div>
 
     </div>
   </div>
 
+  <!-- ══════════ MARTES ══════════ -->
   <div class="day-view" id="day-1">
     <div class="day-header">
       <div class="day-title-group">
@@ -624,11 +630,11 @@ html_content = """<!DOCTYPE html>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">50 Wall Balls</span><span class="ex-detail"><strong>Empuje</strong>9kg / 6kg</span></div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Run 1000 metros</span><span class="ex-detail"><strong>Strong Finish</strong>—</span></div>
           
-          <div class="coach-note"><strong>Coach Target</strong>Pieza de volumen aeróbico extendida diseñada para dar un respiro al sistema central entre los días de fuerza pesada de lunes y miércoles. Dosifica el paso en el primer 2000m. Guarda energía para cerrar fuerte el último 1000m. Hoy no se realiza cardio complementario.</div>
+          <div class="coach-note"><strong>Coach Target</strong>Pieza de volumen aeróbico extendida diseñada para dar un respiro al sistema central entre los días de fuerza pesada de lunes y miércoles. Dosificá el paso en el primer 2000m. Guardá energía para cerrar fuerte el último 1000m. Hoy no se realiza cardio complementario.</div>
           <div class="block-insights insights-metcon">
             <div class="insights-header">🔥 Estrategia de Ritmo</div>
             <div class="insights-body">
-              <div class="insight-item"><span class="insight-icon">⚡</span><div class="insight-content"><div class="insight-label">Double Unders</div><div class="insight-text">Divide los 250 DU en bloques planificados (ej. 50 u 80 reps) para evitar picos de fatiga neuromuscular. Mantén los hombros relajados.</div></div></div>
+              <div class="insight-item"><span class="insight-icon">⚡</span><div class="insight-content"><div class="insight-label">Double Unders</div><div class="insight-text">Dividí los 250 DU en bloques planificados (ej. 50 u 80 reps) para evitá picos de fatiga neuromuscular. Mantené los hombros relajados.</div></div></div>
             </div>
           </div>
         </div>
@@ -649,7 +655,7 @@ html_content = """<!DOCTYPE html>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">8 Strict Pull Ups</span><span class="ex-detail">Máx 2 bloques</span></div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">12 Dual DB Bicep Curls</span><span class="ex-detail">Controlado</span></div>
           
-          <div class="scaling-note"><strong>Ceci — Ajuste Hombro Posterior (Crítico)</strong>En los Strict Pull Ups, evita el "dead hang" pasivo abajo del todo. Mantén las escápulas activadas (escápula retraída y deprimida) en la base del movimiento para que las estructuras ligamentarias posteriores del hombro no soporten la tracción solas. Controla la fase excéntrica (bajada) en 2-3 segundos. Si hay dolor, sustitúyelo por 10 Australian Rows con agarre supino controlado, llevando los codos pegados a las costillas y sin pasar la línea del torso en la tracción final.</div>
+          <div class="scaling-note"><strong>Ceci — Ajuste Hombro Posterior (Crítico)</strong>En los Strict Pull Ups, evitá el "dead hang" pasivo abajo del todo. Mantené las escápulas activadas (escápula retraída y deprimida) en la base del movimiento para que las estructuras ligamentarias posteriores del hombro no soporten la tracción solas. Controlá la fase excéntrica (bajada) en 2-3 segundos. Si hay dolor, sustituilo por 10 Australian Rows con agarre supino controlado, llevando los codos pegados a las costillas y sin pasar la línea del torso en la tracción final.</div>
 
           <div class="section-label">B2 — Bloque de Empuje (3 Series completas · Rest 2:00)</div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">7 Ring Dips</span><span class="ex-detail">Estrictos</span></div>
@@ -664,6 +670,7 @@ html_content = """<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- ══════════ MIÉRCOLES ══════════ -->
   <div class="day-view" id="day-2">
     <div class="day-header">
       <div class="day-title-group">
@@ -707,7 +714,7 @@ html_content = """<!DOCTYPE html>
           <div class="section-label">A1 — 6 Series · Rest 90s</div>
           <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">3 Low Hang Power Snatch + 2 Hang Squat Snatch + 1 Overhead Squat</span><span class="ex-detail"><strong>6 sets</strong><span class="pct">65–75% RM</span></span></div>
           <div class="coach-note"><strong>Coach Target</strong>Desarrollar una trayectoria de barra suave y controlada. Pon especial atención a cómo bajas la barra a la posición de colgante para armar la siguiente rep.</div>
-          <div class="scaling-note"><strong>Ceci — Nota Snatch</strong>Al recibir en OHS o Squat Snatch, el deltoides posterior trabaja al máximo estabilizando de forma isométrica para evitar que la barra se vaya hacia atrás. Si hay molestia activa, realiza **únicamente Power Snatch técnico hasta el 65%** y cambia el OHS por sentadillas frontales livianas. No fuerces la articulación si pincha atrás.</div>
+          <div class="scaling-note"><strong>Ceci — Nota Snatch</strong>Al recibir en OHS o Squat Snatch, el deltoides posterior trabaja al máximo estabilizando de forma isométrica para evitá que la barra se vaya hacia atrás. Si hay molestia activa, realizá **únicamente Power Snatch técnico hasta el 65%** y cambia el OHS por sentadillas frontales livianas. No fuerces la articulación si pincha atrás.</div>
 
           <div class="section-label">A2 — 6 Series · Rest 90s</div>
           <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">1 Snatch Push Jerk + 1 Snatch Balance + 1 Overhead Squat</span><span class="ex-detail"><strong>6 sets</strong><span class="pct">70–80% RM</span></span></div>
@@ -748,15 +755,16 @@ html_content = """<!DOCTYPE html>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">18 Hang DB Snatches</span><span class="ex-detail"><strong>Mancuerna</strong>22.5 kg / 15 kg</span></div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">15 Pull Ups</span><span class="ex-detail"><strong>Tracción</strong>Constante</span></div>
           
-          <div class="scaling-note"><strong>Ceci — Modificación de Tracción</strong>Las pull-ups con kipping pueden fatigar en exceso el redondo menor e infraespinoso en el hombro posterior. En este AMRAP de volumen, realiza **Pull-ups con banda elástica de forma estricta o controla rítmicamente el kipping**. Si el dolor asoma en el Hang DB Snatch durante la fase de frenado de la mancuerna, cámbialo por DB Deadlifts pesados o transiciones rusas de KB swing para mantener el estímulo metabólico de la cadera sin comprometer el hombro.</div>
+          <div class="scaling-note"><strong>Ceci — Modificación de Tracción</strong>Las pull-ups con kipping pueden fatigar en exceso el redondo menor e infraespinoso en el hombro posterior. En este AMRAP de volumen, realizá **Pull-ups con banda elástica de forma estricta o controlá rítmicamente el kipping**. Si el dolor asoma en el Hang DB Snatch durante la fase de frenado de la mancuerna, cambialo por DB Deadlifts pesados o transiciones rusas de KB swing para mantené el estímulo metabólico de la cadera sin comprometer el hombro.</div>
 
-          <div class="coach-note"><strong>Coach Target</strong>El minuto de descanso es para hidratar y bajar pulsaciones. Busca consistencia pura en los tiempos de cada ronda. Al terminar: 10–15 min de vuelta a la calma en máquina suave.</div>
+          <div class="coach-note"><strong>Coach Target</strong>El minuto de descanso es para hidratar y bajar pulsaciones. Buscá consistencia pura en los tiempos de cada ronda. Al terminar: 10–15 min de vuetla a la calma en máquina suave.</div>
         </div>
       </div>
 
     </div>
   </div>
 
+  <!-- ══════════ JUEVES — DESCANSO ACTIVE ══════════ -->
   <div class="day-view" id="day-3">
     <div class="day-header">
       <div class="day-title-group">
@@ -780,6 +788,7 @@ html_content = """<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- ══════════ VIERNES ══════════ -->
   <div class="day-view" id="day-4">
     <div class="day-header">
       <div class="day-title-group">
@@ -824,7 +833,7 @@ html_content = """<!DOCTYPE html>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">400 m Run</span><span class="ex-detail">Carrera</span></div>
           
           <div class="coach-note"><strong>Pacing Coach</strong>El paso se dicta según logres controlar la barra en rondas 2 y 3. Si eres fuerte aquí, aprieta las estocadas y la carrera; si la barra se siente pesada, cuida el aire para no perder foco entre reps individuales de C&amp;J.</div>
-          <div class="scaling-note"><strong>Ceci — Nota Front Rack &amp; Jerk</strong>Mantener la barra y las pesas rusas en Front Rack exige estabilización excéntrica del hombro posterior. Si notas fatiga punzante atrás, escala inmediatamente la barra a **35 kg** y las KB de la estocada a **16 kg**. En el Jerk, amortigua la bajada flexionando las piernas absorbiendo el peso con todo el cuerpo, no frenes la barra rígidamente solo con los brazos.</div>
+          <div class="scaling-note"><strong>Ceci — Nota Front Rack &amp; Jerk</strong>Mantener la barra y las pesas rusas en Front Rack exige estabilización excéntrica del hombro posterior. Si notas fatiga punzante atrás, escalá inmediatamente la barra a **35 kg** y las KB de la estocada a **16 kg**. En el Jerk, amortigua la bajada flexionando las piernas absorbiendo el peso con todo el cuerpo, no frenes la barra rígidamente solo con los brazos.</div>
         </div>
       </div>
 
@@ -840,7 +849,7 @@ html_content = """<!DOCTYPE html>
         <div class="block-body">
           <div class="section-label">B — Cada 2:00 min × 8 Series (Unbroken Complex)</div>
           <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">1 Deadlift + 1 TNG Clean + 1 Hang Clean + 1 Jerk</span><span class="ex-detail"><strong>8 sets</strong>50% → Daily Max</span></div>
-          <div class="coach-note"><strong>Coach Target</strong>Arrancar con ~50% del RM e incrementar en cada set buscando un Daily Max técnico (Target de cierre alrededor del 90% RM). El complejo debe completarse sin soltar la barra.</div>
+          <div class="coach-note"><strong>Coach Target</strong>Arrancar con ~50% del RM e incrementar en cada set buscandoun Daily Max técnico (Target de cierre alrededor del 90% RM). El complejo debe completarse sin soltar la barra.</div>
           
           <div class="section-label">C — Front Squats (Fuerza Pura Basal)</div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Cada 3:00 min × 5 series: 3 Front Squats</span><span class="ex-detail"><span class="pct">@ 75–85% RM</span></span></div>
@@ -857,12 +866,12 @@ html_content = """<!DOCTYPE html>
           <span class="block-chevron">▼</span>
         </div>
         <div class="block-body">
-          <div class="section-label">D1 — 4 Rondas por calidad</div>
+          <div class="section-label">D1 — 4 Rondas · Descanso libre</div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Seated Barbell Good Mornings × 10 reps (carga ligera, ROM largo) + Reverse Nordics × 4–8 reps</span><span class="ex-detail">Rest libre</span></div>
           
           <div class="section-label">D2 — 4 Rondas por calidad</div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Strict Ring Dips × 5–15 reps + Dual DB Lateral Raises × 10 reps + Pronated Grip Barbell Curls × 10 reps</span><span class="ex-detail">Rest libre</span></div>
-          <div class="scaling-note"><strong>Ceci — Modificación D2 Hombro Posterior</strong>En los **Dual DB Lateral Raises**, realiza los vuelos laterales con el torso ligeramente inclinado hacia adelante y con rotación interna neutra (pulgares apuntando sutilmente arriba al final) para asegurar que el deltoides lateral trabaje sin pinzar el infraespinoso. Reduce el peso a mancuernas muy livianas (ej. 2.5kg) controlando el descenso.</div>
+          <div class="scaling-note"><strong>Ceci — Modificación D2 Hombro Posterior</strong>En los **Dual DB Lateral Raises**, realizá los vuelos laterales con el torso ligeramente inclinado hacia adelante y con rotación interna neutra (pulgares apuntando sutilmente arriba al final) para asegurar que el deltoides lateral trabaje sin pinzar el infraespinoso. Resducí el peso a mancuernas muy livianas (ej. 2.5kg) controlando el descenso.</div>
 
           <div class="section-label">D3 — Finisher Abdominal (2 Rondas continuas sin pausa)</div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">20 V-Ups + 20 Hollow Rocks + 20 Crunches + 40 Russian Twists</span><span class="ex-detail">Mínimo rest</span></div>
@@ -872,6 +881,7 @@ html_content = """<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- ══════════ SÁBADO ══════════ -->
   <div class="day-view" id="day-5">
     <div class="day-header">
       <div class="day-title-group">
@@ -915,7 +925,7 @@ html_content = """<!DOCTYPE html>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">50 Box Jump Overs</span><span class="ex-detail"><strong>Cajón</strong>Transición</span></div>
           
           <div class="coach-note"><strong>Pacing Goal</strong>Mantener los tiempos de cada uno de los 4 sets dentro de una ventana estricta de 20 segundos de diferencia máxima, buscando idealmente ser un poco más rápidos en cada set subsiguiente (Negative Split).</div>
-          <div class="scaling-note"><strong>Ceci — Nota TTB en Descarga</strong>Al bajar de la barra en el TTB, evita colgarte de forma totalmente laxa y pasiva, ya que estira bruscamente las inserciones posteriores del manguito rotador (infraespinoso). Mantén una tracción escapular activa constante durante el balanceo o divide las series en bloques pequeños controlados desde la primera ronda (ej. sets de 10 reps limpias).</div>
+          <div class="scaling-note"><strong>Ceci — Nota TTB en Descarga</strong>Al bajar de la barra en el TTB, evitá colgarte de forma totalmente laxa y pasiva, ya que estira bruscamente las inserciones posteriores del manguito rotador (infraespinoso). Mantené una tracción escapular activa constante durante el balanceo o dividí las series en bloques pequeños controlados desde la primera ronda (ej. sets de 10 reps limpias).</div>
         </div>
       </div>
 
@@ -934,7 +944,7 @@ html_content = """<!DOCTYPE html>
           
           <div class="section-label">B2 a B5 — Bloques de Aislamiento Estructural (3 Series · Rest 60s)</div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">B2: Single Arm DB Bent Over Rows (Fase excéntrica muy lenta)</span><span class="ex-detail"><strong>3 × 6 reps</strong>Carga exigente</span></div>
-          <div class="scaling-note"><strong>Ceci — Ajuste Crítico DB Rows (Hombro Posterior)</strong>En el remo con mancuerna, **no dejes que el codo sobrepase la línea de la espalda alta** al final de la tracción. Detén el codo justo a la altura del torso. Llevar el codo demasiado atrás fuerza la cabeza del húmero hacia adelante y genera una tensión excesiva e innecesaria sobre la cápsula y tendones posteriores que empeorará tu molestia actual. Controla la bajada en 3s.</div>
+          <div class="scaling-note"><strong>Ceci — Ajuste Crítico DB Rows (Hombro Posterior)</strong>En el remo con mancuerna, **no dejes que el codo sobrepase la línea de la espalda alta** al final de la tracción. Detené el codo justo a la altura del torso. Llevar el codo demasiado atrás fuerza la cabeza del húmero hacia adelante y genera una tensión excesiva e innecesaria sobre la cápsula y tendones posteriores que empeorará tu molestia actual. Controlá la bajada en 3s.</div>
           
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">B3: Barbell Skull Crushers (Llevar cerca del fallo técnico)</span><span class="ex-detail"><strong>3 × 12 reps</strong>Tríceps</span></div>
           <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">B4: Barbell Preacher Curls (Utilizar cojinete del GHD para aislar)</span><span class="ex-detail"><strong>3 × 12 reps</strong>Bíceps</span></div>
@@ -1093,4 +1103,4 @@ html_content = """<!DOCTYPE html>
 })();
 </script>
 </body>
-</html>"""
+</html>
