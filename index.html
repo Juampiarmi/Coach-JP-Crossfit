@@ -2,9 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Coach JP — Performance Matrix</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<meta name="theme-color" content="#0E0E0F" />
+<meta name="description" content="Coach JP — Mesociclo Fuerza / Hipertrofia, Semana 1" />
+<title>Coach JP — Mesociclo Fuerza / Hipertrofia</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23FF3D00'/%3E%3Cpath d='M13 4L6.5 13.5 12 13l-1 6.5 6.5-9.5-5.5.5z' fill='white'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --fire: #FF3D00;
@@ -14,6 +19,7 @@
     --purple-light: #B39DDB;
     --teal: #00BFA5;
     --blue: #2979FF;
+    --blue-light: #64B5F6;
     --orange: #FFA726;
     --bg: #0E0E0F;
     --bg-card: #161617;
@@ -29,11 +35,12 @@
     --radius-md: 12px;
     --radius-lg: 18px;
     --radius-xl: 24px;
+    --shadow-sm: 0 2px 10px -2px rgba(0,0,0,0.35);
+    --shadow-md: 0 10px 28px -8px rgba(0,0,0,0.5);
+    --shadow-lg: 0 24px 64px -16px rgba(0,0,0,0.65);
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
+  html { scroll-behavior: smooth; scrollbar-color: var(--border) transparent; scrollbar-width: thin; }
   body {
     background: var(--bg);
     color: var(--text-primary);
@@ -41,355 +48,360 @@
     min-height: 100vh;
     font-size: 15px;
     line-height: 1.6;
+    padding-bottom: 3rem;
+    position: relative;
+    overflow-x: hidden;
+  }
+  ::selection { background: rgba(255,61,0,0.35); color: #fff; }
+  ::-webkit-scrollbar { height: 6px; width: 6px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+
+  /* ── AMBIENT BACKGROUND ── */
+  .bg-glow {
+    position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    background:
+      radial-gradient(ellipse 900px 600px at 12% -8%, rgba(255,61,0,0.13), transparent 60%),
+      radial-gradient(ellipse 700px 520px at 108% 8%, rgba(0,191,165,0.09), transparent 55%),
+      radial-gradient(ellipse 800px 620px at 45% 115%, rgba(124,77,255,0.08), transparent 60%),
+      var(--bg);
+    animation: bgDrift 18s ease-in-out infinite alternate;
+  }
+  .bg-grid {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    -webkit-mask-image: radial-gradient(ellipse 100% 55% at 50% 0%, black 5%, transparent 72%);
+    mask-image: radial-gradient(ellipse 100% 55% at 50% 0%, black 5%, transparent 72%);
+  }
+  @keyframes bgDrift {
+    0% { filter: brightness(1); }
+    100% { filter: brightness(1.12); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   }
 
   /* ── NAVBAR ── */
   nav {
-    position: sticky;
-    top: 0;
-    z-index: 200;
+    position: sticky; top: 0; z-index: 200;
     background: rgba(14,14,15,0.97);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    padding: 0 1.25rem;
-    height: 58px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    box-shadow: 0 12px 32px -18px rgba(0,0,0,0.8);
+    padding: 0 1.25rem; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
   }
-  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-brand { display: flex; align-items: center; gap: 13px; text-decoration: none; }
   .nav-logo {
-    width: 32px; height: 32px;
-    background: var(--fire);
-    border-radius: 8px;
+    width: 46px; height: 46px; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 14px rgba(255,61,0,0.35);
+    background: linear-gradient(155deg, #FF9248 0%, var(--fire) 42%, #8E1300 100%);
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    box-shadow:
+      0 0 0 2px rgba(0,0,0,0.65),
+      0 0 0 3.5px rgba(255,255,255,0.12),
+      0 10px 22px -6px rgba(255,61,0,0.6),
+      inset 0 2px 3px rgba(255,255,255,0.4),
+      inset 0 -5px 9px rgba(0,0,0,0.5);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
   }
-  .nav-logo svg { width: 17px; height: 17px; fill: white; }
+  .nav-brand:hover .nav-logo {
+    transform: rotate(-6deg) scale(1.09);
+    box-shadow:
+      0 0 0 2px rgba(0,0,0,0.65),
+      0 0 0 3.5px rgba(255,255,255,0.2),
+      0 12px 28px -6px rgba(255,61,0,0.75),
+      inset 0 2px 3px rgba(255,255,255,0.45),
+      inset 0 -5px 9px rgba(0,0,0,0.5);
+  }
+  .nav-logo svg {
+    width: 25px; height: 25px; transform: rotate(-4deg);
+    filter: drop-shadow(0 1.5px 1px rgba(0,0,0,0.65));
+  }
+  .nav-logo svg path { fill: #fff; stroke: rgba(0,0,0,0.4); stroke-width: 0.6; stroke-linejoin: round; }
   .nav-wordmark {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 1.3rem; letter-spacing: 0.03em;
-    color: var(--text-primary);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.6rem;
+    letter-spacing: 0.02em; color: var(--text-primary); white-space: nowrap;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.55);
+    display: inline-block; position: relative; padding-bottom: 3px;
   }
-  .nav-wordmark span { color: var(--fire); }
+  .nav-wordmark::after {
+    content: ''; position: absolute; left: 1px; right: 2px; bottom: -2px; height: 3px;
+    background: linear-gradient(90deg, var(--fire) 55%, transparent);
+    border-radius: 2px;
+  }
+  .nav-wordmark span { color: var(--fire); text-shadow: 0 2px 0 rgba(0,0,0,0.55), 0 0 18px rgba(255,61,0,0.4); }
   .nav-right { display: flex; align-items: center; gap: 8px; }
   .nav-pill {
-    position: relative;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
-    text-transform: uppercase; padding: 4px 11px; border-radius: 20px;
-    transition: all 0.2s ease;
+    position: relative; font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+    transition: all 0.2s ease; border: 1px solid transparent; background: none;
+    font-family: 'Inter', sans-serif; cursor: pointer;
   }
-  .nav-pill.athletes {
-    background: rgba(255,214,0,0.1); border: 1px solid rgba(255,214,0,0.25);
-    color: var(--gold);
-  }
-  .nav-pill.week {
-    background: rgba(255,61,0,0.1); border: 1px solid rgba(255,61,0,0.25);
-    color: var(--fire-glow);
-  }
+  .athlete-pill { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-secondary); }
+  .athlete-pill:hover:not(.active) { color: var(--text-primary); border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.07); }
+  .athlete-pill.active { background: rgba(255,214,0,0.1); border-color: rgba(255,214,0,0.3); color: var(--gold); }
+  .calc-pill { background: rgba(255,61,0,0.1); border: 1px solid rgba(255,61,0,0.25); color: var(--fire-glow); }
+  .calc-pill:hover { border-color: rgba(255,61,0,0.5); box-shadow: 0 0 14px rgba(255,61,0,0.18); transform: translateY(-1px); }
+  .athlete-switch { display: flex; gap: 4px; background: var(--bg-elevated); border-radius: 20px; padding: 3px; }
+  :focus-visible { outline: 2px solid var(--fire-glow); outline-offset: 2px; border-radius: 4px; }
 
   /* ── HERO ── */
-  .hero {
-    padding: 2rem 1.25rem 1.5rem;
-    max-width: 1140px; margin: 0 auto;
+  .hero { position: relative; padding: 1.75rem 1.25rem 1.5rem; max-width: 1140px; margin: 0 auto; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; right: -60px; top: -70px; width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(255,61,0,0.16), transparent 70%);
+    filter: blur(4px); pointer-events: none; z-index: 0;
   }
-  .hero-eyebrow {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--fire); margin-bottom: 0.5rem;
+  .hero::after {
+    content: '⚡'; position: absolute; right: -6px; top: -34px; font-size: 190px; line-height: 1;
+    opacity: 0.035; pointer-events: none; z-index: 0; transform: rotate(8deg);
   }
-  .hero h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: clamp(1.9rem, 5.5vw, 3rem);
-    line-height: 1.05; letter-spacing: 0.01em; margin-bottom: 0.5rem;
-  }
+  .hero > * { position: relative; z-index: 1; }
+  .brand-tagline { font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.6rem; max-width: 520px; line-height: 1.5; }
+  .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fire); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
+  .hero-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--fire); display: inline-block; }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.9rem, 5.5vw, 3rem); line-height: 1.05; letter-spacing: 0.01em; margin-bottom: 0.5rem; }
   .hero h1 em { font-style: normal; color: var(--fire); }
-  .hero-sub { color: var(--text-secondary); font-size: 0.9rem; max-width: 480px; }
+  .hero-sub { color: var(--text-secondary); font-size: 0.9rem; max-width: 520px; }
 
   /* ── WEEK TABS ── */
-  .week-tabs-wrap {
-    background: rgba(14,14,15,0.95);
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 58px; z-index: 100;
-    overflow-x: auto;
-  }
+  .week-tabs-wrap { background: rgba(14,14,15,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 58px; z-index: 100; overflow-x: auto; }
   .week-tabs-wrap::-webkit-scrollbar { display: none; }
-  .week-tabs {
-    max-width: 1140px; margin: 0 auto;
-    display: flex; padding: 0 1.25rem;
-    min-width: max-content;
-    gap: 0;
-  }
-  .day-tab {
-    display: flex; flex-direction: column; align-items: center;
-    padding: 0.7rem 1.1rem; cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s ease;
-    gap: 2px; min-width: 80px;
-    user-select: none;
-  }
+  .week-tabs { max-width: 1140px; margin: 0 auto; display: flex; padding: 0 1.25rem; min-width: max-content; }
+  .day-tab { display: flex; flex-direction: column; align-items: center; padding: 0.7rem 1.1rem; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s ease; gap: 2px; min-width: 80px; user-select: none; }
   .day-tab:hover { background: rgba(255,255,255,0.03); }
   .day-tab.active { border-bottom-color: var(--fire); }
   .day-tab.rest-day { opacity: 0.45; }
-  .day-tab.rest-day:hover { background: rgba(255,255,255,0.015); opacity: 0.55; cursor: pointer; }
+  .day-tab.rest-day:hover { background: rgba(255,255,255,0.015); opacity: 0.55; }
   .day-tab.completed-day .day-dot { background: var(--teal) !important; box-shadow: 0 0 6px rgba(0,191,165,0.5); }
-  .tab-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--text-secondary);
-    transition: color 0.2s;
-  }
+  .tab-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.2s; }
   .day-tab.active .tab-name { color: var(--fire-glow); }
   .tab-label { font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; white-space: nowrap; }
-  .day-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--text-muted); margin-top: 3px;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
-  }
+  .day-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-muted); margin-top: 3px; transition: background 0.2s ease, box-shadow 0.2s ease; }
   .day-tab.active .day-dot { background: var(--fire); box-shadow: 0 0 6px rgba(255,61,0,0.5); }
 
   /* ── PROGRESS BAR ── */
-  .progress-bar-wrap {
-    max-width: 1140px; margin: 0 auto;
-    padding: 0.8rem 1.25rem 0;
-  }
+  .progress-bar-wrap { max-width: 1140px; margin: 0 auto; padding: 0.8rem 1.25rem 0; }
   .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
-  .progress-track { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--fire), var(--fire-glow)); border-radius: 2px; transition: width 0.45s cubic-bezier(0.4,0,0.2,1); }
+  .progress-track { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--fire), var(--fire-glow)); border-radius: 2px; box-shadow: 0 0 10px rgba(255,109,0,0.5); transition: width 0.45s cubic-bezier(0.4,0,0.2,1); }
   .progress-label { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
-  .progress-track .progress-fill { height: 100%; background: linear-gradient(90deg, var(--fire), var(--fire-glow)); border-radius: 2px; transition: width 0.45s cubic-bezier(0.4,0,0.2,1); }
-  .progress-count { font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+  .progress-count { font-size: 12px; color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
 
   /* ── MAIN LAYOUT ── */
   .main { max-width: 1140px; margin: 0 auto; padding: 0 1.25rem 4rem; }
-
-  /* ── DAY VIEW ── */
   .day-view { display: none; }
-  .day-view.active { display: block; }
-
-  .day-header {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 1rem; margin-bottom: 1.5rem; padding-top: 1.5rem; flex-wrap: wrap;
-  }
-  .day-eyebrow {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;
-  }
-  .day-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.2rem);
-    letter-spacing: 0.01em; line-height: 1.1;
-  }
+  .day-view.active { display: block; animation: dayFadeIn 0.4s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes dayFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .day-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; padding-top: 1.5rem; flex-wrap: wrap; }
+  .day-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem; }
+  .day-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.5rem, 4vw, 2.1rem); letter-spacing: 0.01em; line-height: 1.1; }
   .day-athletes { display: flex; gap: 7px; margin-top: 0.5rem; flex-wrap: wrap; }
-  .athlete-chip {
-    background: rgba(255,214,0,0.08); border: 1px solid rgba(255,214,0,0.2);
-    color: #C8A600; font-size: 11px; font-weight: 600;
-    padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em;
-  }
+  .athlete-chip { background: rgba(255,214,0,0.08); border: 1px solid rgba(255,214,0,0.2); color: #C8A600; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; }
+  .athlete-chip.muted { background: rgba(255,255,255,0.03); border-color: var(--border); color: var(--text-muted); }
 
-  /* ── COMPLETE BUTTON ── */
-  .day-complete-btn {
-    background: rgba(0,191,165,0.1); border: 1px solid rgba(0,191,165,0.3);
-    color: var(--teal); font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 0.9rem; letter-spacing: 0.07em;
-    text-transform: uppercase; padding: 10px 22px;
-    border-radius: var(--radius-md); cursor: pointer;
-    transition: all 0.2s ease; white-space: nowrap; align-self: flex-start;
-    position: relative; overflow: hidden;
-  }
-  .day-complete-btn::before {
-    content: ''; position: absolute; inset: 0;
-    background: rgba(255,255,255,0.05); opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .day-complete-btn:hover::before { opacity: 1; }
-  .day-complete-btn:hover { border-color: rgba(0,191,165,0.5); box-shadow: 0 0 16px rgba(0,191,165,0.15); }
+  .day-complete-btn { background: rgba(0,191,165,0.1); border: 1px solid rgba(0,191,165,0.3); color: var(--teal); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.07em; text-transform: uppercase; padding: 10px 22px; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; align-self: flex-start; }
+  .day-complete-btn:hover { border-color: rgba(0,191,165,0.5); box-shadow: 0 0 16px rgba(0,191,165,0.15); transform: translateY(-1px); }
   .day-complete-btn:active { transform: scale(0.97); }
-  .day-complete-btn.done {
-    background: rgba(0,191,165,0.12); border-color: rgba(0,191,165,0.35);
-    color: var(--teal); box-shadow: 0 0 18px rgba(0,191,165,0.12);
-  }
+  .day-complete-btn.done { background: rgba(0,191,165,0.16); border-color: rgba(0,191,165,0.4); box-shadow: 0 0 18px rgba(0,191,165,0.12); }
+
+  /* ── REST BANNER (per-athlete recommended rest) ── */
+  .rest-banner { border-radius: var(--radius-lg); padding: 16px 18px; margin-bottom: 1.25rem; background: rgba(255,61,0,0.06); border: 1px solid rgba(255,61,0,0.25); box-shadow: var(--shadow-sm); display: flex; gap: 12px; }
+  .rest-banner .rb-icon { font-size: 1.3rem; line-height: 1.2; }
+  .rest-banner-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--fire-glow); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
+  .rest-banner-text { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+  .rest-banner-check { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 0.8rem; font-weight: 600; color: var(--text-primary); cursor: pointer; }
+  .rest-banner-check input { accent-color: var(--fire); width: 16px; height: 16px; }
 
   /* ── BLOCKS ── */
   .blocks-stack { display: flex; flex-direction: column; gap: 1rem; }
-
   .block {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    overflow: hidden; box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease, opacity .2s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    animation: blockFadeIn 0.45s cubic-bezier(0.16,1,0.3,1) backwards;
   }
-  .block:hover { border-color: rgba(255,255,255,0.11); }
-
-  .block-header {
-    display: flex; align-items: center; gap: 10px;
-    padding: 0.85rem 1.1rem;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer; user-select: none;
-    transition: background 0.2s ease;
-  }
+  .block:hover { border-color: rgba(255,255,255,0.13); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .block.block-done { opacity: 0.55; }
+  @keyframes blockFadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .blocks-stack .block:nth-child(1) { animation-delay: 0.02s; }
+  .blocks-stack .block:nth-child(2) { animation-delay: 0.07s; }
+  .blocks-stack .block:nth-child(3) { animation-delay: 0.12s; }
+  .blocks-stack .block:nth-child(4) { animation-delay: 0.17s; }
+  .blocks-stack .block:nth-child(5) { animation-delay: 0.22s; }
+  .blocks-stack .block:nth-child(6) { animation-delay: 0.27s; }
+  .blocks-stack .block:nth-child(n+7) { animation-delay: 0.32s; }
+  .block-header { display: flex; align-items: center; gap: 10px; padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: background 0.2s ease; }
   .block-header:hover { background: rgba(255,255,255,0.025); }
   .block.collapsed .block-header { border-bottom-color: transparent; }
-
-  .block-icon {
-    width: 30px; height: 30px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; flex-shrink: 0;
-    transition: transform 0.2s ease;
-  }
+  .block-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; transition: transform 0.2s ease; }
   .block-header:hover .block-icon { transform: scale(1.08); }
-  .bi-warmup   { background: rgba(255,167,38,0.14); border: 1px solid rgba(255,167,38,0.15); }
-  .bi-oly      { background: rgba(41,121,255,0.12);  border: 1px solid rgba(41,121,255,0.13); }
-  .bi-strength { background: rgba(0,191,165,0.12);   border: 1px solid rgba(0,191,165,0.13); }
-  .bi-metcon   { background: rgba(255,61,0,0.15);    border: 1px solid rgba(255,61,0,0.15); }
-  .bi-cardio   { background: rgba(124,77,255,0.12); border: 1px solid rgba(124,77,255,0.12); }
-  .bi-accessory{ background: rgba(144,164,174,0.1);  border: 1px solid rgba(144,164,174,0.1); }
-
-  .block-header-text { flex: 1; }
-  .block-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase;
-  }
-  .bl-warmup   { color: #FFA726; }
-  .bl-oly      { color: #64B5F6; }
+  .bi-warmup { background: rgba(255,167,38,0.14); border: 1px solid rgba(255,167,38,0.15); }
+  .bi-oly { background: rgba(41,121,255,0.12); border: 1px solid rgba(41,121,255,0.13); }
+  .bi-strength { background: rgba(0,191,165,0.12); border: 1px solid rgba(0,191,165,0.13); }
+  .bi-metcon { background: rgba(255,61,0,0.15); border: 1px solid rgba(255,61,0,0.15); }
+  .bi-cardio { background: rgba(124,77,255,0.12); border: 1px solid rgba(124,77,255,0.12); }
+  .bi-accessory { background: rgba(144,164,174,0.1); border: 1px solid rgba(144,164,174,0.1); }
+  .block-header-text { flex: 1; min-width: 0; }
+  .block-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .bl-warmup { color: #FFA726; }
+  .bl-oly { color: #64B5F6; }
   .bl-strength { color: var(--teal); }
-  .bl-metcon   { color: #FF3D00; }
-  .bl-cardio   { color: #B39DDB; }
-  .bl-accessory{ color: #B0BEC5; }
-
+  .bl-metcon { color: #FF3D00; }
+  .bl-cardio { color: #B39DDB; }
+  .bl-accessory { color: #B0BEC5; }
   .block-subtitle { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+  .block-check { flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
+  .block-check input { width: 17px; height: 17px; accent-color: var(--teal); cursor: pointer; }
   .block-chevron { color: var(--text-muted); font-size: 12px; transition: transform 0.22s ease; flex-shrink: 0; }
   .block.collapsed .block-chevron { transform: rotate(-90deg); }
-
-  .block-body {
-    padding: 0.9rem 1.1rem;
-    display: flex; flex-direction: column; gap: 0;
-  }
+  .block-body { padding: 0.9rem 1.1rem; display: flex; flex-direction: column; gap: 0; }
   .block.collapsed .block-body { display: none; }
 
   /* ── SECTION LABEL ── */
-  .section-label {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--text-muted);
-    margin: 0.85rem 0 0.45rem; padding-bottom: 4px;
-    border-bottom: 1px solid var(--border);
-  }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin: 0.85rem 0 0.45rem; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
   .section-label:first-child { margin-top: 0; }
 
   /* ── EXERCISE ROW ── */
-  .ex-row {
-    display: flex; gap: 10px; padding: 0.5rem 0;
-    border-bottom: 1px solid var(--border-subtle);
-    align-items: flex-start;
-  }
-  .ex-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .ex-bullet {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--text-muted); flex-shrink: 0; margin-top: 7px;
-  }
+  .ex-row { display: flex; gap: 10px; padding: 0.5rem 0.4rem; margin: 0 -0.4rem; border-bottom: 1px solid var(--border-subtle); align-items: flex-start; border-radius: 6px; transition: background 0.15s ease; }
+  .ex-row:hover { background: rgba(255,255,255,0.02); }
+  .ex-row:last-child { border-bottom: none; padding-bottom: 0.5rem; }
+  .ex-bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; margin-top: 7px; }
   .ex-name { font-size: 0.875rem; font-weight: 500; flex: 1; line-height: 1.45; color: var(--text-primary); }
-  .ex-detail {
-    font-size: 11.5px; color: var(--text-secondary);
-    text-align: right; flex-shrink: 0; line-height: 1.55; max-width: 170px;
-    min-width: 80px;
-  }
-  .ex-detail strong {
-    display: block; color: var(--text-primary); font-weight: 600; font-size: 13px;
-  }
-  .ex-detail .pct {
-    color: #FF6D00; font-weight: 700; font-size: 12.5px;
-  }
+  .ex-detail { font-size: 11.5px; color: var(--text-secondary); text-align: right; flex-shrink: 0; line-height: 1.55; max-width: 170px; min-width: 60px; }
+  .ex-detail strong { display: block; color: var(--text-primary); font-weight: 600; font-size: 13px; }
+  .ex-row.complex { background: rgba(255,61,0,0.04); border: 1px solid rgba(255,61,0,0.09); border-radius: var(--radius-sm); padding: 0.6rem 0.75rem; margin: 0.3rem 0; }
+  .ex-divider { display: flex; align-items: center; gap: 10px; margin: 0.3rem 0; color: var(--text-muted); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .ex-divider::before, .ex-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* ── COMPLEX ROW ── */
-  .ex-row.complex {
-    background: rgba(255,61,0,0.04);
-    border: 1px solid rgba(255,61,0,0.09);
-    border-radius: var(--radius-sm);
-    padding: 0.6rem 0.75rem; margin: 0.3rem 0;
-  }
-
-  /* ── COACH NOTE ── */
-  .coach-note {
-    background: rgba(41,121,255,0.05);
-    border-left: 2px solid rgba(41,121,255,0.4);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    padding: 0.65rem 0.9rem; margin-top: 0.75rem;
-    font-size: 12.5px; color: #94A3B8; line-height: 1.6;
-  }
-  .coach-note strong {
-    color: #64B5F6; display: block; margin-bottom: 3px;
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-  }
-  .scaling-note {
-    background: rgba(0,191,165,0.04);
-    border-left: 2px solid rgba(0,191,165,0.4);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    padding: 0.65rem 0.9rem; margin-top: 0.5rem;
-    font-size: 12.5px; color: #E2E8F0; line-height: 1.6;
-  }
-  .scaling-note strong {
-    color: var(--teal); display: block; margin-bottom: 3px;
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-  }
+  /* ── NOTES ── */
+  .coach-note { background: rgba(41,121,255,0.05); border-left: 2px solid rgba(41,121,255,0.4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.65rem 0.9rem; margin-top: 0.75rem; font-size: 12.5px; color: #94A3B8; line-height: 1.6; }
+  .coach-note strong { color: #64B5F6; display: block; margin-bottom: 3px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .scaling-note { background: rgba(0,191,165,0.04); border-left: 2px solid rgba(0,191,165,0.4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.65rem 0.9rem; margin-top: 0.5rem; font-size: 12.5px; color: #E2E8F0; line-height: 1.6; }
+  .scaling-note strong { color: var(--teal); display: block; margin-bottom: 3px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 
   /* ── BLOCK INSIGHTS ── */
-  .block-insights {
-    margin-top: 1rem;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    border: 1px solid transparent;
-  }
+  .block-insights { margin-top: 1rem; border-radius: var(--radius-md); overflow: hidden; border: 1px solid transparent; }
   .block-insights.insights-warmup { background: rgba(255,167,38,0.04); border-color: rgba(255,167,38,0.12); }
   .block-insights.insights-oly { background: rgba(66,165,245,0.04); border-color: rgba(66,165,245,0.12); }
   .block-insights.insights-strength { background: rgba(0,191,165,0.04); border-color: rgba(0,191,165,0.12); }
   .block-insights.insights-metcon { background: rgba(255,61,0,0.05); border-color: rgba(255,61,0,0.15); }
   .block-insights.insights-cardio { background: rgba(124,77,255,0.04); border-color: rgba(124,77,255,0.12); }
   .block-insights.insights-accessory { background: rgba(144,164,174,0.04); border-color: rgba(144,164,174,0.12); }
-
-  .insights-header {
-    display: flex; align-items: center; gap: 7px;
-    padding: 0.55rem 0.85rem;
-    font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  .insights-warmup   .insights-header { color: #FFA726; }
-  .insights-oly      .insights-header { color: #64B5F6; }
+  .insights-header { display: flex; align-items: center; gap: 7px; padding: 0.55rem 0.85rem; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .insights-warmup .insights-header { color: #FFA726; }
+  .insights-oly .insights-header { color: #64B5F6; }
   .insights-strength .insights-header { color: var(--teal); }
-  .insights-metcon   .insights-header { color: var(--fire-glow); }
-  .insights-cardio   .insights-header { color: #B39DDB; }
+  .insights-metcon .insights-header { color: var(--fire-glow); }
+  .insights-cardio .insights-header { color: #B39DDB; }
   .insights-accessory .insights-header { color: #B0BEC5; }
-
   .insights-body { padding: 0.75rem 0.85rem; display: flex; flex-direction: column; gap: 0.6rem; }
   .insight-item { display: flex; gap: 0.55rem; align-items: flex-start; }
   .insight-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; line-height: 1; }
   .insight-content { flex: 1; }
-  .insight-label {
-    font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--text-muted);
-    margin-bottom: 2px;
-  }
+  .insight-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
   .insight-text { font-size: 12.5px; line-height: 1.55; color: var(--text-secondary); }
-  .insight-text strong { color: var(--text-primary); font-weight: 600; }
 
-  .rest-view { text-align: center; padding: 4rem 1rem; color: var(--text-muted); }
+  /* ── TIMERS ── */
+  .timer-box { margin-top: 0.9rem; background: var(--bg-elevated); border: 2px solid var(--border); border-radius: var(--radius-md); padding: 18px 14px; text-align: center; box-shadow: var(--shadow-sm); transition: border-color .25s ease, box-shadow .25s ease; }
+  .timer-box.tb-work { border-color: rgba(255,61,0,0.45); box-shadow: var(--shadow-sm), 0 0 26px rgba(255,61,0,0.1) inset; }
+  .timer-box.tb-rest { border-color: rgba(0,191,165,0.45); box-shadow: var(--shadow-sm), 0 0 26px rgba(0,191,165,0.1) inset; }
+  .timer-box-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
+  .timer-phase-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(0.85rem, 3.2vw, 1.05rem); letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 20px; border-radius: 30px; color: #fff; margin-bottom: 10px; }
+  .timer-phase-tag.phase-work { background: linear-gradient(90deg, var(--fire), var(--fire-glow)); box-shadow: 0 0 20px rgba(255,61,0,0.4); }
+  .timer-phase-tag.phase-rest { background: linear-gradient(90deg, #00897B, var(--teal)); box-shadow: 0 0 20px rgba(0,191,165,0.35); }
+  .timer-phase-tag.phase-done { background: linear-gradient(90deg, var(--teal), #00897B); box-shadow: 0 0 20px rgba(0,191,165,0.35); }
+  .timer-seg-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: clamp(0.85rem, 3.4vw, 1.05rem); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 2px; min-height: 1.3em; }
+  .timer-display { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3.2rem, 17vw, 5rem); line-height: 1; letter-spacing: 0.01em; margin: 6px 0 14px; color: var(--text-primary); }
+  .timer-round-big { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(1.05rem, 4.2vw, 1.4rem); letter-spacing: 0.03em; color: var(--text-primary); margin-bottom: 10px; min-height: 1.3em; }
+  .timer-round-bar { height: 9px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin: 0 auto 18px; max-width: 320px; }
+  .timer-round-bar-fill { height: 100%; border-radius: 6px; width: 0%; transition: width 0.25s linear, background 0.25s ease; }
+  .timer-round-bar-fill.phase-work { background: linear-gradient(90deg, var(--fire), var(--fire-glow)); }
+  .timer-round-bar-fill.phase-rest { background: linear-gradient(90deg, #00897B, var(--teal)); }
+  .timer-controls { display: flex; gap: 8px; max-width: 380px; margin: 0 auto; }
+  .tbtn { flex: 1; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.15s; border: 1px solid transparent; }
+  .tbtn:hover { transform: translateY(-1px); }
+  .tbtn:active { transform: scale(0.97); }
+  .tbtn-start { background: rgba(0,191,165,0.1); border-color: rgba(0,191,165,0.35); color: var(--teal); }
+  .tbtn-start:hover { border-color: rgba(0,191,165,0.55); box-shadow: 0 0 14px rgba(0,191,165,0.18); }
+  .tbtn-pause { background: rgba(255,214,0,0.08); border-color: rgba(255,214,0,0.3); color: var(--gold); }
+  .tbtn-reset { flex: 0 0 auto; background: var(--bg-card); border-color: var(--border); color: var(--text-muted); padding: 13px 16px; }
+  .tbtn-reset:hover { border-color: rgba(255,255,255,0.2); color: var(--text-secondary); }
+  .hide { display: none !important; }
+  .wake-indicator { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-top: 10px; opacity: 0; transition: opacity .3s ease; }
+  .wake-indicator.on { opacity: 1; color: var(--teal); }
+
+  .quick-timer { display: flex; align-items: center; justify-content: space-between; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 0.9rem; flex-wrap: wrap; gap: 8px; box-shadow: var(--shadow-sm); }
+  .quick-timer-btn { transition: all 0.15s ease; }
+  .quick-timer-btn:hover { border-color: rgba(255,167,38,0.55); box-shadow: 0 0 12px rgba(255,167,38,0.2); transform: translateY(-1px); }
+  .quick-timer-left { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .quick-timer-display { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.3rem; }
+  .quick-timer-btn { background: rgba(255,167,38,0.12); border: 1px solid rgba(255,167,38,0.3); color: var(--orange); font-weight: 700; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 14px; border-radius: 8px; cursor: pointer; }
+
+  /* ── REST DAY VIEW ── */
+  .rest-view { text-align: center; padding: 3rem 1rem 1rem; color: var(--text-muted); }
   .rest-view .rest-icon { font-size: 3rem; margin-bottom: 1rem; }
   .rest-view h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
-  .rest-checklist { display: flex; flex-direction: column; gap: 8px; max-width: 280px; margin: 1.5rem auto 0; text-align: left; }
+  .rest-view p { max-width: 480px; margin: 0 auto; font-size: 0.88rem; line-height: 1.6; }
+  .rest-checklist { display: flex; flex-direction: column; gap: 8px; max-width: 320px; margin: 1.5rem auto 0; text-align: left; }
   .rest-check-item { display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; }
+
+  /* ── SUMMARY / COOLDOWN ── */
+  .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.2rem; margin-top: 1rem; box-shadow: var(--shadow-sm); }
+  .info-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); font-weight: 700; margin-bottom: 0.6rem; }
+  .info-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+  .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .info-card li { font-size: 0.82rem; color: var(--text-secondary); display: flex; gap: 8px; line-height: 1.5; }
+  .info-card li span:first-child { color: var(--text-muted); flex-shrink: 0; }
+
+  /* ── CALC MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 300; padding: 20px; }
+  .modal-overlay.open { display: flex; animation: overlayFadeIn 0.2s ease; }
+  @keyframes overlayFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 100%; max-width: 380px; padding: 22px; box-shadow: var(--shadow-lg); animation: modalPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+  @keyframes modalPop { from { opacity: 0; transform: scale(0.94) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal-close { transition: color 0.15s ease, transform 0.15s ease; }
+  .modal-close:hover { color: var(--text-primary); transform: rotate(90deg); }
+  .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .modal-head h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.03em; display: flex; align-items: center; gap: 8px; }
+  .modal-head h2 .mh-icon { color: var(--fire-glow); }
+  .modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 0.68rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .field input, .field select { width: 100%; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; }
+  .field input:focus, .field select:focus { border-color: var(--fire); }
+  .calc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; max-height: 280px; overflow-y: auto; }
+  .calc-cell { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 9px; padding: 8px 4px; text-align: center; }
+  .calc-pct { font-size: 0.62rem; color: var(--text-muted); font-weight: 700; }
+  .calc-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; color: var(--fire-glow); font-size: 1.05rem; }
+  .calc-empty { grid-column: 1/-1; color: var(--text-muted); font-size: 0.78rem; padding: 10px 0; text-align: center; }
+
+  footer.site-footer { max-width: 1140px; margin: 2rem auto 0; padding: 1.5rem 1.25rem 0; text-align: center; border-top: 1px solid var(--border); }
+  footer.site-footer p { font-size: 0.72rem; color: var(--text-muted); margin: 2px 0; }
+  footer.site-footer b { color: var(--text-secondary); }
 
   @media (max-width: 600px) {
     .hero h1 { font-size: 1.75rem; }
     .day-tab { min-width: 64px; padding: 0.65rem 0.7rem; }
     .tab-label { font-size: 9px; }
     .block-label { font-size: 0.85rem; }
-    .ex-detail { max-width: 130px; min-width: 60px; }
+    .ex-detail { max-width: 130px; min-width: 50px; }
     .day-complete-btn { font-size: 0.82rem; padding: 9px 16px; }
+    .nav-right { gap: 4px; }
+    .nav-pill { padding: 5px 9px; font-size: 10px; }
+    .nav-logo { width: 38px; height: 38px; }
+    .nav-logo svg { width: 21px; height: 21px; }
+    .nav-wordmark { font-size: 1.32rem; }
   }
 </style>
 </head>
 <body>
-
+<div class="bg-glow"></div>
+<div class="bg-grid"></div>
 <nav>
   <a class="nav-brand" href="#">
     <div class="nav-logo">
@@ -398,713 +410,1011 @@
     <span class="nav-wordmark">COACH<span>&nbsp;JP</span></span>
   </a>
   <div class="nav-right">
-    <span class="nav-pill athletes">Ceci &amp; JP</span>
-    <span class="nav-pill week">Semana Carga &amp; Pacing</span>
+    <div class="athlete-switch" id="athleteSwitch">
+      <button class="nav-pill athlete-pill" data-athlete="jp">JP</button>
+      <button class="nav-pill athlete-pill" data-athlete="ceci">CECI</button>
+    </div>
+    <button class="nav-pill calc-pill" id="calcBtn">% 1RM</button>
   </div>
 </nav>
 
 <section class="hero">
-  <p class="hero-eyebrow">Performance Matrix — Alto Rendimiento</p>
-  <h1>Semana de <em>Volumen &amp; Umbral.</em></h1>
-  <p class="hero-sub">Estructuras metabólicas de alta densidad, pacing estricto e hipertrofia gimnástica adaptada.</p>
+  <p class="brand-tagline">Profesor de Educación Física · Especialista en Desarrollo de Fuerza, Biomecánica y Alto Rendimiento Deportivo</p>
+  <p class="hero-eyebrow">Mesociclo Fuerza / Hipertrofia — Semana 1</p>
+  <h1 id="heroTitle">Reingreso <em>Post-Gripe.</em></h1>
+  <p class="hero-sub" id="heroSub">Misma estructura del bloque original, cargas recalibradas para el reingreso. JP entrena los 5 días; Ceci arranca gradual — Lunes, Miércoles y Viernes.</p>
 </section>
 
 <div class="week-tabs-wrap">
-  <div class="week-tabs" id="week-tabs">
-    <div class="day-tab active" data-day="0">
-      <span class="tab-name">LUN</span>
-      <span class="tab-label">Cleans + Squats</span>
-      <div class="day-dot"></div>
-    </div>
-    <div class="day-tab" data-day="1">
-      <span class="tab-name">MAR</span>
-      <span class="tab-label">Push/Pull + Engine</span>
-      <div class="day-dot"></div>
-    </div>
-    <div class="day-tab" data-day="2">
-      <span class="tab-name">MIÉ</span>
-      <span class="tab-label">Snatch + Intervals</span>
-      <div class="day-dot"></div>
-    </div>
-    <div class="day-tab rest-day" data-day="3">
-      <span class="tab-name">JUE</span>
-      <span class="tab-label">Rest Day Completo</span>
-      <div class="day-dot"></div>
-    </div>
-    <div class="day-tab" data-day="4">
-      <span class="tab-name">VIE</span>
-      <span class="tab-label">Max BS + Matrix</span>
-      <div class="day-dot"></div>
-    </div>
-    <div class="day-tab" data-day="5">
-      <span class="tab-name">SÁB</span>
-      <span class="tab-label">Oly Opc + Pacing</span>
-      <div class="day-dot"></div>
-    </div>
-  </div>
+  <div class="week-tabs" id="week-tabs"></div>
 </div>
 
 <div class="progress-bar-wrap">
   <div class="progress-row">
     <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-    <span class="progress-count" id="progress-count">0 / 5 días</span>
-    <span class="progress-label">completados</span>
+    <span class="progress-count" id="progress-count">0%</span>
+    <span class="progress-label">completado</span>
   </div>
 </div>
 
-<div class="main">
+<div class="main" id="mainContent"></div>
 
-  <!-- ══════════ LUNES ══════════ -->
-  <div class="day-view active" id="day-0">
-    <div class="day-header">
-      <div class="day-title-group">
-        <div class="day-eyebrow">Lunes — Día 1</div>
-        <div class="day-title">Cleans EMOM Matrix + Back Squats + Metcon Density</div>
-        <div class="day-athletes"><span class="athlete-chip">⚡ Ceci &amp; JP</span></div>
-      </div>
-      <button class="day-complete-btn" data-day="0">Marcar día completo</button>
+<footer class="site-footer">
+  <p><b>Coach JP</b> — Programación generada para JP &amp; Ceci</p>
+  <p>Semana 1 · Mesociclo Fuerza / Hipertrofia · Reingreso post cuadro gripal</p>
+</footer>
+
+<div id="calcModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h2><span class="mh-icon">%</span> Calculadora 1RM</h2>
+      <button id="calcClose" class="modal-close">&times;</button>
     </div>
-    <div class="blocks-stack">
-
-      <!-- WARM UP -->
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-warmup">🔥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-warmup">Warm Up &amp; Activación Olímpica</div>
-            <div class="block-subtitle">Bike intervals + Postural barbell flow</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Bloque 1 — Cardio Intervalado (6-8 Sets)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">BikeErg 250m (@ Pace creciente por serie)</span><span class="ex-detail"><strong>30s rest</strong>e/sets</span></div>
-          <div class="section-label">Bloque 2 — Barra Vacía (2 Series)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">7 Muscle Clean de cadera + 7 Front Squats + 7 Hang Power Clean (3s pausa en catch)</span><span class="ex-detail">Flujo técnico</span></div>
-          <div class="section-label">Bloque 3 — Carga Adaptativa Progresiva (3-6 Sets)</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">1 Power Clean + 1 Hang Squat Clean // TNG Squat Clean al final</span><span class="ex-detail">Construyendo</span></div>
-          
-          <div class="scaling-note"><strong>Ceci — Alerta Piramidal / Lumbar:</strong> En las sentadillas frontales y recepciones de Squat Clean, descendé manteniendo el torso muy vertical y limitá la profundidad a 90° si notás que al quebrar el paralelo hay un leve "butt wink" (retroversión pélvica) que te despierte dolor en el glúteo/piramidal. Mantené la línea media compacta.</div>
-        </div>
-      </div>
-
-      <!-- CLEANS EMOM -->
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-oly">🏋️‍♂️</div>
-          <div class="block-header-text">
-            <div class="block-label bl-oly">Block A: Cleans EMOM Matrix</div>
-            <div class="block-subtitle">EMOM x 20 Minutos · Volumen técnico fraccionado</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Esquema de bloques (Minutos 1 al 20)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 1-5: 1 Power Clean + 1 Hang Squat Clean</span><span class="ex-detail"><strong>EMOM 5'</strong><span class="pct">@ 75% RM</span></span></div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 6: REST completo e hidratación</span><span class="ex-detail">1:00 descanso</span></div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 7-11: 1 Power Clean + 1 Low Hang Squat Clean</span><span class="ex-detail"><strong>EMOM 5'</strong><span class="pct">@ 75% RM</span></span></div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 12: REST completo</span><span class="ex-detail">1:00 descanso</span></div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 13-17: 1 Power Clean + 1 TNG Squat Clean</span><span class="ex-detail"><strong>EMOM 5'</strong><span class="pct">@ 75% RM</span></span></div>
-          
-          <div class="block-insights insights-oly">
-            <div class="insights-header">🏋️‍♂️ Estrategia &amp; Enfoque</div>
-            <div class="insights-body">
-              <div class="insight-item"><span class="insight-icon">🎯</span><div class="insight-content"><div class="insight-label">Objetivo</div><div class="insight-text">Desarrollar resistencia posicional olímpica. Al ser una carga fija al <strong>75% del RM</strong>, debe ser pesada para exigir concentración técnica estricta, pero controlable para no perder la postura corporal ni fatigarte de más.</div></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BACK SQUATS -->
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-strength">🦵</div>
-          <div class="block-header-text">
-            <div class="block-label bl-strength">Block B: Back Squats (Fuerza Base)</div>
-            <div class="block-subtitle">Every 2:00 x 6 Sets · Volumen acumulado continuo</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Esquema de carga fija y velocidad lineal</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Back Squat x 3 Repeticiones rápidas</span><span class="ex-detail"><strong>6 series</strong><span class="pct">@ 80% RM</span></span></div>
-          
-          <div class="coach-note"><strong>Coach Note:</strong> Es el mismo peso que usaste el viernes pero sumando más volumen de series. Sostené la misma buena velocidad concéntrica. Si las piernas se sienten pesadas hoy, agregá 1 minuto extra de descanso donde consideres necesario.</div>
-          <div class="scaling-note"><strong>Ceci — Ajuste Piramidal:</strong> Si al romper el paralelo en la sentadilla trasera el piramidal pincha en la fase profunda de empuje, colocá un cajón alto detrás (Box Squat a 90° o paralelo alto) para regular el freno mecánico, eliminando la flexión lumbar/sacra extrema hasta que baje la inflamación.</div>
-        </div>
-      </div>
-
-      <!-- METCON -->
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-metcon">💥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-metcon">Metcon — Matrix For Time Intervals</div>
-            <div class="block-subtitle">3 Sets con descansos estrictos 1:1 de potencia</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Intervalo 1 — Gimnasia &amp; Off-set (For Time)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">15 HSPU + 15m Dual DB Off-Set Lunge Walk (22.5/15kg) + 15 HSPU + 15m Lunge Walk</span><span class="ex-detail">Rest 1:1</span></div>
-          <div class="section-label">Intervalo 2 — Metabólico &amp; Grip (For Time)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">15 Dual DB Squats + 15 T2B + 15 Dual DB Hang Power Cleans + 15 T2B</span><span class="ex-detail">Rest 1:1</span></div>
-          
-          <div class="scaling-note"><strong>Ceci — Modificación Lunge Walk / Piramidal:</strong> El Off-set Lunge Walk asimétrico (1 DB overhead y 1 al hombro) le genera torsión a la pelvis que puede irritar el piramidal. Modificalo haciendo estocadas simples con las DBs en los costados del cuerpo (Farmer rack) o realizá **Step ups controlados al cajón de 50cm** si dar el paso al frente te despierta dolor agudo. El Hang Clean ejecutalo estricto por fuera de las piernas (no sumo).</div>
-
-          <div class="block-insights insights-metcon">
-            <div class="insights-header">💥 Pacing &amp; Tiempos</div>
-            <div class="insights-body">
-              <div class="insight-item"><span class="insight-icon">💡</span><div class="insight-content"><div class="insight-label">Estrategia</div><div class="insight-text">El tiempo objetivo por intervalo ronda los 3 minutos. Buscá moverte a un ritmo duro pero que sea totalmente repetible a lo largo de las 3 series de la sesión.</div></div></div>
-            </div>
-          </div>
-          
-          <div class="section-label">Fase Accesoria Posterior (2-4 Series por calidad)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Prone Y-Raises x 10 reps + Banded Thoracic Openers x 10 p/lado + KB Halos x 20 reps</span><span class="ex-detail">Salud escapular</span></div>
-        </div>
-      </div>
-
+    <div class="field">
+      <label>1RM (kg)</label>
+      <input id="calcInput" type="number" inputmode="decimal" placeholder="Ej: 100" />
     </div>
+    <div class="field">
+      <label>Redondeo</label>
+      <select id="calcRound">
+        <option value="1">1 kg</option>
+        <option value="2.5" selected>2.5 kg</option>
+        <option value="5">5 kg</option>
+      </select>
+    </div>
+    <div id="calcTable" class="calc-grid"><p class="calc-empty">Ingresá tu 1RM para ver la tabla.</p></div>
   </div>
-
-  <!-- ══════════ MARTES ══════════ -->
-  <div class="day-view" id="day-1">
-    <div class="day-header">
-      <div class="day-title-group">
-        <div class="day-eyebrow">Martes — Día 2</div>
-        <div class="day-title">Push Press Strength + Workhorse V2 Cardio Engine</div>
-        <div class="day-athletes"><span class="athlete-chip">⚡ Ceci &amp; JP</span></div>
-      </div>
-      <button class="day-complete-btn" data-day="1">Marcar día completo</button>
-    </div>
-    <div class="blocks-stack">
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-warmup">🔥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-warmup">Warm Up &amp; Activación Estricta</div>
-            <div class="block-subtitle">Remo progresivo + Upper Body Flow + Bench Press Prep</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Bloque 1 — Cardio Row (4 Series)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Row 300m (@ Pace creciente por set)</span><span class="ex-detail">60s rest e/sets</span></div>
-          <div class="section-label">Bloque 2 — Estructural Superior (2 Series)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">30 Banded Tricep Extensions + 10 Push Ups + 30 Banded Bicep Curls + 5 Strict Pull Ups</span><span class="ex-detail">Calidad</span></div>
-          <div class="section-label">Bloque 3 — Preparación de Banco</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Bench Press 5x5 series progresivas de aproximación</span><span class="ex-detail">Subiendo carga</span></div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-strength">💪</div>
-          <div class="block-header-text">
-            <div class="block-label bl-strength">Block A: Push &amp; Pull Strength</div>
-            <div class="block-subtitle">Every 2:00 x 8 Sets · Empuje vertical + Cuerda</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Secuencia de Potencia Vertical</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">5 Push Press @ 70%-80% del RM + 1 Rope Climb</span><span class="ex-detail">8 juegos de 2'</span></div>
-          <div class="coach-note"><strong>Escala de Cuerda (Elegí la tuya hoy):</strong> Legless strict desde el piso (sentado) / Legless desde parado / Legless con salto inicial / Shorty jump climb / Tradicional con piernas desde parado o con salto. Hacela exigente.</div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-metcon">💥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-metcon">Block B: High Intensity — Metcon Conditioning</div>
-            <div class="block-subtitle">WORKHORSE V2 · Cardio de volumen extendido · Cap 35:00</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Metcon For Time — Resistencia y volumen</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Run 2000 metros → 50 Burpees Box Jump Overs → 250 Double Unders → 50 Wall Balls (9/6kg) → Run 1000 metros</span><span class="ex-detail">Cap: 35:00</span></div>
-          
-          <div class="scaling-note"><strong>Ceci — Nota Piramidal / Impacto:</strong> Correr 2000m y meter saltos dobles de soga largos puede irritar el piramidal si impactás de forma rígida. Buscá correr con pisada suave apoyando el mediopie y dividí los 250 Double Unders en bloques fijos cortos (ej. sets de 50 reps) con microdescansos de 5 segundos para aflojar la tensión lumbosacra. Sostené los hombros relajados.</div>
-
-          <div class="block-insights insights-metcon">
-            <div class="insights-header">🔥 Estrategia de Ritmo</div>
-            <div class="insights-body">
-              <div class="insight-item"><span class="insight-icon">💡</span><div class="insight-content"><div class="insight-label">Pacing</div><div class="insight-text">Gran pieza aeróbica pura. El WOD no se gana corriendo al límite el 2000 inicial; se gana administrando con inteligencia las transiciones medias para rematar fuerte y con aire en el 1000m final.</div></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="block collapsed">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-accessory">🎯</div>
-          <div class="block-header-text">
-            <div class="block-label bl-accessory">Block C: Strength &amp; Scapular Accessory</div>
-            <div class="block-subtitle">C1 Remo Pesado + C2 Estabilidad Core + C3 Aperturas</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">C1 — Superserie de Tracción (4-6 Rondas · Rest 90s)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Prone Dual-DB Rows x 8 reps (Carga pesada / largo rango de movimiento) + YTWs x 5 reps por dirección (Liviano)</span><span class="ex-detail">Calidad</span></div>
-          <div class="section-label">C2 — Estabilidad Isométrica (3 Rondas · Rest 60s)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Pallof Press con banda gruesa x 10 reps por lado + Shoulder External Rotations x 10 reps (Disco/DB liviana)</span><span class="ex-detail">Línea Media</span></div>
-          <div class="section-label">C3 — Movilidad Torácica (3 Rondas · Rest 60s)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Banded Thoracic Openers x 6-10 reps por lado + Wall Angels x 10 reps</span><span class="ex-detail">—</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══════════ MIÉRCOLES ══════════ -->
-  <div class="day-view" id="day-2">
-    <div class="day-header">
-      <div class="day-title-group">
-        <div class="day-eyebrow">Miércoles — Día 3</div>
-        <div class="day-title">Snatch Intervals + Front Squats Piramidal</div>
-        <div class="day-athletes"><span class="athlete-chip">⚡ Ceci &amp; JP</span></div>
-      </div>
-      <button class="day-complete-btn" data-day="2">Marcar día completo</button>
-    </div>
-    <div class="blocks-stack">
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-warmup">🔥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-warmup">Warm Up Oly Snatch Prep</div>
-            <div class="block-subtitle">Complejos de barra vacía + Barra cargada ascendente</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Bloque 1 — Barra Vacía (2-3 Sets por calidad)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">10 High Hang Pulls + 10 Muscle Snatch de cadera + 10 Overhead Squats</span><span class="ex-detail">—</span></div>
-          <div class="section-label">Bloque 2 — Secuencia continua de aproximación</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">1 Power Snatch (3s pausa en catch) + 1 Squat Snatch + 1 Overhead Squat</span><span class="ex-detail">Subiendo carga</span></div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-oly">⏱️</div>
-          <div class="block-header-text">
-            <div class="block-label bl-oly">Block A: Snatch / Intervals Matrix</div>
-            <div class="block-subtitle">EMOM x 20 Minutos · Control de potencia e intensidad fraccionada</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Estructura cíclica de 4 minutos (5 Rondas completas)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Minuto 1: 12 / 10 Cal Bike (Echo o Assault Bike)</span><span class="ex-detail">Cardio</span></div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Minuto 2: 60 - 75 Double Unders</span><span class="ex-detail">Saltos</span></div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Minuto 3: 5 Power Snatches o Squat Snatches @ 70% RM</span><span class="ex-detail">Barra Olímpica</span></div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Minuto 4: Descanso Completo (REST)</span><span class="ex-detail">Pausa fija</span></div>
-          
-          <div class="coach-note"><strong>Pacing Note:</strong> La bicicleta y los saltos dobles deben completarse dejando entre 15 y 20 segundos libres dentro de su respectivo minuto para poder respirar y regular el pulso antes del cambio de bloque. Mantené un paso rítmico y plano.</div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-strength">🦵</div>
-          <div class="block-header-text">
-            <div class="block-label bl-strength">Block B: Front Squat Piramidal</div>
-            <div class="block-subtitle">Lift every 2:00 x 5 Sets · Velocidad lineal y posiciones</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Esquema ascendente y descendente de volumen</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Serie 1: 5 Reps @ 70% | Serie 2: 5 Reps @ 75% | Serie 3: 5 Reps @ 80%</span><span class="ex-detail">Fase Ascendente</span></div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Serie 4: 5 Reps @ 75% | Serie 5: 5 Reps @ 70%</span><span class="ex-detail">Fase Descendente</span></div>
-          
-          <div class="coach-note"><strong>Coach Note:</strong> Intentá hacer estas series con excelente velocidad y posiciones sólidas en el fondo del squat. Si lo considerás necesario, tomate un minuto adicional de descanso completo después de la serie más pesada al 80%.</div>
-          <div class="scaling-note"><strong>Ceci — Ajuste Piramidal:</strong> Si en la bajada de la Front Squat al 80% notás que la molestia en el piramidal reaparece bruscamente debido a la compresión profunda de la cadera, limitá la carga a un 70-75% fijo plano hoy y priorizá la fase de empuje sin llegar al fallo profundo abajo.</div>
-        </div>
-      </div>
-
-      <div class="block collapsed">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-accessory">🎯</div>
-          <div class="block-header-text">
-            <div class="block-label bl-accessory">Blocks C &amp; D: Posterior Chain Accessory &amp; Gymnastics</div>
-            <div class="block-subtitle">EMOM Cadena Posterior + EMOM Gimnástico de Core</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">C — Posterior Chain EMOM x 12 Minutos (Calidad)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 1: GHD Bent Knee Hip Extensions x 6-10 reps | Min 2: Banded Russian KB Swings x 15 reps | Min 3: Dual KB Front Rack Hold x 45-60s | Min 4: REST</span><span class="ex-detail">—</span></div>
-          <div class="section-label">D — Gymnastics EMOM x 15 Minutos</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 1: 20 GHD Sit Ups | Min 2: 10-20s Ring Support Hold + 3-7 Strict HSPU | Min 3: REST</span><span class="ex-detail">—</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══════════ JUEVES — DESCANSO COMPLETO ══════════ -->
-  <div class="day-view" id="day-3">
-    <div class="day-header">
-      <div class="day-title-group">
-        <div class="day-eyebrow">Jueves — Día 4</div>
-        <div class="day-title">Rest Day Absoluto — Recuperación Nerviosa</div>
-      </div>
-    </div>
-    <div class="rest-view">
-      <div class="rest-icon">💤</div>
-      <h2>Día de Descanso Estricto</h2>
-      <p>Mitad de la semana de carga completada. El tejido muscular, los ligamentos y el sistema nervioso central necesitan este bloque para asimilar el volumen previo de entrenamiento.</p>
-      <div class="rest-checklist">
-        <div class="rest-check-item">💧 <span>Mínimo 3.5 litros de agua limpia filtrada</span></div>
-        <div class="rest-check-item">🧘 <span>Sesión ligera de movilidad pasiva o yoga suave</span></div>
-        <div class="rest-check-item">🥩 <span>Optimizar consumo proteico y descanso profundo nocturno</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════ VIERNES ══════════ -->
-  <div class="day-view" id="day-4">
-    <div class="day-header">
-      <div class="day-title-group">
-        <div class="day-eyebrow">Viernes — Día 5</div>
-        <div class="day-title">Heavy Back Squats + Barbell Complex + Lactate Intervals</div>
-        <div class="day-athletes"><span class="athlete-chip">⚡ Ceci &amp; JP</span></div>
-      </div>
-      <button class="day-complete-btn" data-day="4">Marcar día completo</button>
-    </div>
-    <div class="blocks-stack">
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-warmup">🔥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-warmup">Warm Up Cardio &amp; Squat Flow</div>
-            <div class="block-subtitle">Alternating EMOM x 12 min + Carga Progresiva</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Bloque 1 — Cardio &amp; Piernas (EMOM 12')</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 1: 15 / 12 Cals C2 Bike | Min 2: 2 Sets de 20 Air Squats</span><span class="ex-detail">Activación</span></div>
-          <div class="section-label">Bloque 2 — Barra Vacía a Ligera</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">2 Sets de 10 reps de Barbell Back Squats + 2 Sets de 5 reps @ Carga liviana</span><span class="ex-detail">Preparación</span></div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-strength">🦵</div>
-          <div class="block-header-text">
-            <div class="block-label bl-strength">Block A: Heavy Back Squats (Max Block)</div>
-            <div class="block-subtitle">A1 Construcción pesada diaria + A2 Back-off Sets</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">A1 — Construcción Pesada Diaria (10-15 Minutos)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Dedica de 10 a 15 min a construir de forma lineal un squat pesado diario de 1 rep</span><span class="ex-detail"><strong>Daily Max técnico</strong></span></div>
-          <div class="section-label">A2 — Back-Off Sets de Volumen (Rest 90s entre sets)</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">4 Sets x 2 Repeticiones estrictas</span><span class="ex-detail"><span class="pct">@ 80% del tiro de hoy</span></span></div>
-          
-          <div class="coach-note"><strong>Estrategia del Coach:</strong> No te presiones para establecer un récord absoluto de 1 repetición máxima hoy. Tu objetivo real es clavar 1 repetición sólida en el rango de **92% al 97%** de tu capacidad. Sabelo bien: construí esto de forma limpia y detenete una vez que el movimiento comience a volverse muy lento y corras el riesgo de verte obligado a tomar malas posiciones corporales.</div>
-          <div class="scaling-note"><strong>Ceci — Modificación Box / Piramidal:</strong> Para resguardar la inflamación del piramidal en esfuerzos máximos, realizá tu bloque A1 y A2 haciendo **Box Squat pesado a un cajón paralelo alto (90° justo)**. Sentarte de forma controlada y romper la inercia sin el rebote profundo evita la hiper-extensión del glúteo bajo máxima tensión.</div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-oly">🏋️‍♂️</div>
-          <div class="block-header-text">
-            <div class="block-label bl-oly">Block B: Barbell Complex EMOM</div>
-            <div class="block-subtitle">EMOM x 10 Minutos · Resistencia e intensidad posicional</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Secuencia ininterrumpida (Unbroken)</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">1 Power Clean + 1 Hang Squat Clean + 1 Front Squat</span><span class="ex-detail"><strong>10 Sets fijos</strong><span class="pct">@ 80% del Snatch Max</span></span></div>
-          <div class="coach-note">Hacé 10 series de excelente calidad mecánica alrededor del 80% de tu máximo. Ajustá ligeramente hacia arriba o hacia abajo los kilos si la fatiga de las sentadillas previas es muy alta.</div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-metcon">💥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-metcon">Block C: Intervals Matrix (Lactate Buffer)</div>
-            <div class="block-subtitle">Metcon fraccionado de alta densidad · Carga: 43/30kg · WB: 9/6kg</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Fase 1 (On 0:00 - For Time - Cap 5:00)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">21 Wall balls + 21 HSPU + 7 PC / 7 HSC / 7 FS (Complex) + 21 HSPU + 21 Wall balls</span><span class="ex-detail">Ronda de apertura</span></div>
-          <div class="section-label">Fase 2 (On 8:00 - For Time)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Cal Bike o Carrera a pie de 2000 metros a máxima intensidad</span><span class="ex-detail">Cardio Puro</span></div>
-          <div class="section-label">Fase 3 (On 16:00 - For Time - Cap 5:00)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">20 Wall balls + 20 HSPU + 7 PC / 7 HSC / 7 FS (Complex) + 20 HSPU + 20 Wall balls</span><span class="ex-detail">Ronda de fatiga</span></div>
-          <div class="section-label">Fase 4 (On 24:00 - Max Calories)</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Cal Bike Intervals: 30s ON : 30s OFF x 5 rounds</span><span class="ex-detail">Sprint final</span></div>
-          
-          <div class="scaling-note"><strong>Ceci — Nota HSPU &amp; Piramidal:</strong> Para el combo de HSPU, comenzá cada serie con tantas repeticiones **estrictas** como puedas meter limpias; cuando baje la velocidad de empuje, pasá inmediatamente a kipping HSPU para las repeticiones restantes (ej. 4 strict + 11 kipping). Esto cuida la fatiga localizada. Si el impacto de la carrera o los saltos en el complex sacuden el piramidal, regulá el paso rítmicamente.</div>
-          <div class="scaling-note"><strong>Estrategia Intermedia:</strong> Si el volumen te frena, ajustá el esquema a 15 repeticiones fijas en todos los movimientos de gimnasia y balón (y pasá la barra del complex a un esquema de 5-5-5).</div>
-
-          <div class="section-label">D — Accessory Structural x 12 Minutos (EMOM 12')</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Min 1: DB Leg Extension x 20 reps | Min 2: Reverse Nordics x 10 reps | Min 3: Calf raises x 20 reps | Min 4: REST</span><span class="ex-detail">Calidad</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══════════ SÁBADO ══════════ -->
-  <div class="day-view" id="day-5">
-    <div class="day-header">
-      <div class="day-title-group">
-        <div class="day-eyebrow">Sábado — Día 6</div>
-        <div class="day-title">Weightlifting Options + Negative Splits + Partner AMRAP</div>
-        <div class="day-athletes"><span class="athlete-chip">⚡ Ceci &amp; JP</span></div>
-      </div>
-      <button class="day-complete-btn" data-day="5">Marcar día completo</button>
-    </div>
-    <div class="blocks-stack">
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-warmup">🔥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-warmup">Warm Up &amp; Deltoid Flow</div>
-            <div class="block-subtitle">Cardio Bike + Activación específica de hombro</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Fase 1 (2 Sets)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Row 30s @ easy + 10 Band pull aparts + 10 Banded passovers</span><span class="ex-detail">—</span></div>
-          <div class="section-label">Fase 2 (2 Sets)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Row 30s @ moderado + 10 Alternating DB strict press (5/5)</span><span class="ex-detail">—</span></div>
-          <div class="section-label">Fase 3 (2-4 Sets)</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Strict press x 5 reps de aproximación</span><span class="ex-detail">Preparando pesos</span></div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-oly">🏋️‍♂️</div>
-          <div class="block-header-text">
-            <div class="block-label bl-oly">Block A: Weightlifting Options (30 Minutos)</div>
-            <div class="block-subtitle">Elegí una variante: Power Snatch ó Power Clean and Push Jerk</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">A1 — Entrada EMOM de Potencia (EMOM x 8 Minutos)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Completar 1 Repetición técnica impecable</span><span class="ex-detail"><span class="pct">@ 80-90% del max actual</span></span></div>
-          <div class="section-label">A2 — Singles rápidos de consistencia (Every 2:00 x 4 Sets)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">5 Repeticiones (No Touch and Go / Ejecutar como singles rápidos y eficientes)</span><span class="ex-detail"><span class="pct">@ 65-75% RM</span></span></div>
-          <div class="section-label">A3 — Fuerza en Tirón - PULLS (Every 2:00 x 4 Sets)</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Snatch Pulls o Clean Pulls x 5 repeticiones (3s fase excéntrica lenta en la bajada)</span><span class="ex-detail">Carga pesada de A1</span></div>
-          <div class="coach-note">Mantené la barra perfectamente pegada a los muslos durante los 3 segundos de descenso lento en A3. Esto recluta fuertemente los dorsales y erectores espinales.</div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-cardio">⏱️</div>
-          <div class="block-header-text">
-            <div class="block-label bl-cardio">Block B: Cardio Intervals — Negative Splits</div>
-            <div class="block-subtitle">5 Sets de volumen gimnástico-cardio extendido · Rest 2:00</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">Estructura For Time (Intercalando habilidades gimnásticas)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Set 1, 3 y 5: Run 400m + 20 Box Jump Overs (BJO) + 15m Handstand Walk (HSW)</span><span class="ex-detail">Rest 2:00 e/sets</span></div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Set 2 y 4: Run 400m + 20 Box Jump Overs (BJO) + 15 C2B o Pull Ups</span><span class="ex-detail">Rest 2:00 e/sets</span></div>
-          
-          <div class="coach-note"><strong>Pacing Target:</strong> Tu meta estricta es que la diferencia de tiempo entre tus sets completos no sea mayor a 20 segundos, intentando de forma consciente acelerar el ritmo en cada vuelta (Negative Split).</div>
-          <div class="scaling-note"><strong>Ceci — Cuidado Piramidal / Cajón:</strong> En los Box Jump Overs, prohibido bajarte del cajón saltando de espaldas con impacto seco; realiza **Step down obligatorio** al bajar para amortiguar el golpe en la pelvis y evitar espasmos en el piramidal. En el HSW, abrí bien los dedos y bloqueá con firmeza.</div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-strength">💪</div>
-          <div class="block-header-text">
-            <div class="block-label bl-strength">Block C: Strength Base — Push &amp; Pull Bulk</div>
-            <div class="block-subtitle">Bench press pesado + Bloques de aislamiento e hipertrofia · Rest 60s</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">B1 — Barbell Bench Press (Carga fija acumulada)</div>
-          <div class="ex-row complex"><div class="ex-bullet"></div><span class="ex-name">Barbell Bench Press x 2 reps (Sostener el mismo peso desafiante todos los sets)</span><span class="ex-detail"><strong>8 Sets</strong><span class="pct">@ 80% RM</span></span></div>
-          <div class="section-label">B2 a B5 — Aislamiento Estricto (3 Series de 12/6 reps · RIR 2)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">B2: Single Arm DB Bent Over Rows (Fase excéntrica muy lenta)</span><span class="ex-detail">3 × 6 reps / Pesado</span></div>
-          
-          <div class="scaling-note"><strong>Ceci — Ajuste Biomecánico Rows:</strong> Acordate de frenar el codo justo a la altura de las costillas. No tires de la mancuerna más atrás de la espalda alta, porque esa hiperextensión humeral empuja la cabeza del hueso hacia adelante e irrita el manguito rotador. Controlá la bajada lenta.</div>
-
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">B3: Barbell Skull Crushers x 12 reps | B4: Barbell Preacher Curls (Usar GHD) x 12 reps | B5: Dual DB Lateral Raises x 12 reps</span><span class="ex-detail">Rest 60s</span></div>
-          <div class="coach-note">Cada una de las series de aislamiento de B2 a B5 debe empujarte cerca de tu límite, dejando exactamente 2 repeticiones en reserva (RIR 2). Si terminás un set holgado, subí la carga para la siguiente serie de forma obligatoria.</div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header" onclick="toggleBlock(this)">
-          <div class="block-icon bi-metcon">🔥</div>
-          <div class="block-header-text">
-            <div class="block-label bl-metcon">Block D: Escalera Ascendente Partner AMRAP</div>
-            <div class="block-subtitle">12 Minute Partner AMRAP · Thruster Focus · Alta Intensidad</div>
-          </div>
-          <span class="block-chevron">▼</span>
-        </div>
-        <div class="block-body">
-          <div class="section-label">3 Rondas For Time (En Parejas)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">30 Dual DB Push Press (Carga moderada) + 30 Toes to Bar (Sincronizados) + 30 Goblet Box Step Ups</span><span class="ex-detail">Cargas: KB 30 / 24 kg</span></div>
-          
-          <div class="block-insights insights-metcon">
-            <div class="insights-header">🔥 Estrategia de Sincronía en Equipo</div>
-            <div class="insights-body">
-              <div class="insight-item"><span class="insight-icon">⚡</span><div class="insight-content"><div class="insight-label">Estrategia</div><div class="insight-text">Dividan los Push Press en series cortas y dinámicas de 5 o 10 reps para mantener la barra moviéndose rápido. En los Goblet Box Step Ups con cargas pesadas (30/24kg), un atleta pisa el cajón únicamente cuando el compañero bajó por completo y tocó el suelo con ambos pies. Mantené el torso firme.</div></div></div>
-            </div>
-          </div>
-          
-          <div class="section-label">E — Finisher de Estabilidad (4 Series en superserie)</div>
-          <div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">Landmine Anti-Rotations x 10 reps (Heavy) + Russian plate twists in hollow body x 20 reps | D2: Adductor side planks x 30s por lado + Heavy single arm farmers walk x 15m</span><span class="ex-detail">Rest 90s</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
 </div>
 
 <script>
-(function() {
-  'use strict';
-
-  const TOTAL_ACTIVE_DAYS = 5; 
-  const STORAGE_KEY_COMPLETED = 'cjp_completed_days_v4';
-  const STORAGE_KEY_COLLAPSED = 'cjp_collapsed_blocks_v4';
-
-  const completedDays = new Set();
-
-  function saveCompleted() {
-    try {
-      localStorage.setItem(STORAGE_KEY_COMPLETED, JSON.stringify([...completedDays]));
-    } catch(e) {}
-  }
-
-  function loadCompleted() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY_COMPLETED);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) parsed.forEach(d => completedDays.add(Number(d)));
-      }
-    } catch(e) {}
-  }
-
-  function saveCollapsed(blockEl, id) {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY_COLLAPSED) || '{}';
-      const map = JSON.parse(raw);
-      map[id] = blockEl.classList.contains('collapsed');
-      localStorage.setItem(STORAGE_KEY_COLLAPSED, JSON.stringify(map));
-    } catch(e) {}
-  }
-
-  function loadCollapsed() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY_COLLAPSED);
-      return raw ? JSON.parse(raw) : {};
-    } catch(e) { return {}; }
-  }
-
-  function getBlockId(blockEl) {
-    const dayView = blockEl.closest('.day-view');
-    const dayId = dayView ? dayView.id : 'unknown';
-    const blocks = dayView ? [...dayView.querySelectorAll('.block')] : [];
-    const idx = blocks.indexOf(blockEl);
-    return dayId + '_block_' + idx;
-  }
-
-  window.toggleBlock = function(header) {
-    const block = header.parentElement;
-    block.classList.toggle('collapsed');
-    const id = getBlockId(block);
-    saveCollapsed(block, id);
-  };
-
-  function restoreCollapsed() {
-    const map = loadCollapsed();
-    document.querySelectorAll('.block').forEach(block => {
-      const id = getBlockId(block);
-      if (id in map) {
-        if (map[id]) block.classList.add('collapsed');
-        else block.classList.remove('collapsed');
-      }
-    });
-  }
-
-  function updateProgress() {
-    const done = completedDays.size;
-    const pct = Math.round((done / TOTAL_ACTIVE_DAYS) * 100);
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('progress-count').textContent = done + ' / ' + TOTAL_ACTIVE_DAYS + ' días';
-  }
-
-  function applyCompletedState(dayIdx) {
-    const isDone = completedDays.has(dayIdx);
-    const btn = document.querySelector('.day-complete-btn[data-day="' + dayIdx + '"]');
-    const tab = document.querySelector('.day-tab[data-day="' + dayIdx + '"]');
-
-    if (btn) {
-      btn.textContent = isDone ? '✓ Día completado' : 'Marcar día completo';
-      btn.classList.toggle('done', isDone);
+/* =========================================================
+   DATA MODEL
+   category → bi-warmup / bi-oly / bi-strength / bi-metcon / bi-cardio / bi-accessory
+========================================================= */
+const WEEK = [
+{
+  id:'lunes', short:'LUN', label:'Empuje + Core', dayNum:1, name:'LUNES',
+  title:'Pushing Strength + Engine Circuit + Core',
+  availability:{ jp:'train', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Bike/Row + Push-ups + Dip holds',
+      items:[
+        '3 Rounds: Bike/Row 250m + 10 Push ups + 5s Bottom dip hold + 5s Top dip hold',
+        '5 min: 3-4 series de ring dips (sin buscar carga máxima nueva esta semana)'
+      ],
+      tips:'El foco sigue siendo activar hombro/codo para el empuje pesado. Si notás rigidez extra por los días sin entrenar, sumá 1-2 rounds más antes del bloque principal.'
+    },
+    { id:'push', category:'strength', icon:'💪', title:'Block A: Pushing Strength', subtitle:'4-6 series de calidad · Dips + Incline DB Press',
+      items:[
+        '3-5 Strict (weighted) dips — carga moderada-alta, sin buscar peso máximo nuevo',
+        '8-10 Dual DB incline bench press — carga moderada-alta, tempo controlado',
+        '20 Banded tricep extensions — descanso lo necesario entre sets'
+      ],
+      tips:'Calentá bien si hacés fondos con peso. Movete entre ejercicios con el mínimo descanso necesario y descansá más al final de cada serie completa. Si no dominás los dips, usá banda de asistencia (5-7 reps).',
+      objective:'Reconstruir la base de fuerza de empuje horizontal, con volumen extra orientado a hipertrofia de pecho/tríceps.',
+      quickRest:{ label:'Descanso entre series', seconds:90 }
+    },
+    { id:'intervals', category:'metcon', icon:'💥', title:'Block B: Intervals — Bike & Gymnastics', subtitle:'x6 rounds (3 de cada uno) · Rest 2:00',
+      items:[
+        '3 min AMRAP: Echo bike @ esfuerzo moderado-sostenible (75-80%)',
+        '— 2 min rest —',
+        '3 min AMRAP: 8 HSPU (o push-up piked), 7 Box jumps con step down, 5 Burpees',
+        '— 2 min rest —'
+      ],
+      tips:'Ritmo sostenible, no salgas a fondo. La bici al 75-80% de esfuerzo; sumá calorías de forma consistente ronda a ronda, no solo en la primera.',
+      objective:'Acondicionamiento con habilidad gimnástica, con un techo de intensidad más bajo esta semana.',
+      timer:{ segments:[
+          {label:'Echo Bike', duration:180, color:'fire'},
+          {label:'', duration:120, color:'muted', rest:true},
+          {label:'HSPU + Box + Burpee', duration:180, color:'teal'},
+          {label:'', duration:120, color:'muted', rest:true}
+        ], repeat:3 }
+    },
+    { id:'core', category:'accessory', icon:'🎯', title:'Block C: Core Accessory', subtitle:'D1 EMOM · D2-D3 Superset',
+      items:[
+        'D1 — EMOM x5 min: DB sit-up with straight legs x20s (iniciar doblando hombros desde el suelo)',
+        'D2 — Superset 3 rounds: Gymnastic swimming x45s + Deadbug x30 reps — Rest 90s',
+        'D3 — Superset 3 rounds: Side plank pulses x20/lado + leg raises x10/lado + rotations x5/lado — Rest 90s'
+      ],
+      tips:'Control respiratorio en todo el bloque, evitar compensar con la zona lumbar.',
+      timer:{ segments:[
+          {label:'DB Sit-up', duration:20, color:'teal'},
+          {label:'', duration:40, color:'muted', rest:true}
+        ], repeat:5 }
     }
-    if (tab) {
-      tab.classList.toggle('completed-day', isDone);
+  ],
+  summary:'Lunes conserva casi por completo la estructura original: fuerza de empuje con más volumen de hipertrofia, el mismo circuito de intervalos con habilidad gimnástica (un round menos, ritmo más bajo) y el mismo bloque de core.',
+  cooldown:['Estiramiento de pectoral en marco de puerta 2x30s por lado','Dislocaciones de hombro con banda 2x10','Foam roller en dorsal ancho y tríceps, 1 min por zona','Respiración diafragmática 2 min']
+},
+{
+  id:'martes', short:'MAR', label:'Cleans + Metcon', dayNum:2, name:'MARTES',
+  title:'Cleans + Cadena Posterior + Metcon',
+  availability:{ jp:'train', ceci:'rest' },
+  restNote:'Es el día más exigente a nivel técnico/neuromuscular de la semana (clean + peso muerto pesado + metcon con barra). Para Ceci, mejor sumarlo recién la semana 2 del mesociclo.',
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up Técnico', subtitle:'Bike + Barra vacía + Aproximación a A1',
+      items:[
+        'Bike 500m + Rest 15s x6 sets @ paces crecientes',
+        '2 sets barra vacía: 10 hang muscle cleans, 10 deadlifts, 10 front squats, 5 squat cleans from the hip',
+        '5-8 sets: 1 Clean + 2 hang squat cleans construyendo técnico hacia A1'
+      ],
+      tips:'Calentamiento técnico, no intenso — no hace falta escalar pesado el clean.'
+    },
+    { id:'cleans', category:'oly', icon:'🏋️‍♂️', title:'Block A: Cleans', subtitle:'A1 Construcción 15 min · A2 5 sets @ 85%',
+      items:[
+        'A1 — En 15 min, construí hacia ~80-85% de tu último máximo conocido: 1 Clean (cualquier variante) + 2 hang squat cleans. No es test de máximo diario esta semana.',
+        'A2 — 5 sets del mismo complex @ 85% de lo construido en A1. Rest 60s entre sets.'
+      ],
+      tips:'El plan original ya pedía "dejar algo en el tanque" — esta semana lo hacemos explícito: no busques un PR, construí técnico hasta el % y quedate ahí.',
+      objective:'Mantener destreza técnica olímpica y volumen de calidad, sin el estrés de un test de máximo en semana de reingreso.',
+      timer:{ segments:[{label:'Clean + Hang Squat Clean', duration:900, color:'blue'}], repeat:1 },
+      quickRest:{ label:'A2 — Descanso entre sets (60s) · tocá "Iniciar" después de cada set', seconds:60 }
+    },
+    { id:'posterior', category:'strength', icon:'🦵', title:'Block B: Posterior Chain', subtitle:'B1 Sumo Deadlift 4RM · B2 Banda TNG',
+      items:[
+        'B1 — Sumo deadlift: construí a un 4RM conservador (~75-80% de tu último 4RM conocido), not TNG',
+        'B2 — 3 sets x10 reps con banda de resistencia (TNG permitido) @75% del max de hoy. Rest 90s entre sets.'
+      ],
+      tips:'No busques fallo absoluto en B1; el techo está un poco más bajo esta semana por el parón.',
+      objective:'Volumen de hipertrofia en isquiotibiales/glúteo/erectores sin comprometer la técnica.',
+      quickRest:{ label:'Descanso B2 (90s)', seconds:90 }
+    },
+    { id:'metcon', category:'metcon', icon:'💥', title:'Metcon · RX Level', subtitle:'5 Rounds for time',
+      items:[
+        '15m barbell front rack lunge walk 40/30kg (reducido de 50/35kg)',
+        '10 bar facing burpees',
+        '5 strict HSPU (o push-up piked si hace falta escalar)'
+      ],
+      tips:'Mismo formato que el original, carga reducida ~15-20% para esta semana. Ritmo sostenible, sin buscar un tiempo de referencia nuevo.',
+      objective:'Mantener el estímulo metabólico y de core del día original con menor riesgo de fatiga.',
+      stopwatch:true
+    },
+    { id:'accessory', category:'accessory', icon:'🎯', title:'Accessory Circuit', subtitle:'2-4 rounds',
+      items:['20m farmer carry (heavy) + 10 strict toes to bar + 20 DB leg extensions — descanso lo necesario entre sets'],
+      objective:'Bloque idéntico al original.'
     }
+  ],
+  summary:'Martes mantiene la estructura completa del original — clean, cadena posterior, metcon y accesorio — bajando los techos de carga en los bloques de máximo y en el metcon, sin recortar tiempos ni rondas.',
+  cooldown:['Estiramiento de cuádriceps y flexor de cadera 2x30s por lado','Foam roll isquios/glúteo 1 min por zona','Postura de niño (child’s pose) 1 min','Respiración diafragmática 2 min']
+},
+{
+  id:'miercoles', short:'MIÉ', label:'Snatch + Front Squat', dayNum:3, name:'MIÉRCOLES',
+  title:'Snatch + Front Squats + Metcon',
+  availability:{ jp:'train', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up Oly Prep', subtitle:'Barra vacía + carga liviana',
+      items:[
+        '3 sets: Row 12/10 cals, 5 KB Windmills por brazo, 1 Turkish get up por brazo',
+        '2 sets barra vacía: 7 Muscle snatch, 7 BTN push press, 7 Overhead squats',
+        '2 sets carga liviana: 3 Power snatch, 3 Overhead squats, 3 High hang squat snatch'
+      ]
+    },
+    { id:'snatch', category:'oly', icon:'🏋️‍♂️', title:'Block A: Snatch', subtitle:'0-10 min build · 10-20 min Every 2:00 x5',
+      items:[
+        '0:00-10:00 — Construí hacia tu 75% (en vez del 80% del original) o la carga que elijas para comenzar',
+        '10:00-20:00 — Every 2:00 x5 sets: Squat snatch every 20s x3 (levantás en 0, 0:20 y 0:40)',
+        'Target load: 75% - 78% - 81% - 84% - 87%'
+      ],
+      tips:'La carga es solo una guía; el objetivo real es 15 de 15 levantamientos sin fallos, no llegar al techo de la escalera a cualquier costo.',
+      objective:'Mantener el patrón técnico y la densidad de trabajo del snatch en un rango más conservador esta semana.',
+      ceciNote:'Primera semana real de reingreso: quedate fija en 70-75% durante las 5 series, sin escalera creciente. Priorizá técnica sobre carga.',
+      timer:{ segments:[{label:'Snatch — Construcción técnica', duration:600, color:'blue'}], repeat:1 },
+      timer2:{ label:'Every 2:00 x5 — Squat Snatch x3', segments:[{label:'Squat Snatch x3', duration:120, color:'blue'}], repeat:5 }
+    },
+    { id:'metcon', category:'metcon', icon:'💥', title:'Metcon · RX Version', subtitle:'20 min AMRAP',
+      items:[
+        '9 power snatch 40/30-25kg (reducido de 50/35-30kg)',
+        '15 TTB',
+        '21 wall balls',
+        'Movimiento alt.: single arm DB snatch, 18 reps por ronda (alternadas), peso desafiante'
+      ],
+      tips:'Ritmo suave y consistente, singles relativamente rápidos en el snatch y sets repetibles en el TTB. No se esfuercen de más en las primeras rondas.',
+      objective:'Mismo test de ritmo y estado físico que el original, con carga de barra ajustada a la semana de reingreso.',
+      ceciNote:'Es tu primer AMRAP largo de la semana — evaluá acortarlo a 14-16 min si sentís que 20 es demasiado hoy.',
+      timer:{ segments:[{label:'AMRAP', duration:1200, color:'fire'}], repeat:1 }
+    },
+    { id:'frontsquat', category:'strength', icon:'🦵', title:'Block B: Front Squats', subtitle:'Every 2:00 x5 sets',
+      items:['3 Front squats @ 73-75% (vs. 80% del original) con 3s pausa en rep 1'],
+      tips:'Mantené la primera repetición en la posición inferior 3 segundos completos con buena tensión corporal, y buena velocidad en las reps 2 y 3.',
+      objective:'Consolidar la sentadilla frontal como pilar de fuerza, con techo de carga más conservador tras el parón.',
+      timer:{ segments:[{label:'Front Squat x3 (pausa 3s)', duration:120, color:'teal'}], repeat:5 }
+    },
+    { id:'knee', category:'accessory', icon:'🎯', title:'Accessory · Knee Health', subtitle:'3-4 Supersets · Rest 90s',
+      items:['Cossack squats x6/pierna + Negative box step downs x6/pierna (lento en el descenso) + Nordic curls x6 reps'],
+      objective:'Salud articular de rodilla y volumen extra de isquios/cuádriceps — bloque idéntico al original.',
+      quickRest:{ label:'Descanso (90s)', seconds:90 }
+    }
+  ],
+  summary:'Miércoles conserva la estructura completa del original — snatch, metcon de 20 minutos, front squats y accesorio de rodilla — con las cargas de snatch, metcon y front squat corridas hacia abajo para esta semana de reingreso.',
+  cooldown:['Sentadilla profunda sostenida y asistida (tobillo/cadera) 1-2 min','Foam roll cuádriceps/glúteo 1 min por zona','Movilidad de muñeca/hombro (por el front rack) 2 min','Respiración diafragmática 2 min']
+},
+{
+  id:'jueves', short:'JUE', label:'Descanso', dayNum:4, name:'JUEVES', rest:true,
+  title:'Rest Day — Recuperación',
+  availability:{ jp:'rest', ceci:'rest' },
+  blocks:[
+    { id:'mobility', category:'warmup', icon:'🧘', title:'Opcional — Home Workout Liviano', subtitle:'Anillas + 2 DB 15kg + 1 DB 25kg + colchoneta',
+      items:[
+        '10 min de movilidad general (cadera, tobillo, columna torácica, hombro)',
+        '3 rounds livianos: 10 ring rows en ángulo cómodo, 10 DB goblet squats livianos (15kg), 30s dead hang',
+        'Caminata suave 15-20 min al aire libre'
+      ],
+      tips:'Si hay cansancio residual, congestión o falta de energía atípica, priorizar sueño y descanso total por sobre esta sesión opcional.'
+    }
+  ],
+  summary:'Descanso completo para los dos, especialmente importante esta semana por el cuadro gripal reciente. No es un día para "hacer algo" — es para terminar de recuperarse.',
+  cooldown:[]
+},
+{
+  id:'viernes', short:'VIE', label:'Tirón + Push', dayNum:5, name:'VIERNES',
+  title:'Tirón + Empuje Vertical',
+  availability:{ jp:'train', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up', subtitle:'Assault bike + Thrusters + Burpees',
+      items:[
+        '2 rounds: Assault bike 60s @ easy, 20 Air squats, 10 Barbell push press pausa en overhead',
+        '2 rounds: Assault bike 45s @ moderado, 15 (empty) barbell thrusters',
+        '2 rounds: Assault bike 30s @ hard, 5 Thrusters @ carga del WOD, 5 Bar facing burpees — Rest 60s'
+      ]
+    },
+    { id:'smash', category:'metcon', icon:'💥', title:'Friday Smash', subtitle:'15 min Partner AMRAP',
+      items:[
+        '3+3, 6+6, 9+9, 12+12 Thrusters + Bar facing burpees (por atleta) — reinicia en 3+3',
+        'Load: 35/25kg (reducido de 43/30kg)'
+      ],
+      tips:'El atleta uno completa su serie y luego el atleta 2 la suya, hasta 12+12 y se reinicia (no avanzan a 15+15).',
+      objective:'Mismo estímulo de condicionamiento en pareja, con carga reducida para esta semana de reingreso.',
+      timer:{ segments:[{label:'Partner AMRAP', duration:900, color:'fire'}], repeat:1 }
+    },
+    { id:'pulling', category:'strength', icon:'💪', title:'Block A: Pulling Strength', subtitle:'3-5 sets · Rest 2:00',
+      items:[
+        'JP: 3 (Weighted) strict pull ups',
+        'Ceci: 3-5 banded strict pull-ups o ring rows con pies elevados — rango sin dolor, sin carga extra esta semana (hombro)',
+        '10 Dual DB prone rows (heavy)',
+        '3 Rope climbs (regular)'
+      ],
+      tips:'Si tenés capacidad de dominadas estrictas con peso, calentá completamente antes de empezar.',
+      objective:'Mismo estímulo de tracción que el original, adaptado para proteger el hombro de Ceci sin perder el resto del bloque.',
+      ceciNote:'Cualquier molestia aguda (distinta de fatiga muscular normal) es señal de bajar la variante o el rango ese día. La vuelta a dominadas con peso puede esperar a que el hombro esté libre de síntomas.',
+      quickRest:{ label:'Descanso entre series (2:00)', seconds:120 }
+    },
+    { id:'pushend', category:'strength', icon:'🤸', title:'Block B: Pushing Endurance', subtitle:'EMOM x10 min · 2-6 reps HSPU',
+      items:[
+        'Op.1: Chest-facing-wall todas las reps, esquema alto (6)',
+        'Op.2: Alternar chest-facing-wall (2-3) con strict regular (4-6)',
+        'Op.3: Strict regular con esquema sostenible (2-4)',
+        'Op.4: 5 min piked strict push-ups (4-6) + 5 min kipping HSPU (2-6)'
+      ],
+      tips:'Repetí lo que hicieron la última vez o aumenten levemente la dificultad — sin grandes saltos de volumen esta semana.',
+      timer:{ segments:[{label:'HSPU (2-6 reps)', duration:60, color:'teal'}], repeat:10 }
+    },
+    { id:'accessory', category:'accessory', icon:'🎯', title:'Accessory', subtitle:'D1 Superset · D2 Rounds',
+      items:[
+        'D1 — Superset 3 rounds: Dual DB Zottman curls x8, Banded pec flys x15 — Rest 60s',
+        'D2 — 4 rounds: Ring support hold x20-30s, DB External rotations x10, Banded face pull x10-15 — Rest 60-90s'
+      ],
+      ceciNote:'En las rotaciones externas de D2, mantenelas livianas y sin dolor — prestá especial atención al hombro acá.',
+      quickRest:{ label:'Descanso (60-90s)', seconds:75 }
+    }
+  ],
+  summary:'Viernes conserva toda la estructura original — WOD de pareja, tracción, HSPU EMOM y accesorio — con la única adaptación real de la semana: la variante de pull-ups con peso para Ceci por su hombro, y carga levemente reducida en el WOD de pareja.',
+  cooldown:['Estiramiento de dorsal ancho (colgado suave) 2x30s','Movilidad de hombro en banda (rotaciones externas livianas) 2x10','Foam roll bíceps/dorsal 1 min por zona','Respiración diafragmática 2 min']
+},
+{
+  id:'sabado', short:'SÁB', label:'Engine + Clean', dayNum:6, name:'SÁBADO',
+  title:'Engine + Power Clean + Intervals',
+  availability:{ jp:'train', ceci:'rest' },
+  restNote:'Es el día de mayor volumen y fatiga acumulada de toda la semana (cardio + power clean + intervalos de alto volumen). No es el momento para la tercera sesión de Ceci en la semana.',
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up', subtitle:'Row + Shuttle runs',
+      items:['Row 2 min @ easy + 10 Shuttle runs @ easy','Row 2 min @ moderado + 10 Shuttle runs @ moderado']
+    },
+    { id:'cardio', category:'cardio', icon:'⏱️', title:'Block A: Cardio Starter', subtitle:'EMOM x20 min',
+      items:[
+        'Min 1: 12/9 Cal row (o 40s moderate)',
+        'Min 2: 5 Shuttle runs (o 40s moderate)',
+        'Min 3: 14/11 Cal row (o 50s medio-alto — no duro esta semana)',
+        'Min 4: 8 Shuttle runs (o 50s medio-alto)'
+      ],
+      tips:'Dos minutos a esfuerzo más bajo (dejando ~20s de descanso) y dos a esfuerzo más duro (dejando ~10s), pero bajando el techo de "duro" a "medio-alto" esta semana por el antecedente respiratorio.',
+      objective:'Reconstruir la base aeróbica con el mismo formato del original, sin llegar a esfuerzo máximo.',
+      timer:{ segments:[
+        {label:'Row (moderado)', duration:60, color:'muted'},
+        {label:'Shuttle (moderado)', duration:60, color:'muted'},
+        {label:'Row (medio-alto)', duration:60, color:'orange'},
+        {label:'Shuttle (medio-alto)', duration:60, color:'orange'}
+      ], repeat:5 }
+    },
+    { id:'powerclean', category:'oly', icon:'🏋️‍♂️', title:'Block B: Power Clean', subtitle:'Construcción 15-20 min',
+      items:['Construí en 15-20 min hacia ~80-85% de tu último máximo conocido (en vez de un 1RM diario nuevo)'],
+      tips:'Método preferido: EMOM. Subí de a saltos chicos de peso para preparar mejor el cuerpo y acumular volumen en zona submáxima — sin intento de PR esta semana.',
+      objective:'Mantener el mismo formato y volumen del original, sin el riesgo de un test de máximo tras 10 días sin entrenar.',
+      timer:{ segments:[{label:'Power Clean — Construcción técnica', duration:1200, color:'blue'}], repeat:1 }
+    },
+    { id:'intervals', category:'metcon', icon:'💥', title:'Block C: Intervals', subtitle:'Every 10:00 x3 sets, for time',
+      items:[
+        '12 Power cleans 50/35kg (3x4 TNG, reducido de 60/40-35kg)',
+        '15/10 Bar parallette dips o parallette push ups',
+        '12 Power cleans 50/35kg (pueden ser singles)',
+        '15 Bar facing burpees'
+      ],
+      tips:'Objetivo: ~5 min de trabajo y 5 de descanso por serie. Si la primera serie supera los 5 min, ajustá la escala para las siguientes 2 (misma indicación que el original), esta semana con carga ya reducida de base.',
+      objective:'Mismo estímulo de alto volumen de empuje/tirón y fatiga de agarre que el original, con carga y reps levemente reducidas.',
+      timer:{ segments:[{label:'WOD — el resto de los 10:00 es descanso', duration:600, color:'fire'}], repeat:3 }
+    },
+    { id:'accessory', category:'accessory', icon:'🎯', title:'Accessorio', subtitle:'2-4 sets',
+      items:['Dual DB Zottman curls x8 + Seated banded low rows x20 — Rest 60s entre sets'],
+      objective:'Bloque idéntico al original.',
+      quickRest:{ label:'Descanso (60s)', seconds:60 }
+    }
+  ],
+  summary:'Sábado mantiene la estructura completa del original — cardio starter, power clean, intervalos de alto volumen y accesorio — bajando únicamente los techos de esfuerzo/carga para cerrar la semana de reingreso sin comprometer el estímulo.',
+  cooldown:['Estiramiento general de tren inferior 3x20-30s','Movilidad de tobillo y cadera 2 min','Foam roll espalda alta/dorsal 1 min','Respiración diafragmática 2 min']
+}
+];
+
+const CATEGORY_META = {
+  warmup:{ cls:'bi-warmup', labelCls:'bl-warmup', insightsCls:'insights-warmup' },
+  oly:{ cls:'bi-oly', labelCls:'bl-oly', insightsCls:'insights-oly' },
+  strength:{ cls:'bi-strength', labelCls:'bl-strength', insightsCls:'insights-strength' },
+  metcon:{ cls:'bi-metcon', labelCls:'bl-metcon', insightsCls:'insights-metcon' },
+  cardio:{ cls:'bi-cardio', labelCls:'bl-cardio', insightsCls:'insights-cardio' },
+  accessory:{ cls:'bi-accessory', labelCls:'bl-accessory', insightsCls:'insights-accessory' }
+};
+
+const TIMER_COLORS = { fire:'#FF6D00', teal:'#00BFA5', blue:'#64B5F6', muted:'#8A8A8A', orange:'#FFA726' };
+
+/* =========================================================
+   STATE
+========================================================= */
+const state = { athlete:'jp', currentDay:'lunes', completed:{}, overrideRest:{} };
+let timerCounter = 0;
+
+/* =========================================================
+   AUDIO
+========================================================= */
+function beep(freq, dur){
+  try{
+    if(!window._actx) window._actx = new (window.AudioContext||window.webkitAudioContext)();
+    const ctx = window._actx;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq || 880;
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + (dur||180)/1000);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + (dur||180)/1000 + 0.02);
+  }catch(e){}
+}
+function fmt(sec){
+  sec = Math.max(0, Math.round(sec));
+  const m = Math.floor(sec/60), s = sec % 60;
+  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+
+/* =========================================================
+   WAKE LOCK MANAGER — keeps the screen on while any timer runs.
+   Uses the Screen Wake Lock API (needs HTTPS/localhost; silently
+   no-ops on unsupported browsers or file:// previews).
+========================================================= */
+const WakeLockManager = (function(){
+  let sentinel = null;
+  let count = 0;
+  const indicators = new Set();
+  function refreshIndicators(){
+    indicators.forEach(el=>el.classList.toggle('on', !!sentinel));
   }
-
-  document.querySelectorAll('.day-complete-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const day = parseInt(btn.dataset.day, 10);
-      if (completedDays.has(day)) {
-        completedDays.delete(day);
-      } else {
-        completedDays.add(day);
-      }
-      applyCompletedState(day);
-      updateProgress();
-      saveCompleted();
-    });
+  async function acquireSentinel(){
+    if(sentinel || !('wakeLock' in navigator)) return;
+    try{
+      sentinel = await navigator.wakeLock.request('screen');
+      sentinel.addEventListener('release', ()=>{ sentinel = null; refreshIndicators(); });
+      refreshIndicators();
+    }catch(e){ sentinel = null; }
+  }
+  function register(indicatorEl){ if(indicatorEl) indicators.add(indicatorEl); refreshIndicators(); }
+  function acquire(){ count++; acquireSentinel(); }
+  function release(){
+    count = Math.max(0, count-1);
+    if(count===0 && sentinel){ sentinel.release().catch(()=>{}); sentinel = null; refreshIndicators(); }
+  }
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState==='visible' && count>0) acquireSentinel();
   });
-
-  document.querySelectorAll('.day-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const idx = tab.dataset.day;
-      document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.day-view').forEach(v => v.classList.remove('active'));
-      tab.classList.add('active');
-      const target = document.getElementById('day-' + idx);
-      if (target) target.classList.add('active');
-    });
-  });
-
-  loadCompleted();
-  [0, 1, 2, 4, 5].forEach(applyCompletedState);
-  updateProgress();
-  restoreCollapsed();
-
+  return { acquire, release, register };
 })();
+
+/* =========================================================
+   ITEM LINE PARSER → ex-row / section-label / divider
+========================================================= */
+function renderLine(text){
+  const dividerMatch = text.match(/^—\s*(.+?)\s*—$/);
+  if(dividerMatch) return `<div class="ex-divider">${dividerMatch[1]}</div>`;
+
+  const tagMatch = text.match(/^([A-Z][0-9])\s*—\s*(.+)$/);
+  if(tagMatch){
+    const isComplex = /constru/i.test(tagMatch[2]);
+    return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${tagMatch[2]}</span><span class="ex-detail"><strong>${tagMatch[1]}</strong></span></div>`;
+  }
+  const opMatch = text.match(/^(Op\.\d+):\s*(.+)$/);
+  if(opMatch){
+    return `<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">${opMatch[2]}</span><span class="ex-detail"><strong>${opMatch[1]}</strong></span></div>`;
+  }
+  const dashSplit = text.split(' — ');
+  if(dashSplit.length === 2){
+    const isComplex = /constru/i.test(text);
+    return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${dashSplit[0]}</span><span class="ex-detail">${dashSplit[1]}</span></div>`;
+  }
+  const isComplex = /constru/i.test(text);
+  return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${text}</span></div>`;
+}
+
+/* =========================================================
+   SEGMENT TIMER
+========================================================= */
+class SegmentTimer{
+  constructor(root, segments, repeat){
+    this.root = root; this.segments = segments; this.repeat = repeat;
+    this.totalUnits = segments.length * repeat;
+    this.totalDuration = segments.reduce((sum,s)=>sum+s.duration,0) * repeat;
+    this.cumulativeBase = 0;
+    this.roundInfo = this.buildRoundInfo();
+    this.unitIndex = 0; this.elapsed = 0; this.running = false; this.rafId = null; this.lastTs = null;
+    this.build();
+  }
+  /* Distinguishes real work rounds from rest segments so the round counter
+     never counts a "Descanso" as if it were an exercise round. Segments
+     without any `rest:true` flag behave exactly as before (every segment
+     counts as a round — e.g. plain EMOMs). */
+  buildRoundInfo(){
+    const hasRest = this.segments.some(s=>s.rest);
+    const workPerCycle = hasRest ? this.segments.filter(s=>!s.rest).length : this.segments.length;
+    const workTotal = workPerCycle * this.repeat;
+    const info = [];
+    let workCounter = 0;
+    for(let r=0; r<this.repeat; r++){
+      for(const seg of this.segments){
+        if(hasRest && seg.rest){
+          const upcoming = workCounter + 1;
+          info.push({ label: workTotal>1 ? (upcoming>workTotal ? 'Descanso final' : ('Próx. Ronda '+upcoming+' / '+workTotal)) : '' });
+        } else {
+          workCounter++;
+          info.push({ label: workTotal>1 ? ('Ronda '+workCounter+' / '+workTotal) : '' });
+        }
+      }
+    }
+    return info;
+  }
+  currentSeg(){ return this.segments[this.unitIndex % this.segments.length]; }
+  build(){
+    this.root.insertAdjacentHTML('beforeend', `
+      <div class="timer-phase-tag phase-work">Trabajo</div>
+      <div class="timer-seg-name"></div>
+      <div class="timer-display">00:00</div>
+      <div class="timer-round-big"></div>
+      <div class="timer-round-bar"><div class="timer-round-bar-fill phase-work"></div></div>
+      <div class="timer-controls">
+        <button class="tbtn tbtn-start btn-start">▶ Iniciar</button>
+        <button class="tbtn tbtn-pause btn-pause hide">⏸ Pausa</button>
+        <button class="tbtn tbtn-reset btn-reset">↺</button>
+      </div>
+      <div class="wake-indicator">🔒 Pantalla activa</div>
+    `);
+    this.elPhase = this.root.querySelector('.timer-phase-tag');
+    this.elName = this.root.querySelector('.timer-seg-name');
+    this.elRoundBig = this.root.querySelector('.timer-round-big');
+    this.elBarFill = this.root.querySelector('.timer-round-bar-fill');
+    this.elTime = this.root.querySelector('.timer-display');
+    this.btnStart = this.root.querySelector('.btn-start');
+    this.btnPause = this.root.querySelector('.btn-pause');
+    this.btnReset = this.root.querySelector('.btn-reset');
+    this.btnStart.addEventListener('click', ()=>this.start());
+    this.btnPause.addEventListener('click', ()=>this.pause());
+    this.btnReset.addEventListener('click', ()=>this.reset());
+    WakeLockManager.register(this.root.querySelector('.wake-indicator'));
+    this.updateDisplay();
+  }
+  updateDisplay(){
+    const seg = this.currentSeg();
+    const remaining = seg.duration - this.elapsed;
+    const done = this.unitIndex >= this.totalUnits;
+    const isRest = !done && !!seg.rest;
+    this.elPhase.textContent = done ? 'Completo' : (isRest ? 'Descanso' : 'Trabajo');
+    this.elPhase.className = 'timer-phase-tag ' + (done ? 'phase-done' : (isRest ? 'phase-rest' : 'phase-work'));
+    this.elName.textContent = done ? '' : (seg.label || '');
+    this.elName.style.visibility = (!done && seg.label) ? 'visible' : 'hidden';
+    const info = this.roundInfo[Math.min(this.unitIndex, this.roundInfo.length-1)];
+    this.elRoundBig.textContent = done ? '' : (info ? info.label : '');
+    this.elTime.textContent = fmt(remaining>0?remaining:0);
+    this.root.classList.toggle('tb-work', !done && !isRest);
+    this.root.classList.toggle('tb-rest', !done && isRest);
+    const progressed = done ? this.totalDuration : (this.cumulativeBase + this.elapsed);
+    const frac = this.totalDuration>0 ? Math.min(1, progressed/this.totalDuration) : 0;
+    this.elBarFill.style.width = (frac*100)+'%';
+    this.elBarFill.className = 'timer-round-bar-fill ' + (done ? 'phase-rest' : (isRest ? 'phase-rest' : 'phase-work'));
+  }
+  start(){
+    if(this.running) return;
+    if(this.unitIndex >= this.totalUnits) this.reset();
+    this.running = true;
+    WakeLockManager.acquire();
+    this.btnStart.classList.add('hide'); this.btnPause.classList.remove('hide');
+    this.lastTs = performance.now();
+    const loop = (ts)=>{
+      if(!this.running) return;
+      const dt = (ts - this.lastTs)/1000; this.lastTs = ts; this.elapsed += dt;
+      const seg = this.currentSeg();
+      if(this.elapsed >= seg.duration){
+        this.cumulativeBase += seg.duration;
+        this.elapsed = 0; this.unitIndex++;
+        beep(this.unitIndex>=this.totalUnits?660:880, this.unitIndex>=this.totalUnits?400:180);
+        if(this.unitIndex >= this.totalUnits){
+          this.running = false; this.updateDisplay();
+          WakeLockManager.release();
+          this.btnPause.classList.add('hide'); this.btnStart.classList.remove('hide');
+          this.btnStart.textContent = '▶ Reiniciar';
+          return;
+        }
+      }
+      this.updateDisplay();
+      this.rafId = requestAnimationFrame(loop);
+    };
+    this.rafId = requestAnimationFrame(loop);
+  }
+  pause(){
+    if(!this.running) return;
+    this.running = false;
+    WakeLockManager.release();
+    if(this.rafId) cancelAnimationFrame(this.rafId);
+    this.btnPause.classList.add('hide'); this.btnStart.classList.remove('hide');
+    this.btnStart.textContent = '▶ Reanudar';
+  }
+  reset(){
+    if(this.running){ this.running = false; WakeLockManager.release(); }
+    if(this.rafId) cancelAnimationFrame(this.rafId);
+    this.unitIndex = 0; this.elapsed = 0; this.cumulativeBase = 0;
+    this.btnPause.classList.add('hide'); this.btnStart.classList.remove('hide');
+    this.btnStart.textContent = '▶ Iniciar';
+    this.updateDisplay();
+  }
+}
+
+/* =========================================================
+   STOPWATCH
+========================================================= */
+class Stopwatch{
+  constructor(root){ this.root = root; this.elapsed = 0; this.running = false; this.build(); }
+  build(){
+    this.root.insertAdjacentHTML('beforeend', `
+      <div class="timer-phase-tag phase-work">For Time</div>
+      <div class="timer-display">00:00</div>
+      <div class="timer-controls">
+        <button class="tbtn tbtn-start btn-start">▶ Iniciar</button>
+        <button class="tbtn tbtn-pause btn-pause hide">⏸ Parar</button>
+        <button class="tbtn tbtn-reset btn-reset">↺</button>
+      </div>
+      <div class="wake-indicator">🔒 Pantalla activa</div>
+    `);
+    this.elTime = this.root.querySelector('.timer-display');
+    this.btnStart = this.root.querySelector('.btn-start');
+    this.btnPause = this.root.querySelector('.btn-pause');
+    this.btnReset = this.root.querySelector('.btn-reset');
+    this.btnStart.addEventListener('click', ()=>this.start());
+    this.btnPause.addEventListener('click', ()=>this.pause());
+    this.btnReset.addEventListener('click', ()=>this.reset());
+    WakeLockManager.register(this.root.querySelector('.wake-indicator'));
+  }
+  start(){
+    if(this.running) return;
+    this.running = true;
+    WakeLockManager.acquire();
+    this.btnStart.classList.add('hide'); this.btnPause.classList.remove('hide');
+    this.lastTs = performance.now();
+    const loop = (ts)=>{
+      if(!this.running) return;
+      this.elapsed += (ts-this.lastTs)/1000; this.lastTs = ts;
+      this.elTime.textContent = fmt(this.elapsed);
+      this.rafId = requestAnimationFrame(loop);
+    };
+    this.rafId = requestAnimationFrame(loop);
+  }
+  pause(){
+    if(!this.running) return;
+    this.running = false;
+    WakeLockManager.release();
+    if(this.rafId) cancelAnimationFrame(this.rafId);
+    this.btnPause.classList.add('hide'); this.btnStart.classList.remove('hide');
+  }
+  reset(){
+    if(this.running){ this.running = false; WakeLockManager.release(); }
+    if(this.rafId) cancelAnimationFrame(this.rafId);
+    this.elapsed = 0; this.elTime.textContent = '00:00';
+    this.btnPause.classList.add('hide'); this.btnStart.classList.remove('hide');
+  }
+}
+
+/* =========================================================
+   QUICK REST TIMER
+========================================================= */
+function buildQuickTimer(root, seconds, label){
+  root.innerHTML = `
+    <div class="quick-timer-left">⏲ <span>${label}</span></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="qt-display quick-timer-display">${fmt(seconds)}</span>
+      <button class="qt-btn quick-timer-btn">Iniciar</button>
+    </div>
+  `;
+  const display = root.querySelector('.qt-display');
+  const btn = root.querySelector('.qt-btn');
+  let remaining = seconds, rafId=null, lastTs=null, running=false;
+  btn.addEventListener('click', ()=>{
+    if(running) return;
+    if(remaining<=0) remaining = seconds;
+    running = true; btn.textContent = '...'; lastTs = performance.now();
+    WakeLockManager.acquire();
+    const loop = (ts)=>{
+      if(!running) return;
+      remaining -= (ts-lastTs)/1000; lastTs = ts;
+      if(remaining<=0){
+        remaining = 0; display.textContent = fmt(0); running = false;
+        btn.textContent = 'Reiniciar'; beep(660,400);
+        WakeLockManager.release();
+        return;
+      }
+      display.textContent = fmt(remaining);
+      rafId = requestAnimationFrame(loop);
+    };
+    rafId = requestAnimationFrame(loop);
+  });
+}
+
+/* =========================================================
+   RENDER
+========================================================= */
+const tabsWrap = document.getElementById('week-tabs');
+const main = document.getElementById('mainContent');
+
+function isRestForAthlete(day){ return day.availability[state.athlete] === 'rest'; }
+
+function renderTabs(){
+  tabsWrap.innerHTML = WEEK.map(d=>`
+    <div class="day-tab" data-day="${d.id}">
+      <span class="tab-name">${d.short}</span>
+      <span class="tab-label">${d.label}</span>
+      <div class="day-dot"></div>
+    </div>
+  `).join('');
+  tabsWrap.querySelectorAll('.day-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      state.currentDay = tab.dataset.day;
+      refreshTabs();
+      refreshDayVisibility();
+    });
+  });
+}
+
+function refreshTabs(){
+  tabsWrap.querySelectorAll('.day-tab').forEach(tab=>{
+    const day = WEEK.find(d=>d.id===tab.dataset.day);
+    tab.classList.toggle('active', tab.dataset.day === state.currentDay);
+    const restForAthlete = day.rest || (isRestForAthlete(day) && !state.overrideRest[day.id]);
+    tab.classList.toggle('rest-day', restForAthlete);
+    const total = day.blocks.length;
+    const done = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
+    tab.classList.toggle('completed-day', total>0 && done===total);
+  });
+}
+
+function renderBlockBody(block){
+  let html = block.items.map(renderLine).join('');
+
+  if(block.timer){
+    const tid = 'timer-'+(timerCounter++);
+    html += `<div class="timer-box" id="${tid}"></div>`;
+    setTimeout(()=>{ new SegmentTimer(document.getElementById(tid), block.timer.segments, block.timer.repeat); }, 0);
+  }
+  if(block.timer2){
+    const tid2 = 'timer-'+(timerCounter++);
+    html += `<div class="timer-box" id="${tid2}"><p class="timer-box-label">${block.timer2.label}</p></div>`;
+    setTimeout(()=>{ new SegmentTimer(document.getElementById(tid2), block.timer2.segments, block.timer2.repeat); }, 0);
+  }
+  if(block.stopwatch){
+    const tid = 'timer-'+(timerCounter++);
+    html += `<div class="timer-box" id="${tid}"></div>`;
+    setTimeout(()=>{ new Stopwatch(document.getElementById(tid)); }, 0);
+  }
+  if(block.quickRest){
+    const tid = 'qt-'+(timerCounter++);
+    html += `<div class="quick-timer" id="${tid}"></div>`;
+    setTimeout(()=>{ buildQuickTimer(document.getElementById(tid), block.quickRest.seconds, block.quickRest.label); }, 0);
+  }
+  if(block.tips){
+    html += `<div class="coach-note"><strong>Coach Note</strong>${block.tips}</div>`;
+  }
+  if(block.ceciNote && state.athlete==='ceci'){
+    html += `<div class="scaling-note"><strong>Ceci — Nota</strong>${block.ceciNote}</div>`;
+  }
+  if(block.objective){
+    const meta = CATEGORY_META[block.category] || CATEGORY_META.accessory;
+    html += `<div class="block-insights ${meta.insightsCls}">
+      <div class="insights-header">${block.icon} Objetivo &amp; Enfoque</div>
+      <div class="insights-body">
+        <div class="insight-item"><span class="insight-icon">🎯</span><div class="insight-content"><div class="insight-label">Objetivo</div><div class="insight-text">${block.objective}</div></div></div>
+      </div>
+    </div>`;
+  }
+  return html;
+}
+
+function renderBlock(day, block){
+  const key = day.id+'__'+block.id;
+  const done = !!state.completed[key];
+  const meta = CATEGORY_META[block.category] || CATEGORY_META.accessory;
+  const startCollapsed = block.category === 'accessory';
+  return `
+  <div class="block${startCollapsed?' collapsed':''}${done?' block-done':''}" data-block-key="${key}">
+    <div class="block-header">
+      <div class="block-icon ${meta.cls}">${block.icon||'•'}</div>
+      <div class="block-header-text">
+        <div class="block-label ${meta.labelCls}">${block.title}</div>
+        <div class="block-subtitle">${block.subtitle||''}</div>
+      </div>
+      <label class="block-check" title="Marcar como completado">
+        <input type="checkbox" class="block-check-input" ${done?'checked':''} data-key="${key}">
+      </label>
+      <span class="block-chevron">▼</span>
+    </div>
+    <div class="block-body">${renderBlockBody(block)}</div>
+  </div>`;
+}
+
+function renderDay(day){
+  const rest = isRestForAthlete(day);
+  const override = !!state.overrideRest[day.id];
+
+  let athleteChips = '';
+  if(!day.rest){
+    const jpTrain = day.availability.jp === 'train';
+    const ceciTrain = day.availability.ceci === 'train';
+    if(jpTrain && ceciTrain) athleteChips = `<span class="athlete-chip">⚡ JP &amp; Ceci</span>`;
+    else if(jpTrain) athleteChips = `<span class="athlete-chip">⚡ JP</span><span class="athlete-chip muted">😴 Ceci descansa</span>`;
+  }
+
+  let restBanner = '';
+  if(rest && !override){
+    restBanner = `<div class="rest-banner">
+      <span class="rb-icon">⚠️</span>
+      <div>
+        <p class="rest-banner-title">Descanso recomendado para Ceci</p>
+        <p class="rest-banner-text">${day.restNote||''}</p>
+        <label class="rest-banner-check">
+          <input type="checkbox" class="override-check" data-day="${day.id}" ${override?'checked':''}>
+          <span>Entrenar igual hoy</span>
+        </label>
+      </div>
+    </div>`;
+  } else if(rest && override){
+    restBanner = `<div class="rest-banner" style="background:rgba(0,191,165,.05);border-color:rgba(0,191,165,.25);">
+      <span class="rb-icon">✅</span>
+      <div>
+        <p class="rest-banner-title" style="color:var(--teal);">Entrenando igual hoy</p>
+        <p class="rest-banner-text">${day.restNote||''}</p>
+        <label class="rest-banner-check">
+          <input type="checkbox" class="override-check" data-day="${day.id}" checked>
+          <span>Volver a modo descanso</span>
+        </label>
+      </div>
+    </div>`;
+  }
+
+  const total = day.blocks.length;
+  const doneCount = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
+  const allDone = total>0 && doneCount===total;
+
+  if(day.rest){
+    return `
+    <div class="day-view ${day.id===state.currentDay?'active':''}" id="day-${day.id}">
+      <div class="day-header">
+        <div>
+          <div class="day-eyebrow">${day.name} — Día ${day.dayNum}</div>
+          <div class="day-title">${day.title}</div>
+        </div>
+      </div>
+      <div class="rest-view">
+        <div class="rest-icon">💤</div>
+        <h2>Día de Descanso Completo</h2>
+        <p>Especialmente importante esta semana por el cuadro gripal reciente — el sistema inmune y nervioso todavía se están recuperando.</p>
+        <div class="rest-checklist">
+          <div class="rest-check-item">💧 <span>Hidratación reforzada durante todo el día</span></div>
+          <div class="rest-check-item">😴 <span>Dormir 7-9h, priorizar sueño de calidad</span></div>
+          <div class="rest-check-item">🥩 <span>Buena ingesta proteica (~1.6-2g/kg)</span></div>
+        </div>
+      </div>
+      <div class="blocks-stack">
+        ${day.blocks.map(b=>renderBlock(day,b)).join('')}
+      </div>
+      ${day.summary?`<div class="info-card"><p class="info-card-title">Resumen del día</p><p>${day.summary}</p></div>`:''}
+    </div>`;
+  }
+
+  return `
+  <div class="day-view ${day.id===state.currentDay?'active':''}" id="day-${day.id}">
+    <div class="day-header">
+      <div>
+        <div class="day-eyebrow">${day.name} — Día ${day.dayNum}</div>
+        <div class="day-title">${day.title}</div>
+        <div class="day-athletes">${athleteChips}</div>
+      </div>
+      <button class="day-complete-btn ${allDone?'done':''}" data-day="${day.id}">${allDone?'✓ Día completado':'Marcar día completo'}</button>
+    </div>
+    ${restBanner}
+    <div class="blocks-stack">
+      ${day.blocks.map(b=>renderBlock(day,b)).join('')}
+    </div>
+    ${day.summary?`<div class="info-card"><p class="info-card-title">Resumen del día</p><p>${day.summary}</p></div>`:''}
+    ${day.cooldown && day.cooldown.length?`<div class="info-card"><p class="info-card-title">Cool-Down &amp; Movilidad</p><ul>${day.cooldown.map(c=>`<li><span>›</span><span>${c}</span></li>`).join('')}</ul></div>`:''}
+  </div>`;
+}
+
+function renderAll(){
+  main.innerHTML = WEEK.map(renderDay).join('');
+  wireBlockHeaders();
+  wireBlockChecks();
+  wireOverrideChecks();
+  wireDayCompleteButtons();
+  updateProgress();
+  refreshTabs();
+}
+
+function wireBlockHeaders(){
+  document.querySelectorAll('.block-header').forEach(header=>{
+    header.addEventListener('click', (e)=>{
+      if(e.target.closest('.block-check')) return;
+      header.closest('.block').classList.toggle('collapsed');
+    });
+  });
+}
+
+function wireBlockChecks(){
+  document.querySelectorAll('.block-check-input').forEach(chk=>{
+    chk.addEventListener('click', e=>e.stopPropagation());
+    chk.addEventListener('change', ()=>{
+      state.completed[chk.dataset.key] = chk.checked;
+      chk.closest('.block').classList.toggle('block-done', chk.checked);
+      updateProgress();
+      refreshTabs();
+      updateDayButton(chk.dataset.key.split('__')[0]);
+    });
+  });
+}
+
+function wireOverrideChecks(){
+  document.querySelectorAll('.override-check').forEach(chk=>{
+    chk.addEventListener('change', ()=>{
+      state.overrideRest[chk.dataset.day] = chk.checked;
+      renderAll();
+    });
+  });
+}
+
+function wireDayCompleteButtons(){
+  document.querySelectorAll('.day-complete-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const day = WEEK.find(d=>d.id===btn.dataset.day);
+      const total = day.blocks.length;
+      const doneCount = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
+      const setTo = !(total>0 && doneCount===total);
+      day.blocks.forEach(b=>{ state.completed[day.id+'__'+b.id] = setTo; });
+      renderAll();
+    });
+  });
+}
+
+function updateDayButton(dayId){
+  const day = WEEK.find(d=>d.id===dayId);
+  if(!day) return;
+  const btn = document.querySelector(`.day-complete-btn[data-day="${dayId}"]`);
+  if(!btn) return;
+  const total = day.blocks.length;
+  const doneCount = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
+  const allDone = total>0 && doneCount===total;
+  btn.classList.toggle('done', allDone);
+  btn.textContent = allDone ? '✓ Día completado' : 'Marcar día completo';
+}
+
+function refreshDayVisibility(){
+  document.querySelectorAll('.day-view').forEach(v=>{
+    v.classList.toggle('active', v.id === 'day-'+state.currentDay);
+  });
+}
+
+function updateProgress(){
+  let totalAll=0, doneAll=0;
+  WEEK.forEach(day=>{
+    if(day.rest) return;
+    const applicable = !isRestForAthlete(day) || state.overrideRest[day.id];
+    if(!applicable) return;
+    day.blocks.forEach(b=>{
+      totalAll++;
+      if(state.completed[day.id+'__'+b.id]) doneAll++;
+    });
+  });
+  const pct = totalAll? Math.round(doneAll/totalAll*100) : 0;
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-count').textContent = pct+'%';
+}
+
+/* =========================================================
+   ATHLETE SWITCH
+========================================================= */
+function refreshAthleteButtons(){
+  document.querySelectorAll('.athlete-pill').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.athlete === state.athlete);
+  });
+}
+
+const HERO_COPY = {
+  jp: {
+    title: 'Reintroducción a la <em>Construcción de Rendimiento.</em>',
+    sub: 'Misma estructura del bloque original, cargas recalibradas para retomar con criterio. JP entrena los 5 días de la semana.'
+  },
+  ceci: {
+    title: 'Reingreso <em>Post-Gripe.</em>',
+    sub: 'Misma estructura del bloque original, cargas recalibradas para el reingreso. Ceci arranca gradual — Lunes, Miércoles y Viernes.'
+  }
+};
+function updateHero(){
+  const copy = HERO_COPY[state.athlete] || HERO_COPY.jp;
+  document.getElementById('heroTitle').innerHTML = copy.title;
+  document.getElementById('heroSub').textContent = copy.sub;
+}
+
+document.querySelectorAll('.athlete-pill').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    state.athlete = btn.dataset.athlete;
+    refreshAthleteButtons();
+    updateHero();
+    renderAll();
+    refreshDayVisibility();
+  });
+});
+
+/* =========================================================
+   % 1RM CALCULATOR MODAL
+========================================================= */
+const calcModal = document.getElementById('calcModal');
+document.getElementById('calcBtn').addEventListener('click', ()=>{ calcModal.classList.add('open'); computeCalc(); });
+document.getElementById('calcClose').addEventListener('click', ()=>{ calcModal.classList.remove('open'); });
+calcModal.addEventListener('click', (e)=>{ if(e.target===calcModal) calcModal.classList.remove('open'); });
+document.getElementById('calcInput').addEventListener('input', computeCalc);
+document.getElementById('calcRound').addEventListener('change', computeCalc);
+
+function computeCalc(){
+  const oneRM = parseFloat(document.getElementById('calcInput').value);
+  const round = parseFloat(document.getElementById('calcRound').value);
+  const table = document.getElementById('calcTable');
+  const pcts = [50,55,60,65,70,73,75,78,80,83,85,87,90,92,95,100];
+  if(!oneRM || oneRM<=0){
+    table.innerHTML = '<p class="calc-empty">Ingresá tu 1RM para ver la tabla.</p>';
+    return;
+  }
+  table.innerHTML = pcts.map(p=>{
+    const raw = oneRM * p/100;
+    const rounded = Math.round(raw/round)*round;
+    return `<div class="calc-cell"><div class="calc-pct">${p}%</div><div class="calc-val">${rounded}</div></div>`;
+  }).join('');
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+renderTabs();
+refreshAthleteButtons();
+updateHero();
+renderAll();
 </script>
 </body>
 </html>
