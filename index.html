@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-<meta name="theme-color" content="#080809" />
+<meta name="theme-color" content="#0E0E0F" />
 <meta name="description" content="Coach JP — Mesociclo Fuerza / Hipertrofia, Semana 1" />
-<title>Coach JP — High-Contrast Heavy Duty Performance</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23080809'/%3E%3Cpath d='M13 4L6.5 13.5 12 13l-1 6.5 6.5-9.5-5.5.5z' fill='%23FFD600' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<title>Coach JP — Mesociclo Fuerza / Hipertrofia</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230A0A0B'/%3E%3Cpath d='M13 4L6.5 13.5 12 13l-1 6.5 6.5-9.5-5.5.5z' fill='%23FFD600' stroke='%23000' stroke-width='0.8' stroke-linejoin='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --fire: #FF3D00;
@@ -21,34 +21,26 @@
     --blue: #2979FF;
     --blue-light: #64B5F6;
     --orange: #FFA726;
-    
-    /* Dark Rubber Base Colors */
-    --bg: #09090B;
-    --bg-card: rgba(18, 18, 22, 0.88);
-    --bg-card-hover: rgba(26, 26, 32, 0.95);
-    --bg-surface: #111115;
-    --bg-elevated: #18181E;
-    
-    /* High Contrast Text Standard */
-    --text-primary: #FFFFFF;
-    --text-secondary: #E2E8F0;
-    --text-muted: #94A3B8;
-    
-    --border: rgba(255,255,255,0.12);
-    --border-subtle: rgba(255,255,255,0.06);
+    --bg: #0E0E0F;
+    --bg-card: #161617;
+    --bg-card-hover: #1C1C1E;
+    --bg-surface: #111112;
+    --bg-elevated: #1A1A1B;
+    --text-primary: #F2F2F2;
+    --text-secondary: #8A8A8A;
+    --text-muted: #484848;
+    --border: rgba(255,255,255,0.07);
+    --border-subtle: rgba(255,255,255,0.04);
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 18px;
     --radius-xl: 24px;
-    
-    --shadow-sm: 0 4px 12px rgba(0,0,0,0.5);
-    --shadow-md: 0 10px 28px -6px rgba(0,0,0,0.7);
-    --shadow-lg: 0 24px 64px -12px rgba(0,0,0,0.85);
+    --shadow-sm: 0 2px 10px -2px rgba(0,0,0,0.35);
+    --shadow-md: 0 10px 28px -8px rgba(0,0,0,0.5);
+    --shadow-lg: 0 24px 64px -16px rgba(0,0,0,0.65);
   }
-  
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scrollbar-color: var(--fire) var(--bg); scrollbar-width: thin; }
-  
+  html { scroll-behavior: smooth; scrollbar-color: var(--border) transparent; scrollbar-width: thin; }
   body {
     background: var(--bg);
     color: var(--text-primary);
@@ -56,453 +48,622 @@
     min-height: 100vh;
     font-size: 15px;
     line-height: 1.6;
-    padding-bottom: 4rem;
+    padding-bottom: 3rem;
     position: relative;
     overflow-x: hidden;
   }
-  
-  ::selection { background: var(--fire); color: #fff; }
+  ::selection { background: rgba(255,61,0,0.35); color: #fff; }
   ::-webkit-scrollbar { height: 6px; width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: #27272A; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--fire); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
 
-  /* ── FRAME DE FONDO: PISO DE CAUCHO REALISTA & EQUIPMENT PARALLAX (SIN ROMBOS) ── */
-  .rubber-floor-bg {
-    position: fixed; top: -10%; left: -6%; width: 112%; height: 120%;
+  /* ── AMBIENT BACKGROUND ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+
+  /* ── FONDO CINEMÁTICO "COACH JP BOX" — inspirado en el mural real del box ── */
+  .steel-vault-bg {
+    position: fixed; top: -9%; left: -6%; width: 112%; height: 118%;
     z-index: -6; overflow: hidden; pointer-events: none;
   }
-  
   .parallax-layer { position: absolute; inset: -8%; width: 116%; height: 116%; will-change: transform; }
-  
-  /* Capa 1: Piso de Caucho Granulado Vulcanizado */
-  .layer-rubber-base {
-    background-color: #0B0B0D;
-    background-image: 
-      radial-gradient(circle at 50% 0%, rgba(255,61,0,0.12), transparent 70%),
-      radial-gradient(circle at 85% 50%, rgba(0,191,165,0.08), transparent 60%),
-      radial-gradient(circle at 15% 90%, rgba(124,77,255,0.08), transparent 60%);
+  .layer-steel-wash {
+    background: linear-gradient(165deg, #1B1C1E 0%, #101011 42%, #08090A 100%);
   }
-  .layer-rubber-texture {
-    display: flex; align-items: center; justify-content: center; opacity: 0.65;
-    mix-blend-mode: overlay;
+  /* Foto del box: mural "COACH JP · HEAVY DUTY TRAINING", ladrillo, vigas de acero, argollas, rack con discos */
+  .layer-photo {
+    background-image:
+      linear-gradient(180deg, rgba(8,9,10,0.55) 0%, rgba(8,9,10,0.72) 55%, rgba(8,9,10,0.92) 100%),
+      linear-gradient(90deg, rgba(8,9,10,0.55) 0%, rgba(8,9,10,0.08) 22%, rgba(8,9,10,0.08) 78%, rgba(8,9,10,0.55) 100%),
+      url('coach-jp-bg.jpg');
+    background-size: cover, cover, cover;
+    background-position: center 30%, center 30%, center 30%;
+    background-repeat: no-repeat;
+    filter: saturate(0.82) contrast(1.05);
   }
-  
-  /* Capa 2: Equipamiento CrossFit Realista (Parallax Intermedio) */
-  .layer-equipment-mid {
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0.22; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9));
+  .layer-vignette {
+    background: radial-gradient(ellipse 90% 70% at 50% 32%, transparent 45%, rgba(8,9,10,0.55) 88%, rgba(8,9,10,0.85) 100%);
   }
-  
-  /* Capa 3: Equipamiento CrossFit Realista (Parallax Cercano) */
-  .layer-equipment-front {
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0.15; filter: drop-shadow(0 25px 35px rgba(0,0,0,0.95));
+  .layer-glowspots {
+    background:
+      radial-gradient(circle 340px at 18% 22%, rgba(255,61,0,0.10), transparent 70%),
+      radial-gradient(circle 380px at 84% 30%, rgba(0,191,165,0.08), transparent 70%),
+      radial-gradient(circle 300px at 50% 14%, rgba(255,214,0,0.06), transparent 70%);
+    filter: blur(6px);
   }
-
-  .layer-rubber-texture svg, .layer-equipment-mid svg, .layer-equipment-front svg {
-    width: 100%; height: 100%; display: block;
+  .layer-lights {
+    background:
+      radial-gradient(ellipse 280px 620px at 16% -12%, rgba(255,255,255,0.045), transparent 62%),
+      radial-gradient(ellipse 240px 560px at 50% -10%, rgba(255,246,220,0.04), transparent 60%),
+      radial-gradient(ellipse 280px 620px at 84% -12%, rgba(255,255,255,0.045), transparent 62%);
+    filter: blur(3px);
+    animation: lightFlare 7s ease-in-out infinite;
   }
-
+  @keyframes lightFlare { 0%, 100% { opacity: 0.82; } 50% { opacity: 1; } }
+  .layer-chalk { overflow: visible; }
+  .chalk-speck {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0) 72%);
+    filter: blur(0.4px);
+    animation: chalkDrift linear infinite;
+  }
+  @keyframes chalkDrift {
+    0% { transform: translate(0,0); opacity: 0; }
+    8% { opacity: var(--speck-op, 0.5); }
+    92% { opacity: var(--speck-op, 0.5); }
+    100% { transform: translate(var(--drift-x, 20px), var(--drift-y, -160px)); opacity: 0; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .parallax-layer { transform: none !important; }
+    .layer-lights, .chalk-speck { animation: none !important; }
   }
 
-  /* ── MASTHEAD & BRANDING ── */
+  /* ── MASTHEAD (grande, a todo el ancho, no sticky) ── */
   .masthead {
     position: relative; z-index: 5; width: 100%;
-    padding: 16px 1.25rem clamp(24px, 5vw, 36px);
+    padding: 14px 1.25rem clamp(22px, 4vw, 34px);
     display: flex; flex-direction: column; align-items: center;
-    background: linear-gradient(180deg, rgba(9,9,11,0.95) 0%, rgba(9,9,11,0.4) 80%, transparent 100%);
-    border-bottom: 1px solid var(--border-subtle);
+    background: linear-gradient(180deg, rgba(255,61,0,0.07), transparent 75%);
+    border-bottom: 1px solid var(--border);
   }
-  .masthead-utility { width: 100%; max-width: 1140px; display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-bottom: clamp(12px, 3vw, 24px); }
+  .masthead-utility { width: 100%; max-width: 1140px; display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-bottom: clamp(10px, 3vw, 22px); }
   .masthead-brand { display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; }
-  
-  /* Logo del Rayo Oficial: Fondo Negro, Rayo Amarillo (#FFD600) con Borde Negro Solido (#000000) */
   .masthead-logo {
-    width: clamp(68px, 9.5vw, 104px); height: clamp(68px, 9.5vw, 104px); flex-shrink: 0;
+    width: clamp(64px, 9vw, 100px); height: clamp(64px, 9vw, 100px); flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(155deg, #222226 0%, #101012 50%, #000000 100%);
+    background: linear-gradient(155deg, #2E2E30 0%, #141415 45%, #000 100%);
     clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
     box-shadow:
-      0 0 0 3px #000000,
-      0 0 0 5px rgba(255,214,0,0.3),
-      0 14px 36px -6px rgba(255,61,0,0.4),
-      inset 0 2px 4px rgba(255,255,255,0.25);
+      0 0 0 2.5px #000,
+      0 0 0 4.5px rgba(255,214,0,0.18),
+      0 14px 32px -8px rgba(255,214,0,0.35),
+      inset 0 3px 4px rgba(255,255,255,0.18),
+      inset 0 -6px 12px rgba(0,0,0,0.65);
     transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
   }
-  .masthead-brand:hover .masthead-logo { transform: rotate(-4deg) scale(1.06); box-shadow: 0 0 0 3px #000, 0 0 0 5px var(--fire), 0 16px 40px rgba(255,61,0,0.6); }
+  .masthead-brand:hover .masthead-logo { transform: rotate(-5deg) scale(1.05); }
   .masthead-logo svg {
-    width: 52%; height: 52%; transform: rotate(-4deg);
-    filter: drop-shadow(0 0 4px rgba(0,0,0,0.9));
+    width: 50%; height: 50%; transform: rotate(-4deg);
+    filter: drop-shadow(0 0 6px rgba(255,214,0,0.55));
+    animation: boltFlicker 4.6s infinite;
   }
-  /* Trazo del rayo garantizado */
-  .masthead-logo svg path, .sticky-logo svg path { 
-    fill: #FFD600 !important; 
-    stroke: #000000 !important; 
-    stroke-width: 1.4px !important; 
-    stroke-linejoin: round !important; 
+  .masthead-logo svg path { fill: var(--gold); stroke: #000; stroke-width: 1.1; stroke-linejoin: round; }
+  @keyframes boltFlicker {
+    0%, 3%, 6%, 100% { opacity: 1; }
+    4% { opacity: 0.3; }
+    5% { opacity: 0.85; }
+    38% { opacity: 1; }
+    39% { opacity: 0.4; }
+    40% { opacity: 1; }
+    41% { opacity: 0.65; }
+    42% { opacity: 1; }
+    78% { opacity: 1; }
+    79% { opacity: 0.35; }
+    81% { opacity: 1; }
   }
-
   .masthead-wordmark {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2rem, 4.8vw, 2.9rem);
-    letter-spacing: 0.03em; color: var(--text-primary); white-space: nowrap; text-align: center;
-    text-shadow: 0 3px 6px rgba(0,0,0,0.8);
-    display: inline-block; position: relative; padding-bottom: 6px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.9rem, 4.4vw, 2.7rem);
+    letter-spacing: 0.02em; color: var(--text-primary); white-space: nowrap; text-align: center;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.55);
+    display: inline-block; position: relative; padding-bottom: 5px;
   }
   .masthead-wordmark::after {
-    content: ''; position: absolute; left: 10%; right: 10%; bottom: -1px; height: 3px;
-    background: linear-gradient(90deg, transparent, var(--fire) 30%, var(--gold) 70%, transparent);
+    content: ''; position: absolute; left: 8%; right: 8%; bottom: -1px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--fire) 30%, var(--fire) 70%, transparent);
     border-radius: 2px;
   }
+  .masthead-wordmark span { color: var(--fire); text-shadow: 0 2px 0 rgba(0,0,0,0.55), 0 0 22px rgba(255,61,0,0.45); }
 
-  /* ── "JP" — ELECTRICIDAD ESTÁTICA Y ENERGÍA DE ALTA TENSIÓN ── */
-  .electric-jp {
-    position: relative;
-    display: inline-block;
-    color: #FF3D00 !important;
-    text-shadow: 0 0 8px rgba(255,61,0,0.8), 0 0 18px rgba(255,214,0,0.6), 0 0 28px rgba(0,191,165,0.4) !important;
-    animation: electricFlicker 2.8s infinite;
-    transform: translateZ(0);
-    will-change: opacity, transform, filter;
-  }
-  .electric-jp::before,
-  .electric-jp::after {
-    content: ''; position: absolute;
-    width: 8px; height: 8px;
-    clip-path: polygon(50% 0%, 78% 38%, 100% 42%, 58% 56%, 72% 100%, 42% 62%, 0% 56%, 44% 44%);
-    filter: drop-shadow(0 0 6px rgba(0,191,165,0.9)) drop-shadow(0 0 10px rgba(255,214,0,0.8));
-    opacity: 0; pointer-events: none;
-    animation: electricSpark 2.8s infinite;
-  }
-  .electric-jp::before { top: -6px; right: -8px; background: linear-gradient(135deg, var(--gold), var(--fire)); animation-delay: 0.1s; }
-  .electric-jp::after { bottom: -4px; left: -9px; width: 7px; height: 7px; background: linear-gradient(135deg, var(--teal), var(--gold)); animation-delay: 1.4s; }
-
-  @keyframes electricFlicker {
-    0%, 39%, 100% { opacity: 1; transform: translateY(0) scale(1); filter: drop-shadow(0 0 4px rgba(255,61,0,0.6)); }
-    40% { opacity: 0.35; transform: translateY(-1px) scale(0.98); filter: drop-shadow(0 0 10px rgba(0,191,165,0.9)); }
-    41% { opacity: 1; transform: translateY(1px) scale(1.02); filter: drop-shadow(0 0 14px rgba(255,214,0,0.95)); }
-    42% { opacity: 0.5; transform: translateY(0) scale(1); }
-    43%, 65% { opacity: 1; }
-    66% { opacity: 0.3; filter: drop-shadow(0 0 8px rgba(255,61,0,0.8)); }
-    67% { opacity: 1; transform: scale(1.01); filter: drop-shadow(0 0 12px rgba(0,191,165,0.85)); }
-    68% { opacity: 0.6; transform: scale(1); }
-    69%, 90% { opacity: 1; }
-    91% { opacity: 0.45; filter: drop-shadow(0 0 10px rgba(255,214,0,0.85)); }
-    92% { opacity: 1; }
-  }
-  @keyframes electricSpark {
-    0%, 36%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
-    38% { opacity: 1; transform: scale(1.2) rotate(12deg); }
-    40% { opacity: 0; transform: scale(0.4) rotate(-10deg); }
-    42% { opacity: 0.95; transform: scale(1.05) rotate(8deg); }
-    45%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
-  }
-
-  /* ── STICKY BAR ── */
+  /* ── STICKY BAR (solo logo + wordmark, aparece al scrollear) ── */
   .sticky-bar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    background: rgba(9,9,11,0.96);
+    background: rgba(14,14,15,0.97);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.85);
-    padding: 8px 1.25rem;
+    box-shadow: 0 12px 32px -18px rgba(0,0,0,0.8);
+    padding: 7px 1.25rem;
     display: flex; align-items: center; justify-content: center;
     transform: translateY(-100%); opacity: 0; pointer-events: none;
     transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
   }
   .sticky-bar.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
-  .sticky-brand { display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; flex: 1; max-width: 1140px; margin: 0 auto; }
-  .sticky-logo {
-    width: 42px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-    background: #111115; clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
-    box-shadow: 0 0 0 2px #000, 0 0 12px rgba(255,214,0,0.3);
+  @media (prefers-reduced-motion: reduce) { .sticky-bar { transition: opacity 0.2s ease; } }
+  .sticky-brand {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    text-decoration: none; flex: 1; min-width: 0; max-width: 1140px; margin: 0 auto;
   }
-  .sticky-logo svg { width: 24px; height: 24px; }
-  .sticky-wordmark { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.5rem; letter-spacing: 0.02em; color: var(--text-primary); text-transform: uppercase; }
+  .sticky-logo {
+    width: 44px; height: 44px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(155deg, #2E2E30 0%, #141415 45%, #000 100%);
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    box-shadow:
+      0 0 0 2px #000,
+      0 0 0 3.5px rgba(255,214,0,0.18),
+      0 10px 22px -6px rgba(255,214,0,0.32),
+      inset 0 2px 3px rgba(255,255,255,0.16),
+      inset 0 -5px 9px rgba(0,0,0,0.6);
+  }
+  .sticky-logo svg { width: 26px; height: 26px; transform: rotate(-4deg); filter: drop-shadow(0 0 4px rgba(255,214,0,0.5)); animation: boltFlicker 4.6s infinite; }
+  .sticky-logo svg path { fill: var(--gold); stroke: #000; stroke-width: 1.2; stroke-linejoin: round; }
+  .sticky-wordmark {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.5rem;
+    letter-spacing: 0.02em; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.55);
+  }
+  .sticky-wordmark span { color: var(--fire); text-shadow: 0 2px 0 rgba(0,0,0,0.55), 0 0 18px rgba(255,61,0,0.4); }
 
-  /* NAV PILLS */
+  /* ── "JP" — ELECTRICIDAD ESTÁTICA Y ENERGÍA VOLCÁNICA ── */
+  .electric-jp {
+    position: relative;
+    display: inline-block;
+    color: var(--fire) !important;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.55), 0 0 10px rgba(255,61,0,0.55), 0 0 22px rgba(255,214,0,0.3) !important;
+    animation: electricFlicker 3.4s infinite;
+    transform: translateZ(0);
+    will-change: opacity, transform;
+  }
+  .electric-jp::before,
+  .electric-jp::after {
+    content: '';
+    position: absolute;
+    width: 7px; height: 7px;
+    clip-path: polygon(50% 0%, 78% 38%, 100% 42%, 58% 56%, 72% 100%, 42% 62%, 0% 56%, 44% 44%);
+    filter: drop-shadow(0 0 5px rgba(0,191,165,0.85)) drop-shadow(0 0 8px rgba(255,214,0,0.7));
+    opacity: 0;
+    pointer-events: none;
+    animation: electricSpark 3.4s infinite;
+  }
+  .electric-jp::before {
+    top: -5px; right: -7px;
+    background: linear-gradient(135deg, var(--gold), var(--fire));
+    animation-delay: 0.15s;
+  }
+  .electric-jp::after {
+    bottom: -3px; left: -8px;
+    width: 6px; height: 6px;
+    background: linear-gradient(135deg, var(--teal), var(--gold));
+    filter: drop-shadow(0 0 5px rgba(255,61,0,0.8)) drop-shadow(0 0 8px rgba(0,191,165,0.65));
+    animation-delay: 1.7s;
+  }
+  @keyframes electricFlicker {
+    0%, 41%, 100% { opacity: 1; transform: translateY(0) scale(1); filter: drop-shadow(0 0 3px rgba(255,61,0,0.5)); }
+    42% { opacity: 0.45; transform: translateY(-0.5px) scale(0.99); filter: drop-shadow(0 0 8px rgba(0,191,165,0.7)); }
+    43% { opacity: 1; transform: translateY(0.5px) scale(1.01); filter: drop-shadow(0 0 10px rgba(255,214,0,0.75)); }
+    44% { opacity: 0.6; transform: translateY(0) scale(1); }
+    45%, 66% { opacity: 1; }
+    67% { opacity: 0.4; filter: drop-shadow(0 0 6px rgba(255,61,0,0.6)); }
+    68% { opacity: 1; transform: scale(1.008); filter: drop-shadow(0 0 9px rgba(0,191,165,0.6)); }
+    69% { opacity: 0.7; transform: scale(1); }
+    70%, 91% { opacity: 1; }
+    92% { opacity: 0.55; filter: drop-shadow(0 0 7px rgba(255,214,0,0.7)); }
+    93% { opacity: 1; }
+  }
+  @keyframes electricSpark {
+    0%, 38%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+    40% { opacity: 1; transform: scale(1.15) rotate(10deg); }
+    42% { opacity: 0; transform: scale(0.5) rotate(-8deg); }
+    44% { opacity: 0.9; transform: scale(1) rotate(6deg); }
+    47%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  }
+  .masthead-brand:hover .electric-jp,
+  .masthead-brand:focus-visible .electric-jp,
+  .sticky-brand:hover .electric-jp,
+  .sticky-brand:focus-visible .electric-jp {
+    animation-duration: 0.5s;
+  }
+  .masthead-brand:hover .electric-jp::before,
+  .masthead-brand:hover .electric-jp::after,
+  .masthead-brand:focus-visible .electric-jp::before,
+  .masthead-brand:focus-visible .electric-jp::after,
+  .sticky-brand:hover .electric-jp::before,
+  .sticky-brand:hover .electric-jp::after,
+  .sticky-brand:focus-visible .electric-jp::before,
+  .sticky-brand:focus-visible .electric-jp::after {
+    animation-duration: 0.35s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .electric-jp,
+    .electric-jp::before,
+    .electric-jp::after {
+      animation-duration: 7s !important;
+    }
+    .masthead-brand:hover .electric-jp,
+    .masthead-brand:focus-visible .electric-jp,
+    .sticky-brand:hover .electric-jp,
+    .sticky-brand:focus-visible .electric-jp,
+    .masthead-brand:hover .electric-jp::before,
+    .masthead-brand:hover .electric-jp::after,
+    .masthead-brand:focus-visible .electric-jp::before,
+    .masthead-brand:focus-visible .electric-jp::after,
+    .sticky-brand:hover .electric-jp::before,
+    .sticky-brand:hover .electric-jp::after,
+    .sticky-brand:focus-visible .electric-jp::before,
+    .sticky-brand:focus-visible .electric-jp::after {
+      animation-duration: 2.4s !important;
+    }
+  }
+
   .nav-right { display: flex; align-items: center; gap: 8px; }
   .nav-pill {
-    font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 6px 14px; border-radius: 20px; transition: all 0.2s ease; border: 1px solid var(--border);
-    background: var(--bg-surface); cursor: pointer; color: var(--text-secondary);
+    position: relative; font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+    transition: all 0.2s ease; border: 1px solid transparent; background: none;
+    font-family: 'Inter', sans-serif; cursor: pointer;
   }
-  .athlete-pill:hover:not(.active) { color: #FFF; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
-  .athlete-pill.active { background: rgba(255,214,0,0.15); border-color: var(--gold); color: var(--gold); box-shadow: 0 0 12px rgba(255,214,0,0.25); }
-  .calc-pill { background: rgba(255,61,0,0.12); border-color: rgba(255,61,0,0.35); color: var(--fire-glow); }
-  .calc-pill:hover { border-color: var(--fire); box-shadow: 0 0 16px rgba(255,61,0,0.3); transform: translateY(-1px); }
-  .athlete-switch { display: flex; gap: 4px; background: #000; border-radius: 20px; padding: 3px; border: 1px solid var(--border-subtle); }
-  .hc-toggle { background: rgba(255,255,255,0.06); border-color: var(--border); color: #FFF; }
-  .hc-toggle[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #000; font-weight: 800; box-shadow: 0 0 14px rgba(0,191,165,0.4); }
+  .athlete-pill { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-secondary); }
+  .athlete-pill:hover:not(.active) { color: var(--text-primary); border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.07); }
+  .athlete-pill.active { background: rgba(255,214,0,0.1); border-color: rgba(255,214,0,0.3); color: var(--gold); }
+  .calc-pill { background: rgba(255,61,0,0.1); border: 1px solid rgba(255,61,0,0.25); color: var(--fire-glow); }
+  .calc-pill:hover { border-color: rgba(255,61,0,0.5); box-shadow: 0 0 14px rgba(255,61,0,0.18); transform: translateY(-1px); }
+  .athlete-switch { display: flex; gap: 4px; background: var(--bg-elevated); border-radius: 20px; padding: 3px; }
+  .hc-toggle { background: rgba(255,255,255,0.045); border: 1px solid var(--border); color: var(--text-secondary); }
+  .hc-toggle:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.22); }
+  .hc-toggle[aria-pressed="true"] { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.4); color: #fff; box-shadow: 0 0 12px rgba(255,255,255,0.15); }
+
+  /* ── MODO DE ALTA LEGIBILIDAD (interior/exterior de box) ── */
+  body.hc-mode {
+    --text-secondary: #D6D6D6;
+    --text-muted: #9A9A9A;
+    --border: rgba(255,255,255,0.22);
+    --border-subtle: rgba(255,255,255,0.14);
+    --bg-card: #1B1B1D;
+    --bg-elevated: #212123;
+  }
+  body.hc-mode .steel-vault-bg { opacity: 0.32; }
+  body.hc-mode .hero h1, body.hc-mode .day-title, body.hc-mode .block-label { text-shadow: 0 1px 0 rgba(0,0,0,0.9); }
+  body.hc-mode .timer-display, body.hc-mode .timer-round-big { text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
+  body.hc-mode .ex-name, body.hc-mode .ex-detail, body.hc-mode .block-subtitle, body.hc-mode .hero-sub { color: var(--text-primary); }
+  body.hc-mode .block { border-width: 1.5px; }
+  body.hc-mode .timer-box { border-width: 3px; }
+  :focus-visible { outline: 2px solid var(--fire-glow); outline-offset: 2px; border-radius: 4px; }
 
   /* ── HERO ── */
-  .hero { position: relative; padding: 1.75rem 1.25rem 1.5rem; max-width: 1140px; margin: 0 auto; }
-  .brand-tagline { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 0.6rem; max-width: 580px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .hero-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fire); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px; }
-  .hero-eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--fire); display: inline-block; }
-  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.2rem, 5.8vw, 3.4rem); line-height: 1; letter-spacing: 0.01em; margin-bottom: 0.6rem; text-transform: uppercase; }
-  .hero h1 em { font-style: normal; color: var(--fire); text-shadow: 0 0 20px rgba(255,61,0,0.4); }
-  .hero-sub { color: var(--text-secondary); font-size: 0.95rem; max-width: 560px; font-weight: 500; }
-
-  /* ── KAIZEN-ESTOICA MOTIVATIONAL BANNER ── */
-  .stoic-card {
-    background: linear-gradient(135deg, rgba(255,61,0,0.08) 0%, rgba(18,18,22,0.92) 100%);
-    border: 1px solid rgba(255,61,0,0.3);
-    border-left: 4px solid var(--fire);
-    border-radius: var(--radius-md);
-    padding: 1.1rem 1.3rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.6);
-    position: relative; overflow: hidden;
+  .hero { position: relative; padding: 1.75rem 1.25rem 1.5rem; max-width: 1140px; margin: 0 auto; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; right: -60px; top: -70px; width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(255,61,0,0.16), transparent 70%);
+    filter: blur(4px); pointer-events: none; z-index: 0;
   }
-  .stoic-card::after {
-    content: '⛩️'; position: absolute; right: 12px; bottom: -8px; font-size: 64px; opacity: 0.05; pointer-events: none;
+  .hero::after {
+    content: '⚡'; position: absolute; right: -6px; top: -34px; font-size: 190px; line-height: 1;
+    opacity: 0.035; pointer-events: none; z-index: 0; transform: rotate(8deg);
   }
-  .stoic-header {
-    display: flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fire-glow); margin-bottom: 6px;
-  }
-  .stoic-quote {
-    font-size: 0.98rem; font-weight: 600; color: #FFFFFF; line-height: 1.5; font-style: italic;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-  }
+  .hero > * { position: relative; z-index: 1; }
+  .brand-tagline { font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.6rem; max-width: 520px; line-height: 1.5; }
+  .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fire); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
+  .hero-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--fire); display: inline-block; }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.9rem, 5.5vw, 3rem); line-height: 1.05; letter-spacing: 0.01em; margin-bottom: 0.5rem; }
+  .hero h1 em { font-style: normal; color: var(--fire); }
+  .hero-sub { color: var(--text-secondary); font-size: 0.9rem; max-width: 520px; }
 
   /* ── WEEK TABS ── */
-  .week-tabs-wrap { background: rgba(9,9,11,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; overflow-x: auto; }
+  .week-tabs-wrap { background: rgba(14,14,15,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 58px; z-index: 100; overflow-x: auto; }
   .week-tabs-wrap::-webkit-scrollbar { display: none; }
   .week-tabs { max-width: 1140px; margin: 0 auto; display: flex; padding: 0 1.25rem; min-width: max-content; }
-  .day-tab { display: flex; flex-direction: column; align-items: center; padding: 0.85rem 1.2rem; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s ease; gap: 3px; min-width: 86px; user-select: none; }
-  .day-tab:hover { background: rgba(255,255,255,0.04); }
-  .day-tab.active { border-bottom-color: var(--fire); background: rgba(255,61,0,0.08); }
+  .day-tab { display: flex; flex-direction: column; align-items: center; padding: 0.7rem 1.1rem; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s ease; gap: 2px; min-width: 80px; user-select: none; }
+  .day-tab:hover { background: rgba(255,255,255,0.03); }
+  .day-tab.active { border-bottom-color: var(--fire); }
   .day-tab.rest-day { opacity: 0.45; }
-  .day-tab.completed-day .day-dot { background: var(--teal) !important; box-shadow: 0 0 8px var(--teal); }
-  .tab-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); }
-  .day-tab.active .tab-name { color: #FFF; }
-  .tab-label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
-  .day-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); margin-top: 3px; }
-  .day-tab.active .day-dot { background: var(--fire); box-shadow: 0 0 8px var(--fire); }
+  .day-tab.rest-day:hover { background: rgba(255,255,255,0.015); opacity: 0.55; }
+  .day-tab.completed-day .day-dot { background: var(--teal) !important; box-shadow: 0 0 6px rgba(0,191,165,0.5); }
+  .tab-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.2s; }
+  .day-tab.active .tab-name { color: var(--fire-glow); }
+  .tab-label { font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; white-space: nowrap; }
+  .day-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-muted); margin-top: 3px; transition: background 0.2s ease, box-shadow 0.2s ease; }
+  .day-tab.active .day-dot { background: var(--fire); box-shadow: 0 0 6px rgba(255,61,0,0.5); }
 
   /* ── PROGRESS BAR ── */
-  .progress-bar-wrap { max-width: 1140px; margin: 0 auto; padding: 1.2rem 1.25rem 0; }
-  .progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 1.2rem; }
-  .progress-track { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-subtle); }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--fire), var(--gold)); border-radius: 3px; box-shadow: 0 0 12px rgba(255,61,0,0.6); transition: width 0.45s cubic-bezier(0.4,0,0.2,1); }
-  .progress-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
-  .progress-count { font-size: 13px; color: var(--text-primary); font-weight: 800; font-family: 'Barlow Condensed', sans-serif; }
+  .progress-bar-wrap { max-width: 1140px; margin: 0 auto; padding: 0.8rem 1.25rem 0; }
+  .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .progress-track { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--fire), var(--fire-glow)); border-radius: 2px; box-shadow: 0 0 10px rgba(255,109,0,0.5); transition: width 0.45s cubic-bezier(0.4,0,0.2,1); }
+  .progress-label { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+  .progress-count { font-size: 12px; color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
 
   /* ── MAIN LAYOUT ── */
   .main { max-width: 1140px; margin: 0 auto; padding: 0 1.25rem 4rem; }
   .day-view { display: none; }
-  .day-view.active { display: block; animation: dayFadeIn 0.35s cubic-bezier(0.16,1,0.3,1); }
-  @keyframes dayFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-  
-  .day-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; padding-top: 1.25rem; flex-wrap: wrap; }
-  .day-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.2rem; }
-  .day-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 4.5vw, 2.5rem); letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; }
-  .day-athletes { display: flex; gap: 8px; margin-top: 0.6rem; flex-wrap: wrap; }
-  .athlete-chip { background: rgba(255,214,0,0.12); border: 1px solid rgba(255,214,0,0.3); color: var(--gold); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase; }
-  .athlete-chip.muted { background: rgba(255,255,255,0.04); border-color: var(--border); color: var(--text-muted); }
+  .day-view.active { display: block; animation: dayFadeIn 0.4s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes dayFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .day-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; padding-top: 1.5rem; flex-wrap: wrap; }
+  .day-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem; }
+  .day-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.5rem, 4vw, 2.1rem); letter-spacing: 0.01em; line-height: 1.1; }
+  .day-athletes { display: flex; gap: 7px; margin-top: 0.5rem; flex-wrap: wrap; }
+  .athlete-chip { background: rgba(255,214,0,0.08); border: 1px solid rgba(255,214,0,0.2); color: #C8A600; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; }
+  .athlete-chip.muted { background: rgba(255,255,255,0.03); border-color: var(--border); color: var(--text-muted); }
 
-  .day-complete-btn { 
-    background: rgba(0,191,165,0.12); border: 1px solid rgba(0,191,165,0.35); color: var(--teal); 
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 0.08em; 
-    text-transform: uppercase; padding: 10px 24px; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; 
-  }
-  .day-complete-btn:hover { border-color: var(--teal); box-shadow: 0 0 20px rgba(0,191,165,0.25); transform: translateY(-1px); }
-  .day-complete-btn.done { background: var(--teal); color: #000; border-color: var(--teal); font-weight: 900; box-shadow: 0 0 20px rgba(0,191,165,0.3); }
+  .day-complete-btn { background: rgba(0,191,165,0.1); border: 1px solid rgba(0,191,165,0.3); color: var(--teal); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.07em; text-transform: uppercase; padding: 10px 22px; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; align-self: flex-start; }
+  .day-complete-btn:hover { border-color: rgba(0,191,165,0.5); box-shadow: 0 0 16px rgba(0,191,165,0.15); transform: translateY(-1px); }
+  .day-complete-btn:active { transform: scale(0.97); }
+  .day-complete-btn.done { background: rgba(0,191,165,0.16); border-color: rgba(0,191,165,0.4); box-shadow: 0 0 18px rgba(0,191,165,0.12); }
 
-  /* ── BLOCKS — VISIBILIDAD EXTREMA EN TÍTULOS Y SUBTÍTULOS ── */
-  .blocks-stack { display: flex; flex-direction: column; gap: 1.25rem; }
-  
+  /* ── REST BANNER (per-athlete recommended rest) ── */
+  .rest-banner { border-radius: var(--radius-lg); padding: 16px 18px; margin-bottom: 1.25rem; background: rgba(255,61,0,0.06); border: 1px solid rgba(255,61,0,0.25); box-shadow: var(--shadow-sm); display: flex; gap: 12px; }
+  .rest-banner .rb-icon { font-size: 1.3rem; line-height: 1.2; }
+  .rest-banner-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--fire-glow); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
+  .rest-banner-text { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+  .rest-banner-check { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 0.8rem; font-weight: 600; color: var(--text-primary); cursor: pointer; }
+  .rest-banner-check input { accent-color: var(--fire); width: 16px; height: 16px; }
+
+  /* ── BLOCKS ── */
+  .blocks-stack { display: flex; flex-direction: column; gap: 1rem; }
   .block {
-    background: var(--bg-card); 
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border); border-radius: var(--radius-lg);
-    overflow: hidden; box-shadow: var(--shadow-md);
-    transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
-    position: relative;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    overflow: hidden; box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease, opacity .2s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    animation: blockFadeIn 0.45s cubic-bezier(0.16,1,0.3,1) backwards;
   }
-  .block:hover { border-color: rgba(255,255,255,0.25); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .block:hover { border-color: rgba(255,255,255,0.13); box-shadow: var(--shadow-md); transform: translateY(-2px); }
   .block.block-done { opacity: 0.55; }
-  .block.block-done .block-label { text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: var(--teal); opacity: 0.8; }
-  
-  /* Micro-animación de completado */
+  .block.block-done .block-label { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: currentColor; opacity: 0.75; transition: opacity .3s ease; }
+  @keyframes blockFadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  /* Micro-animación al completar un bloque: destello neón en el borde */
   .block.block-flash { animation: blockCompleteGlow 0.9s ease-out; }
   @keyframes blockCompleteGlow {
-    0% { border-color: var(--teal); box-shadow: 0 0 0 rgba(0,191,165,0); }
-    30% { border-color: var(--teal); box-shadow: 0 0 35px 6px rgba(0,191,165,0.6); }
-    100% { border-color: var(--border); box-shadow: var(--shadow-md); }
+    0% { border-color: rgba(0,191,165,0.9); box-shadow: 0 0 0 rgba(0,191,165,0); }
+    25% { border-color: rgba(0,191,165,0.95); box-shadow: 0 0 34px 4px rgba(0,191,165,0.55), 0 0 0 1px rgba(0,191,165,0.5) inset; }
+    100% { border-color: var(--border); box-shadow: var(--shadow-sm); }
   }
-
-  .block-header { display: flex; align-items: center; gap: 14px; padding: 1.1rem 1.3rem; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: background 0.2s ease; }
-  .block-header:hover { background: rgba(255,255,255,0.03); }
+  @media (prefers-reduced-motion: reduce) { .block.block-flash { animation: none; } }
+  .blocks-stack .block:nth-child(1) { animation-delay: 0.02s; }
+  .blocks-stack .block:nth-child(2) { animation-delay: 0.07s; }
+  .blocks-stack .block:nth-child(3) { animation-delay: 0.12s; }
+  .blocks-stack .block:nth-child(4) { animation-delay: 0.17s; }
+  .blocks-stack .block:nth-child(5) { animation-delay: 0.22s; }
+  .blocks-stack .block:nth-child(6) { animation-delay: 0.27s; }
+  .blocks-stack .block:nth-child(n+7) { animation-delay: 0.32s; }
+  .block-header { display: flex; align-items: center; gap: 10px; padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: background 0.2s ease; }
+  .block-header:hover { background: rgba(255,255,255,0.025); }
   .block.collapsed .block-header { border-bottom-color: transparent; }
-  
-  .block-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .bi-warmup { background: rgba(255,167,38,0.18); border: 1px solid rgba(255,167,38,0.4); }
-  .bi-oly { background: rgba(41,121,255,0.18); border: 1px solid rgba(41,121,255,0.4); }
-  .bi-strength { background: rgba(0,191,165,0.18); border: 1px solid rgba(0,191,165,0.4); }
-  .bi-metcon { background: rgba(255,61,0,0.22); border: 1px solid rgba(255,61,0,0.45); }
-  .bi-cardio { background: rgba(124,77,255,0.18); border: 1px solid rgba(124,77,255,0.4); }
-  .bi-accessory { background: rgba(144,164,174,0.18); border: 1px solid rgba(144,164,174,0.4); }
-
+  .block-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; transition: transform 0.2s ease; }
+  .block-header:hover .block-icon { transform: scale(1.08); }
+  .bi-warmup { background: rgba(255,167,38,0.14); border: 1px solid rgba(255,167,38,0.15); }
+  .bi-oly { background: rgba(41,121,255,0.12); border: 1px solid rgba(41,121,255,0.13); }
+  .bi-strength { background: rgba(0,191,165,0.12); border: 1px solid rgba(0,191,165,0.13); }
+  .bi-metcon { background: rgba(255,61,0,0.15); border: 1px solid rgba(255,61,0,0.15); }
+  .bi-cardio { background: rgba(124,77,255,0.12); border: 1px solid rgba(124,77,255,0.12); }
+  .bi-accessory { background: rgba(144,164,174,0.1); border: 1px solid rgba(144,164,174,0.1); }
   .block-header-text { flex: 1; min-width: 0; }
-  
-  /* Títulos de Bloque Más Grandes y Potentes */
-  .block-label { 
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; 
-    font-size: clamp(1.25rem, 3.2vw, 1.5rem); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.1; 
-  }
-  .bl-warmup { color: #FFB74D; text-shadow: 0 0 12px rgba(255,183,77,0.3); }
-  .bl-oly { color: #64B5F6; text-shadow: 0 0 12px rgba(100,181,246,0.3); }
-  .bl-strength { color: #26A69A; text-shadow: 0 0 12px rgba(38,166,154,0.3); }
-  .bl-metcon { color: #FF5252; text-shadow: 0 0 12px rgba(255,82,82,0.3); }
-  .bl-cardio { color: #B39DDB; text-shadow: 0 0 12px rgba(179,157,219,0.3); }
-  .bl-accessory { color: #CFD8DC; }
-
-  /* Subtítulos de Bloque Altamente Visibles */
-  .block-subtitle { 
-    font-size: 0.85rem; color: #E2E8F0; margin-top: 3px; font-weight: 600; letter-spacing: 0.02em; 
-  }
-
-  .block-check { flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
-  .block-check input { width: 20px; height: 20px; accent-color: var(--teal); cursor: pointer; }
-  .block-chevron { color: var(--text-muted); font-size: 13px; transition: transform 0.22s ease; flex-shrink: 0; }
+  .block-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.35rem, 3.4vw, 1.85rem); letter-spacing: 0.03em; text-transform: uppercase; line-height: 1.08; }
+  .bl-warmup { color: #FFB74D; text-shadow: 0 0 20px rgba(255,167,38,0.32); }
+  .bl-oly { color: #7EC4FB; text-shadow: 0 0 20px rgba(100,181,246,0.32); }
+  .bl-strength { color: #1EE9C8; text-shadow: 0 0 20px rgba(0,191,165,0.36); }
+  .bl-metcon { color: #FF5E2E; text-shadow: 0 0 20px rgba(255,61,0,0.4); }
+  .bl-cardio { color: #C4AEFF; text-shadow: 0 0 20px rgba(124,77,255,0.32); }
+  .bl-accessory { color: #CBD5DC; text-shadow: 0 0 16px rgba(176,190,197,0.24); }
+  .block-subtitle { font-size: clamp(0.95rem, 1.6vw, 1.08rem); font-weight: 600; color: #D1D5DB; margin-top: 4px; letter-spacing: 0.005em; line-height: 1.35; }
+  .block-check { flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
+  .block-check input { width: 17px; height: 17px; accent-color: var(--teal); cursor: pointer; }
+  .block-chevron { color: var(--text-muted); font-size: 12px; transition: transform 0.22s ease; flex-shrink: 0; }
   .block.collapsed .block-chevron { transform: rotate(-90deg); }
-  
-  .block-body { padding: 1.1rem 1.3rem; display: flex; flex-direction: column; gap: 4px; }
+  .block-body { padding: 0.9rem 1.1rem; display: flex; flex-direction: column; gap: 0; }
   .block.collapsed .block-body { display: none; }
 
-  /* ── FILAS DE EJERCICIOS (WORKLOAD HIGH CONTRAST) ── */
-  .ex-row { 
-    display: flex; gap: 12px; padding: 0.75rem 0.6rem; margin: 0 -0.6rem; 
-    border-bottom: 1px solid var(--border-subtle); align-items: flex-start; border-radius: 6px; 
-    transition: background 0.15s ease; 
-  }
-  .ex-row:hover { background: rgba(255,255,255,0.03); }
-  .ex-row:last-child { border-bottom: none; }
-  .ex-bullet { width: 7px; height: 7px; border-radius: 2px; background: var(--fire); flex-shrink: 0; margin-top: 8px; box-shadow: 0 0 6px var(--fire); }
-  
-  /* Nombre de Ejercicio Amplio y Contrastado */
-  .ex-name { 
-    font-size: 0.98rem; font-weight: 600; flex: 1; line-height: 1.5; color: #FFFFFF; 
-  }
-  
-  /* Detalles de Kilos / Reps Resaltados */
-  .ex-detail { 
-    font-size: 0.85rem; color: #CBD5E1; text-align: right; flex-shrink: 0; line-height: 1.5; max-width: 190px; font-weight: 600; 
-  }
-  .ex-detail strong { 
-    display: block; color: var(--gold); font-weight: 800; font-size: 0.95rem; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.04em; 
-  }
-  
-  .ex-row.complex { background: rgba(255,61,0,0.08); border: 1px solid rgba(255,61,0,0.22); border-radius: var(--radius-sm); padding: 0.85rem 0.9rem; margin: 0.4rem 0; }
-  .ex-divider { display: flex; align-items: center; gap: 12px; margin: 0.6rem 0; color: var(--gold); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; }
+  /* ── SECTION LABEL ── */
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin: 0.85rem 0 0.45rem; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ── EXERCISE ROW ── */
+  .ex-row { display: flex; gap: 10px; padding: 0.5rem 0.4rem; margin: 0 -0.4rem; border-bottom: 1px solid var(--border-subtle); align-items: flex-start; border-radius: 6px; transition: background 0.15s ease; }
+  .ex-row:hover { background: rgba(255,255,255,0.02); }
+  .ex-row:last-child { border-bottom: none; padding-bottom: 0.5rem; }
+  .ex-bullet { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 8px; box-shadow: 0 0 6px rgba(255,214,0,0.4); }
+  .ex-name { font-size: 1rem; font-weight: 600; flex: 1; line-height: 1.5; color: #F7F7F7; }
+  .ex-detail { font-size: 13.5px; font-weight: 600; color: #D1D5DB; text-align: right; flex-shrink: 0; line-height: 1.55; max-width: 180px; min-width: 60px; }
+  .ex-detail strong { display: block; color: var(--gold); font-weight: 800; font-size: 15.5px; letter-spacing: 0.01em; }
+  .ex-row.complex { background: rgba(255,61,0,0.04); border: 1px solid rgba(255,61,0,0.09); border-radius: var(--radius-sm); padding: 0.6rem 0.75rem; margin: 0.3rem 0; }
+  .ex-divider { display: flex; align-items: center; gap: 10px; margin: 0.3rem 0; color: var(--text-muted); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
   .ex-divider::before, .ex-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* ── NOTES & TIMERS ── */
-  .coach-note { background: rgba(41,121,255,0.08); border-left: 3px solid var(--blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.8rem 1rem; margin-top: 0.85rem; font-size: 0.88rem; color: #CBD5E1; line-height: 1.6; }
-  .coach-note strong { color: #64B5F6; display: block; margin-bottom: 2px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; }
-  
-  .timer-box { width: 100%; box-sizing: border-box; margin-top: 1rem; background: #000000; border: 2px solid var(--border); border-radius: var(--radius-md); padding: 22px 18px; text-align: center; box-shadow: var(--shadow-md); }
-  .timer-display { width: 100%; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3.8rem, 20vw, 8rem); line-height: 0.95; margin: 6px 0 14px; color: #FFFFFF; text-shadow: 0 0 20px rgba(255,255,255,0.15); }
+  /* ── VIDEO DE TÉCNICA (link + popup flotante) ── */
+  .video-link { color: var(--gold); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; font-size: 11px; letter-spacing: 0.02em; border-bottom: 1px solid rgba(255,214,0,0.35); padding-bottom: 1px; cursor: pointer; white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease; }
+  .video-link:hover { color: var(--fire-glow); border-color: var(--fire-glow); }
+  .video-popup-wrap { display: none; position: fixed; bottom: 20px; right: 20px; z-index: 300; width: 320px; max-width: calc(100vw - 32px); }
+  .video-popup-wrap.open { display: block; }
+  .video-popup { position: relative; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 16px 44px rgba(0,0,0,0.6); animation: videoPopIn 0.22s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes videoPopIn { from { transform: translateY(16px) scale(0.96); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+  .video-popup-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px 8px 12px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
+  .video-popup-close { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-secondary); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 11px; line-height: 1; transition: all 0.2s ease; flex-shrink: 0; }
+  .video-popup-close:hover { background: var(--fire); border-color: var(--fire); color: #fff; }
+  .video-popup-frame { position: relative; width: 100%; padding-top: 56.25%; background: #000; }
+  .video-popup-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video-popup-fallback { padding: 7px 12px; background: rgba(255,255,255,0.02); border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); text-align: center; }
+  .video-popup-fallback a { color: var(--gold); font-weight: 600; text-decoration: none; }
+  .video-popup-fallback a:hover { color: var(--fire-glow); }
+  @media (max-width: 640px) {
+    .video-popup-wrap { left: 12px; right: 12px; bottom: 12px; width: auto; max-width: none; }
+  }
 
-  /* ── FOOTER & MODAL ── */
-  footer.site-footer { max-width: 1140px; margin: 3rem auto 0; padding: 2rem 1.25rem 0; text-align: center; border-top: 1px solid var(--border); }
-  footer.site-footer p { font-size: 0.78rem; color: var(--text-muted); margin: 3px 0; text-transform: uppercase; letter-spacing: 0.06em; }
+  /* ── NOTES ── */
+  .coach-note { background: rgba(41,121,255,0.05); border-left: 2px solid rgba(41,121,255,0.4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.65rem 0.9rem; margin-top: 0.75rem; font-size: 12.5px; color: #94A3B8; line-height: 1.6; }
+  .coach-note strong { color: #64B5F6; display: block; margin-bottom: 3px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .scaling-note { background: rgba(0,191,165,0.04); border-left: 2px solid rgba(0,191,165,0.4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.65rem 0.9rem; margin-top: 0.5rem; font-size: 12.5px; color: #E2E8F0; line-height: 1.6; }
+  .scaling-note strong { color: var(--teal); display: block; margin-bottom: 3px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── BLOCK INSIGHTS ── */
+  .block-insights { margin-top: 1rem; border-radius: var(--radius-md); overflow: hidden; border: 1px solid transparent; }
+  .block-insights.insights-warmup { background: rgba(255,167,38,0.04); border-color: rgba(255,167,38,0.12); }
+  .block-insights.insights-oly { background: rgba(66,165,245,0.04); border-color: rgba(66,165,245,0.12); }
+  .block-insights.insights-strength { background: rgba(0,191,165,0.04); border-color: rgba(0,191,165,0.12); }
+  .block-insights.insights-metcon { background: rgba(255,61,0,0.05); border-color: rgba(255,61,0,0.15); }
+  .block-insights.insights-cardio { background: rgba(124,77,255,0.04); border-color: rgba(124,77,255,0.12); }
+  .block-insights.insights-accessory { background: rgba(144,164,174,0.04); border-color: rgba(144,164,174,0.12); }
+  .insights-header { display: flex; align-items: center; gap: 7px; padding: 0.55rem 0.85rem; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .insights-warmup .insights-header { color: #FFA726; }
+  .insights-oly .insights-header { color: #64B5F6; }
+  .insights-strength .insights-header { color: var(--teal); }
+  .insights-metcon .insights-header { color: var(--fire-glow); }
+  .insights-cardio .insights-header { color: #B39DDB; }
+  .insights-accessory .insights-header { color: #B0BEC5; }
+  .insights-body { padding: 0.75rem 0.85rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .insight-item { display: flex; gap: 0.55rem; align-items: flex-start; }
+  .insight-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; line-height: 1; }
+  .insight-content { flex: 1; }
+  .insight-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
+  .insight-text { font-size: 12.5px; line-height: 1.55; color: var(--text-secondary); }
+
+  /* ── TIMERS ── */
+  .timer-box { width: 100%; box-sizing: border-box; margin-top: 0.9rem; background: var(--bg-elevated); border: 2px solid var(--border); border-radius: var(--radius-md); padding: 20px 16px; text-align: center; box-shadow: var(--shadow-sm); transition: border-color .25s ease, box-shadow .25s ease; }
+  .timer-box.tb-work { border-color: rgba(0,191,165,0.45); box-shadow: var(--shadow-sm), 0 0 26px rgba(0,191,165,0.1) inset; }
+  .timer-box.tb-rest { border-color: rgba(255,61,0,0.45); box-shadow: var(--shadow-sm), 0 0 26px rgba(255,61,0,0.1) inset; }
+  .timer-box.tb-prep { border-color: rgba(124,77,255,0.5); box-shadow: var(--shadow-sm), 0 0 26px rgba(124,77,255,0.14) inset; }
+  .timer-box.tb-done { border-color: rgba(255,214,0,0.5); box-shadow: var(--shadow-sm), 0 0 26px rgba(255,214,0,0.14) inset; }
+  .timer-box-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
+  .timer-phase-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(0.85rem, 3.2vw, 1.05rem); letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 20px; border-radius: 30px; color: #fff; margin-bottom: 10px; }
+  .timer-phase-tag.phase-work { background: linear-gradient(90deg, #00897B, var(--teal)); box-shadow: 0 0 20px rgba(0,191,165,0.35); }
+  .timer-phase-tag.phase-rest { background: linear-gradient(90deg, var(--fire), var(--fire-glow)); box-shadow: 0 0 20px rgba(255,61,0,0.4); }
+  .timer-phase-tag.phase-done { background: linear-gradient(90deg, #C8A600, var(--gold)); color: #1a1400; box-shadow: 0 0 20px rgba(255,214,0,0.4); }
+  .timer-phase-tag.phase-prep { background: linear-gradient(90deg, var(--purple), var(--purple-light)); box-shadow: 0 0 20px rgba(124,77,255,0.4); }
+  .timer-seg-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: clamp(0.85rem, 3.4vw, 1.05rem); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 2px; min-height: 1.3em; }
+  .timer-display { width: 100%; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3.5rem, 19vw, 7.5rem); line-height: 1; letter-spacing: 0.01em; margin: 6px 0 14px; color: var(--text-primary); }
+  .timer-round-big { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(1.05rem, 4.2vw, 1.4rem); letter-spacing: 0.03em; color: var(--text-primary); margin-bottom: 10px; min-height: 1.3em; }
+  .timer-round-bar { width: 100%; box-sizing: border-box; height: 10px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin: 0 0 20px; }
+  .timer-round-bar-fill { height: 100%; border-radius: 6px; width: 0%; transition: width 0.25s linear, background 0.25s ease; }
+  .timer-round-bar-fill.phase-work { background: linear-gradient(90deg, #00897B, var(--teal)); }
+  .timer-round-bar-fill.phase-rest { background: linear-gradient(90deg, var(--fire), var(--fire-glow)); }
+  .timer-round-bar-fill.phase-done { background: linear-gradient(90deg, #C8A600, var(--gold)); }
+  .timer-round-bar-fill.phase-prep { background: linear-gradient(90deg, var(--purple), var(--purple-light)); }
+  .timer-controls-round { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 4px; }
+  .tbtn-round { border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; transition: transform .15s ease, box-shadow .25s ease, background .25s ease; }
+  .tbtn-round:active { transform: scale(0.92); }
+  .tbtn-play { width: 72px; height: 72px; border-radius: 50%; font-size: 1.6rem; color: #fff; background: linear-gradient(135deg, var(--fire), var(--fire-glow)); box-shadow: 0 10px 26px -6px rgba(255,61,0,0.55), inset 0 2px 3px rgba(255,255,255,0.3); }
+  .tbtn-play.is-running { background: linear-gradient(135deg, #00897B, var(--teal)); box-shadow: 0 10px 26px -6px rgba(0,191,165,0.5), inset 0 2px 3px rgba(255,255,255,0.25); }
+  .tbtn-reset-round { width: 50px; height: 50px; border-radius: 50%; font-size: 1.2rem; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); }
+  .tbtn-reset-round:hover { border-color: rgba(255,255,255,0.22); color: var(--text-primary); }
+  .hide { display: none !important; }
+  .wake-indicator { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800; margin-top: 12px; padding: 4px 11px; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); opacity: 0; transform: translateY(2px); transition: opacity .3s ease, transform .3s ease, background .3s ease, border-color .3s ease, box-shadow .3s ease; }
+  .wake-indicator.on { opacity: 1; transform: translateY(0); color: var(--teal); background: rgba(0,191,165,0.1); border-color: rgba(0,191,165,0.35); box-shadow: 0 0 12px rgba(0,191,165,0.15); }
+  .wake-indicator::before { content: '●'; font-size: 7px; color: var(--text-muted); }
+  .wake-indicator.on::before { color: var(--teal); animation: wakePulse 1.6s ease-in-out infinite; }
+  @keyframes wakePulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* ── MINI-HUD DE CRONÓMETRO FLOTANTE (Sticky Timer Player) ── */
+  .timer-hud {
+    position: fixed; left: 50%; bottom: 18px; transform: translate(-50%, 140%);
+    z-index: 250; display: flex; align-items: center; gap: 14px;
+    background: rgba(20,20,22,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid var(--border); border-radius: 100px;
+    padding: 8px 10px 8px 18px; box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6);
+    opacity: 0; pointer-events: none; max-width: calc(100% - 24px);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .timer-hud.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+  .timer-hud.hud-work { border-color: rgba(0,191,165,0.5); box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6), 0 0 22px rgba(0,191,165,0.18); }
+  .timer-hud.hud-rest { border-color: rgba(255,61,0,0.5); box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6), 0 0 22px rgba(255,61,0,0.18); }
+  .timer-hud.hud-prep { border-color: rgba(124,77,255,0.5); box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6), 0 0 22px rgba(124,77,255,0.18); }
+  .timer-hud.hud-done { border-color: rgba(255,214,0,0.5); box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6), 0 0 22px rgba(255,214,0,0.18); }
+  .hud-info { display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+  .hud-phase { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--text-secondary); white-space: nowrap; }
+  .hud-time { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.4rem; color: var(--text-primary); min-width: 64px; }
+  .hud-controls { display: flex; align-items: center; gap: 6px; }
+  .hud-btn { border: none; cursor: pointer; border-radius: 50%; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; transition: transform .15s ease; }
+  .hud-btn:active { transform: scale(0.9); }
+  .hud-play { width: 40px; height: 40px; font-size: 1rem; color: #fff; background: linear-gradient(135deg, var(--fire), var(--fire-glow)); }
+  .timer-hud.hud-work .hud-play, .timer-hud.hud-done .hud-play { background: linear-gradient(135deg, #00897B, var(--teal)); }
+  .hud-reset { width: 32px; height: 32px; font-size: 0.9rem; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); }
+  .hud-close { border: none; background: transparent; color: var(--text-muted); font-size: 1.1rem; cursor: pointer; padding: 4px 2px 4px 6px; line-height: 1; }
+  .hud-close:hover { color: var(--text-primary); }
+  @media (max-width: 600px) {
+    .timer-hud { left: 12px; right: 12px; bottom: 12px; transform: translateY(140%); border-radius: 20px; padding: 8px 10px 8px 16px; max-width: none; padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+    .timer-hud.show { transform: translateY(0); }
+    .hud-time { font-size: 1.25rem; min-width: 56px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .timer-hud { transition: opacity .2s ease; } }
+
+  .quick-timer { display: flex; align-items: center; justify-content: space-between; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 0.9rem; flex-wrap: wrap; gap: 8px; box-shadow: var(--shadow-sm); }
+  .quick-timer-btn { transition: all 0.15s ease; }
+  .quick-timer-btn:hover { border-color: rgba(255,167,38,0.55); box-shadow: 0 0 12px rgba(255,167,38,0.2); transform: translateY(-1px); }
+  .quick-timer-left { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .quick-timer-display { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.3rem; }
+  .quick-timer-btn { background: rgba(255,167,38,0.12); border: 1px solid rgba(255,167,38,0.3); color: var(--orange); font-weight: 700; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 14px; border-radius: 8px; cursor: pointer; }
+
+  /* ── REST DAY VIEW ── */
+  .rest-view { text-align: center; padding: 3rem 1rem 1rem; color: var(--text-muted); }
+  .rest-view .rest-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .rest-view h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+  .rest-view p { max-width: 480px; margin: 0 auto; font-size: 0.88rem; line-height: 1.6; }
+  .rest-checklist { display: flex; flex-direction: column; gap: 8px; max-width: 320px; margin: 1.5rem auto 0; text-align: left; }
+  .rest-check-item { display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; }
+
+  /* ── SUMMARY / COOLDOWN ── */
+  .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.2rem; margin-top: 1rem; box-shadow: var(--shadow-sm); }
+  .info-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); font-weight: 700; margin-bottom: 0.6rem; }
+  .info-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+  .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .info-card li { font-size: 0.82rem; color: var(--text-secondary); display: flex; gap: 8px; line-height: 1.5; }
+  .info-card li span:first-child { color: var(--text-muted); flex-shrink: 0; }
+
+  /* ── CALC MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 300; padding: 20px; }
+  .modal-overlay.open { display: flex; animation: overlayFadeIn 0.2s ease; }
+  @keyframes overlayFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 100%; max-width: 380px; padding: 22px; box-shadow: var(--shadow-lg); animation: modalPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+  @keyframes modalPop { from { opacity: 0; transform: scale(0.94) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal-close { transition: color 0.15s ease, transform 0.15s ease; }
+  .modal-close:hover { color: var(--text-primary); transform: rotate(90deg); }
+  .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .modal-head h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.03em; display: flex; align-items: center; gap: 8px; }
+  .modal-head h2 .mh-icon { color: var(--fire-glow); }
+  .modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 0.68rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .field input, .field select { width: 100%; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; }
+  .field input:focus, .field select:focus { border-color: var(--fire); }
+  .calc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; max-height: 280px; overflow-y: auto; }
+  .calc-cell { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 9px; padding: 8px 4px; text-align: center; }
+  .calc-pct { font-size: 0.62rem; color: var(--text-muted); font-weight: 700; }
+  .calc-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; color: var(--fire-glow); font-size: 1.05rem; }
+  .calc-empty { grid-column: 1/-1; color: var(--text-muted); font-size: 0.78rem; padding: 10px 0; text-align: center; }
+
+  footer.site-footer { max-width: 1140px; margin: 2rem auto 0; padding: 1.5rem 1.25rem 0; text-align: center; border-top: 1px solid var(--border); }
+  footer.site-footer p { font-size: 0.72rem; color: var(--text-muted); margin: 2px 0; }
   footer.site-footer b { color: var(--text-secondary); }
 
   @media (max-width: 600px) {
-    .hero h1 { font-size: 2rem; }
-    .day-tab { min-width: 70px; padding: 0.75rem 0.75rem; }
+    .hero h1 { font-size: 1.75rem; }
+    .day-tab { min-width: 64px; padding: 0.65rem 0.7rem; }
+    .tab-label { font-size: 9px; }
     .block-label { font-size: 1.15rem; }
-    .block-subtitle { font-size: 0.8rem; }
-    .ex-name { font-size: 0.92rem; }
-    .ex-detail { max-width: 135px; font-size: 0.8rem; }
+    .block-subtitle { font-size: 0.85rem; }
+    .ex-detail { max-width: 130px; min-width: 50px; }
+    .day-complete-btn { font-size: 0.82rem; padding: 9px 16px; }
+    .nav-right { gap: 4px; }
+    .nav-pill { padding: 5px 9px; font-size: 10px; }
+    .masthead-utility { justify-content: center; flex-wrap: wrap; }
   }
 </style>
 </head>
 <body>
-
-<!-- ── PISO DE CAUCHO REALISTA & EQUIPAMIENTO PARALLAX (SIN ROMBOS) ── -->
-<div class="rubber-floor-bg" aria-hidden="true">
-  <!-- Capa 1: Textura de Caucho picado (Rubber Granules) -->
-  <div class="parallax-layer layer-rubber-base" data-depth="0"></div>
-  <div class="parallax-layer layer-rubber-texture" data-depth="0.01">
-    <svg viewBox="0 0 400 400" preserveAspectRatio="none">
-      <defs>
-        <pattern id="rubberSpeckles" width="40" height="40" patternUnits="userSpaceOnUse">
-          <rect width="40" height="40" fill="#0B0B0D"/>
-          <!-- Chispas de caucho vulcanizado blanco/gris -->
-          <circle cx="6" cy="8" r="0.8" fill="rgba(255,255,255,0.22)"/>
-          <circle cx="28" cy="14" r="1.1" fill="rgba(255,255,255,0.15)"/>
-          <circle cx="12" cy="32" r="0.7" fill="rgba(255,255,255,0.25)"/>
-          <circle cx="34" cy="28" r="0.9" fill="rgba(255,255,255,0.18)"/>
-          <circle cx="20" cy="20" r="1.2" fill="rgba(255,255,255,0.12)"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#rubberSpeckles)"/>
-    </svg>
-  </div>
-
-  <!-- Capa 2: Equipamiento CrossFit Realista Distribuido (Profundidad Media) -->
-  <div class="parallax-layer layer-equipment-mid" data-depth="0.035">
-    <svg viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <!-- Bumper Plate 45LB -->
-        <g id="bumper-45">
-          <circle cx="0" cy="0" r="140" fill="#141416" stroke="#222226" stroke-width="6"/>
-          <circle cx="0" cy="0" r="120" fill="none" stroke="#000" stroke-width="8"/>
-          <circle cx="0" cy="0" r="32" fill="#333338" stroke="#555" stroke-width="3"/>
-          <circle cx="0" cy="0" r="18" fill="#0B0B0D"/>
-          <text x="0" y="-85" font-family="'Barlow Condensed', sans-serif" font-weight="900" font-size="22" fill="#E2E8F0" text-anchor="middle">45 LB</text>
-          <text x="0" y="98" font-family="'Barlow Condensed', sans-serif" font-weight="900" font-size="20" fill="#94A3B8" text-anchor="middle">CROSSFIT</text>
-        </g>
-        
-        <!-- Hex Dumbbell -->
-        <g id="dumbbell">
-          <rect x="-45" y="-6" width="90" height="12" fill="#444" rx="3"/>
-          <path d="M -70 -25 L -45 -40 L -45 40 L -70 25 L -85 0 Z" fill="#18181C" stroke="#2D2D35" stroke-width="2"/>
-          <path d="M 70 -25 L 45 -40 L 45 40 L 70 25 L 85 0 Z" fill="#18181C" stroke="#2D2D35" stroke-width="2"/>
-        </g>
-      </defs>
-
-      <!-- Distribución de Discos y Mancuernas en el Fondo -->
-      <use href="#bumper-45" transform="translate(180, 220) rotate(-15) scale(1.1)" />
-      <use href="#dumbbell" transform="translate(1020, 480) rotate(35) scale(1.2)" />
-      <use href="#bumper-45" transform="translate(100, 950) rotate(42) scale(0.95)" />
-      <use href="#dumbbell" transform="translate(980, 1300) rotate(-20) scale(1.15)" />
-    </svg>
-  </div>
-
-  <!-- Capa 3: Equipamiento CrossFit Realista (Primer Plano / Parallax Rápido) -->
-  <div class="parallax-layer layer-equipment-front" data-depth="0.065">
-    <svg viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <!-- Kettlebell 24KG -->
-        <g id="kettlebell">
-          <path d="M -30 -60 A 35 35 0 0 1 30 -60 L 22 -35 L -22 -35 Z" fill="none" stroke="#2A2A30" stroke-width="14" stroke-linecap="round"/>
-          <circle cx="0" cy="15" r="65" fill="#121215" stroke="#282830" stroke-width="4"/>
-          <text x="0" y="22" font-family="'Barlow Condensed', sans-serif" font-weight="900" font-size="26" fill="#FF3D00" text-anchor="middle">24 KG</text>
-        </g>
-
-        <!-- Medball -->
-        <g id="medball">
-          <circle cx="0" cy="0" r="85" fill="#16161A" stroke="#2A2A32" stroke-width="5"/>
-          <path d="M -80 0 Q 0 -30 80 0" fill="none" stroke="#000" stroke-width="6"/>
-          <path d="M -20 -15 L 20 -15 M -20 -5 L 20 -5 M -20 5 L 20 5 M -20 15 L 20 15" stroke="#FFF" stroke-width="3"/>
-        </g>
-      </defs>
-
-      <use href="#kettlebell" transform="translate(1050, 200) rotate(-12) scale(1.1)" />
-      <use href="#medball" transform="translate(120, 680) scale(1.05)" />
-      <use href="#kettlebell" transform="translate(1080, 1050) rotate(18) scale(1)" />
-    </svg>
-  </div>
+<div class="steel-vault-bg" aria-hidden="true">
+  <div class="parallax-layer layer-steel-wash" data-depth="0"></div>
+  <div class="parallax-layer layer-photo" data-depth="0.014"></div>
+  <div class="parallax-layer layer-vignette" data-depth="0.014"></div>
+  <div class="parallax-layer layer-glowspots" data-depth="0.022"></div>
+  <div class="parallax-layer layer-lights" data-depth="0.03"></div>
+  <div class="parallax-layer layer-chalk" data-depth="0.05" id="chalkLayer"></div>
 </div>
-
 <header class="masthead">
   <div class="masthead-utility">
     <div class="athlete-switch" id="athleteSwitch">
@@ -510,7 +671,7 @@
       <button class="nav-pill athlete-pill" data-athlete="ceci">CECI</button>
     </div>
     <button class="nav-pill calc-pill" id="calcBtn">% 1RM</button>
-    <button class="nav-pill hc-toggle" id="hcToggle" title="Modo de alta legibilidad" aria-pressed="false">☀ HC</button>
+    <button class="nav-pill hc-toggle" id="hcToggle" title="Modo de alta legibilidad (interior/exterior de box)" aria-pressed="false">☀ HC</button>
   </div>
   <a class="masthead-brand" href="#">
     <div class="masthead-logo">
@@ -519,7 +680,6 @@
     <span class="masthead-wordmark">COACH<span class="electric-jp">&nbsp;JP</span></span>
   </a>
 </header>
-
 <div class="sticky-bar">
   <a class="sticky-brand" href="#">
     <div class="sticky-logo">
@@ -555,18 +715,6 @@
   <p>Semana 1 · Mesociclo Fuerza / Hipertrofia · Reingreso post cuadro gripal</p>
 </footer>
 
-<!-- TABLA DE FRASES MOTIVACIONALES KAIZEN-ESTOICAS -->
-<script>
-const STOIC_QUOTES = {
-  1: "No podés controlar el resultado final, pero sí la actitud con la que entrenás hoy. Poné la mente en tu esfuerzo y lo demás se acomoda solo.",
-  2: "No busques un salto gigante de golpe. Enfocate en hacer la rutina de hoy un 1% mejor que la de ayer. Las pequeñas victorias constantes construyen gigantes.",
-  3: "El cansancio y la incomodidad no son obstáculos en el camino, son el camino. Abrazá la exigencia de hoy porque es la que te moldea.",
-  4: "La excelencia no es un acto aislado, es un hábito diario. No importa qué tan rápido avances, lo único prohibido es frenar la mejora continua.",
-  5: "Tu cuerpo aguanta mucho más de lo que creés; la que quiere aflojar primero es la cabeza. Dominá tus pensamientos y dejá que la disciplina responda.",
-  6: "Mirá para atrás y valorá cada repetición sumada esta semana. Cumpliste con tu deber, te superaste un poco más y construiste tu mejor versión."
-};
-</script>
-
 <div id="calcModal" class="modal-overlay">
   <div class="modal">
     <div class="modal-head">
@@ -595,15 +743,29 @@ const STOIC_QUOTES = {
     <span class="hud-time" id="hudTime">00:00</span>
   </div>
   <div class="hud-controls">
-    <button class="hud-btn hud-reset" id="hudReset" type="button" title="Reiniciar">↺</button>
-    <button class="hud-btn hud-play" id="hudPlay" type="button" title="Pausar o reanudar">⏸</button>
+    <button class="hud-btn hud-reset" id="hudReset" type="button" title="Reiniciar" aria-label="Reiniciar">↺</button>
+    <button class="hud-btn hud-play" id="hudPlay" type="button" title="Pausar o reanudar" aria-label="Pausar o reanudar">⏸</button>
   </div>
-  <button class="hud-close" id="hudClose" type="button" title="Ocultar">×</button>
+  <button class="hud-close" id="hudClose" type="button" title="Ocultar" aria-label="Ocultar">×</button>
+</div>
+
+<div class="video-popup-wrap" id="video-popup-wrap">
+  <div class="video-popup">
+    <div class="video-popup-header">
+      <span>Técnica del ejercicio</span>
+      <button class="video-popup-close" id="video-popup-close" aria-label="Cerrar video">&#x2715;</button>
+    </div>
+    <div class="video-popup-frame">
+      <iframe id="video-popup-iframe" src="" title="Video técnica de ejercicio" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video-popup-fallback">¿No carga? <a id="video-popup-fallback-link" href="#" target="_blank" rel="noopener">Abrilo en YouTube ↗</a></div>
+  </div>
 </div>
 
 <script>
 /* =========================================================
-   DATA MODEL ORIGINAL
+   DATA MODEL
+   category → bi-warmup / bi-oly / bi-strength / bi-metcon / bi-cardio / bi-accessory
 ========================================================= */
 const WEEK = [
 {
@@ -624,7 +786,7 @@ const WEEK = [
         '8-10 Dual DB incline bench press — carga moderada-alta, tempo controlado',
         '20 Banded tricep extensions — descanso lo necesario entre sets'
       ],
-      tips:'Calentá bien si hacés fondos con peso. Movete entre ejercicios con el mínimo descanso necesario y descansá más al final de cada serie completa.',
+      tips:'Calentá bien si hacés fondos con peso. Movete entre ejercicios con el mínimo descanso necesario y descansá más al final de cada serie completa. Si no dominás los dips, usá banda de asistencia (5-7 reps).',
       objective:'Reconstruir la base de fuerza de empuje horizontal, con volumen extra orientado a hipertrofia de pecho/tríceps.',
       quickRest:{ label:'Descanso entre series', seconds:90 }
     },
@@ -635,7 +797,7 @@ const WEEK = [
         '3 min AMRAP: 8 HSPU (o push-up piked), 7 Box jumps con step down, 5 Burpees',
         '— 2 min rest —'
       ],
-      tips:'Ritmo sostenible, no salgas a fondo. La bici al 75-80% de esfuerzo.',
+      tips:'Ritmo sostenible, no salgas a fondo. La bici al 75-80% de esfuerzo; sumá calorías de forma consistente ronda a ronda, no solo en la primera.',
       objective:'Acondicionamiento con habilidad gimnástica, con un techo de intensidad más bajo esta semana.',
       timer:{ segments:[
           {label:'Echo Bike', duration:180, color:'fire'},
@@ -657,52 +819,59 @@ const WEEK = [
         ], repeat:5 }
     }
   ],
-  summary:'Lunes conserva casi por completo la estructura original: fuerza de empuje con más volumen de hipertrofia, el mismo circuito de intervalos con habilidad gimnástica y el mismo bloque de core.',
+  summary:'Lunes conserva casi por completo la estructura original: fuerza de empuje con más volumen de hipertrofia, el mismo circuito de intervalos con habilidad gimnástica (un round menos, ritmo más bajo) y el mismo bloque de core.',
   cooldown:['Estiramiento de pectoral en marco de puerta 2x30s por lado','Dislocaciones de hombro con banda 2x10','Foam roller en dorsal ancho y tríceps, 1 min por zona','Respiración diafragmática 2 min']
 },
 {
   id:'martes', short:'MAR', label:'Cleans + Metcon', dayNum:2, name:'MARTES',
   title:'Cleans + Cadena Posterior + Metcon',
   availability:{ jp:'train', ceci:'rest' },
-  restNote:'Es el día más exigente a nivel técnico/neuromuscular de la semana (clean + peso muerto pesado + metcon con barra). Para Ceci, mejor sumarlo recién la semana 2.',
+  restNote:'Es el día más exigente a nivel técnico/neuromuscular de la semana (clean + peso muerto pesado + metcon con barra). Para Ceci, mejor sumarlo recién la semana 2 del mesociclo.',
   blocks:[
     { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up Técnico', subtitle:'Bike + Barra vacía + Aproximación a A1',
       items:[
         'Bike 500m + Rest 15s x6 sets @ paces crecientes',
         '2 sets barra vacía: 10 hang muscle cleans, 10 deadlifts, 10 front squats, 5 squat cleans from the hip',
         '5-8 sets: 1 Clean + 2 hang squat cleans construyendo técnico hacia A1'
-      ]
+      ],
+      tips:'Calentamiento técnico, no intenso — no hace falta escalar pesado el clean.'
     },
     { id:'cleans', category:'oly', icon:'🏋️‍♂️', title:'Block A: Cleans', subtitle:'A1 Construcción 15 min · A2 5 sets @ 85%',
       items:[
-        'A1 — En 15 min, construí hacia ~80-85% de tu último máximo conocido: 1 Clean + 2 hang squat cleans.',
+        'A1 — En 15 min, construí hacia ~80-85% de tu último máximo conocido: 1 Clean (cualquier variante) + 2 hang squat cleans. No es test de máximo diario esta semana.',
         'A2 — 5 sets del mismo complex @ 85% de lo construido en A1. Rest 60s entre sets.'
       ],
-      objective:'Mantener destreza técnica olímpica y volumen de calidad.',
+      tips:'El plan original ya pedía "dejar algo en el tanque" — esta semana lo hacemos explícito: no busques un PR, construí técnico hasta el % y quedate ahí.',
+      objective:'Mantener destreza técnica olímpica y volumen de calidad, sin el estrés de un test de máximo en semana de reingreso.',
       timer:{ segments:[{label:'Clean + Hang Squat Clean', duration:900, color:'blue'}], repeat:1 },
-      quickRest:{ label:'A2 — Descanso entre sets (60s)', seconds:60 }
+      quickRest:{ label:'A2 — Descanso entre sets (60s) · tocá "Iniciar" después de cada set', seconds:60 }
     },
     { id:'posterior', category:'strength', icon:'🦵', title:'Block B: Posterior Chain', subtitle:'B1 Sumo Deadlift 4RM · B2 Banda TNG',
       items:[
-        'B1 — Sumo deadlift: construí a un 4RM conservador (~75-80% de tu último 4RM conocido)',
-        'B2 — 3 sets x10 reps con banda de resistencia @75% del max de hoy. Rest 90s.'
+        'B1 — Sumo deadlift: construí a un 4RM conservador (~75-80% de tu último 4RM conocido), not TNG',
+        'B2 — 3 sets x10 reps con banda de resistencia (TNG permitido) @75% del max de hoy. Rest 90s entre sets.'
       ],
+      tips:'No busques fallo absoluto en B1; el techo está un poco más bajo esta semana por el parón.',
+      objective:'Volumen de hipertrofia en isquiotibiales/glúteo/erectores sin comprometer la técnica.',
       quickRest:{ label:'Descanso B2 (90s)', seconds:90 }
     },
     { id:'metcon', category:'metcon', icon:'💥', title:'Metcon · RX Level', subtitle:'5 Rounds for time',
       items:[
-        '15m barbell front rack lunge walk 40/30kg',
+        '15m barbell front rack lunge walk 40/30kg (reducido de 50/35kg)',
         '10 bar facing burpees',
-        '5 strict HSPU'
+        '5 strict HSPU (o push-up piked si hace falta escalar)'
       ],
+      tips:'Mismo formato que el original, carga reducida ~15-20% para esta semana. Ritmo sostenible, sin buscar un tiempo de referencia nuevo.',
+      objective:'Mantener el estímulo metabólico y de core del día original con menor riesgo de fatiga.',
       stopwatch:true
     },
     { id:'accessory', category:'accessory', icon:'🎯', title:'Accessory Circuit', subtitle:'2-4 rounds',
-      items:['20m farmer carry (heavy) + 10 strict toes to bar + 20 DB leg extensions']
+      items:['20m farmer carry (heavy) + 10 strict toes to bar + 20 DB leg extensions — descanso lo necesario entre sets'],
+      objective:'Bloque idéntico al original.'
     }
   ],
-  summary:'Martes mantiene la estructura completa del original — clean, cadena posterior, metcon y accesorio.',
-  cooldown:['Estiramiento de cuádriceps 2x30s por lado','Foam roll isquios/glúteo 1 min por zona','Respiración diafragmática 2 min']
+  summary:'Martes mantiene la estructura completa del original — clean, cadena posterior, metcon y accesorio — bajando los techos de carga en los bloques de máximo y en el metcon, sin recortar tiempos ni rondas.',
+  cooldown:['Estiramiento de cuádriceps y flexor de cadera 2x30s por lado','Foam roll isquios/glúteo 1 min por zona','Postura de niño (child’s pose) 1 min','Respiración diafragmática 2 min']
 },
 {
   id:'miercoles', short:'MIÉ', label:'Snatch + Front Squat', dayNum:3, name:'MIÉRCOLES',
@@ -712,52 +881,64 @@ const WEEK = [
     { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up Oly Prep', subtitle:'Barra vacía + carga liviana',
       items:[
         '3 sets: Row 12/10 cals, 5 KB Windmills por brazo, 1 Turkish get up por brazo',
-        '2 sets barra vacía: 7 Muscle snatch, 7 BTN push press, 7 Overhead squats'
+        '2 sets barra vacía: 7 Muscle snatch, 7 BTN push press, 7 Overhead squats',
+        '2 sets carga liviana: 3 Power snatch, 3 Overhead squats, 3 High hang squat snatch'
       ]
     },
     { id:'snatch', category:'oly', icon:'🏋️‍♂️', title:'Block A: Snatch', subtitle:'0-10 min build · 10-20 min Every 2:00 x5',
       items:[
-        '0:00-10:00 — Construí hacia tu 75% o la carga que elijas para comenzar',
-        '10:00-20:00 — Every 2:00 x5 sets: Squat snatch every 20s x3',
+        '0:00-10:00 — Construí hacia tu 75% (en vez del 80% del original) o la carga que elijas para comenzar',
+        '10:00-20:00 — Every 2:00 x5 sets: Squat snatch every 20s x3 (levantás en 0, 0:20 y 0:40)',
         'Target load: 75% - 78% - 81% - 84% - 87%'
       ],
+      tips:'La carga es solo una guía; el objetivo real es 15 de 15 levantamientos sin fallos, no llegar al techo de la escalera a cualquier costo.',
+      objective:'Mantener el patrón técnico y la densidad de trabajo del snatch en un rango más conservador esta semana.',
+      ceciNote:'Primera semana real de reingreso: quedate fija en 70-75% durante las 5 series, sin escalera creciente. Priorizá técnica sobre carga.',
       timer:{ segments:[{label:'Snatch — Construcción técnica', duration:600, color:'blue'}], repeat:1 },
       timer2:{ label:'Every 2:00 x5 — Squat Snatch x3', segments:[{label:'Squat Snatch x3', duration:120, color:'blue'}], repeat:5 }
     },
     { id:'metcon', category:'metcon', icon:'💥', title:'Metcon · RX Version', subtitle:'20 min AMRAP',
       items:[
-        '9 power snatch 40/30-25kg',
+        '9 power snatch 40/30-25kg (reducido de 50/35-30kg)',
         '15 TTB',
-        '21 wall balls'
+        '21 wall balls',
+        'Movimiento alt.: single arm DB snatch, 18 reps por ronda (alternadas), peso desafiante'
       ],
+      tips:'Ritmo suave y consistente, singles relativamente rápidos en el snatch y sets repetibles en el TTB. No se esfuercen de más en las primeras rondas.',
+      objective:'Mismo test de ritmo y estado físico que el original, con carga de barra ajustada a la semana de reingreso.',
+      ceciNote:'Es tu primer AMRAP largo de la semana — evaluá acortarlo a 14-16 min si sentís que 20 es demasiado hoy.',
       timer:{ segments:[{label:'AMRAP', duration:1200, color:'fire'}], repeat:1 }
     },
     { id:'frontsquat', category:'strength', icon:'🦵', title:'Block B: Front Squats', subtitle:'Every 2:00 x5 sets',
-      items:['3 Front squats @ 73-75% con 3s pausa en rep 1'],
+      items:['3 Front squats @ 73-75% (vs. 80% del original) con 3s pausa en rep 1'],
+      tips:'Mantené la primera repetición en la posición inferior 3 segundos completos con buena tensión corporal, y buena velocidad en las reps 2 y 3.',
+      objective:'Consolidar la sentadilla frontal como pilar de fuerza, con techo de carga más conservador tras el parón.',
       timer:{ segments:[{label:'Front Squat x3 (pausa 3s)', duration:120, color:'teal'}], repeat:5 }
     },
     { id:'knee', category:'accessory', icon:'🎯', title:'Accessory · Knee Health', subtitle:'3-4 Supersets · Rest 90s',
-      items:['Cossack squats x6/pierna + Negative box step downs x6/pierna + Nordic curls x6 reps'],
+      items:['Cossack squats x6/pierna + Negative box step downs x6/pierna (lento en el descenso) + Nordic curls x6 reps'],
+      objective:'Salud articular de rodilla y volumen extra de isquios/cuádriceps — bloque idéntico al original.',
       quickRest:{ label:'Descanso (90s)', seconds:90 }
     }
   ],
-  summary:'Miércoles conserva la estructura completa del original — snatch, metcon de 20 minutos, front squats y accesorio.',
-  cooldown:['Sentadilla profunda sostenida 1-2 min','Foam roll cuádriceps 1 min','Respiración diafragmática 2 min']
+  summary:'Miércoles conserva la estructura completa del original — snatch, metcon de 20 minutos, front squats y accesorio de rodilla — con las cargas de snatch, metcon y front squat corridas hacia abajo para esta semana de reingreso.',
+  cooldown:['Sentadilla profunda sostenida y asistida (tobillo/cadera) 1-2 min','Foam roll cuádriceps/glúteo 1 min por zona','Movilidad de muñeca/hombro (por el front rack) 2 min','Respiración diafragmática 2 min']
 },
 {
   id:'jueves', short:'JUE', label:'Descanso', dayNum:4, name:'JUEVES', rest:true,
   title:'Rest Day — Recuperación',
   availability:{ jp:'rest', ceci:'rest' },
   blocks:[
-    { id:'mobility', category:'warmup', icon:'🧘', title:'Opcional — Home Workout Liviano', subtitle:'Anillas + DBs + colchoneta',
+    { id:'mobility', category:'warmup', icon:'🧘', title:'Opcional — Home Workout Liviano', subtitle:'Anillas + 2 DB 15kg + 1 DB 25kg + colchoneta',
       items:[
         '10 min de movilidad general (cadera, tobillo, columna torácica, hombro)',
-        '3 rounds livianos: 10 ring rows, 10 DB goblet squats (15kg), 30s dead hang',
+        '3 rounds livianos: 10 ring rows en ángulo cómodo, 10 DB goblet squats livianos (15kg), 30s dead hang',
         'Caminata suave 15-20 min al aire libre'
-      ]
+      ],
+      tips:'Si hay cansancio residual, congestión o falta de energía atípica, priorizar sueño y descanso total por sobre esta sesión opcional.'
     }
   ],
-  summary:'Descanso completo para los dos. Día clave para asimilar el trabajo de la semana.',
+  summary:'Descanso completo para los dos, especialmente importante esta semana por el cuadro gripal reciente. No es un día para "hacer algo" — es para terminar de recuperarse.',
   cooldown:[]
 },
 {
@@ -766,39 +947,73 @@ const WEEK = [
   availability:{ jp:'train', ceci:'train' },
   blocks:[
     { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up', subtitle:'Assault bike + Thrusters + Burpees',
-      items:['2 rounds: Assault bike 60s @ easy, 20 Air squats, 10 Barbell push press']
+      items:[
+        '2 rounds: Assault bike 60s @ easy, 20 Air squats, 10 Barbell push press pausa en overhead',
+        '2 rounds: Assault bike 45s @ moderado, 15 (empty) barbell thrusters',
+        '2 rounds: Assault bike 30s @ hard, 5 Thrusters @ carga del WOD, 5 Bar facing burpees — Rest 60s'
+      ]
     },
     { id:'smash', category:'metcon', icon:'💥', title:'Friday Smash', subtitle:'15 min Partner AMRAP',
-      items:['3+3, 6+6, 9+9, 12+12 Thrusters + Bar facing burpees (por atleta)', 'Load: 35/25kg'],
+      items:[
+        '3+3, 6+6, 9+9, 12+12 Thrusters + Bar facing burpees (por atleta) — reinicia en 3+3',
+        'Load: 35/25kg (reducido de 43/30kg)'
+      ],
+      tips:'El atleta uno completa su serie y luego el atleta 2 la suya, hasta 12+12 y se reinicia (no avanzan a 15+15).',
+      objective:'Mismo estímulo de condicionamiento en pareja, con carga reducida para esta semana de reingreso.',
       timer:{ segments:[{label:'Partner AMRAP', duration:900, color:'fire'}], repeat:1 }
     },
     { id:'pulling', category:'strength', icon:'💪', title:'Block A: Pulling Strength', subtitle:'3-5 sets · Rest 2:00',
-      items:['3 (Weighted) strict pull ups', '10 Dual DB prone rows (heavy)', '3 Rope climbs (regular)'],
+      items:[
+        'JP: 3 (Weighted) strict pull ups',
+        'Ceci: 3-5 banded strict pull-ups o ring rows con pies elevados — rango sin dolor, sin carga extra esta semana (hombro)',
+        '10 Dual DB prone rows (heavy)',
+        '3 Rope climbs (regular)'
+      ],
+      tips:'Si tenés capacidad de dominadas estrictas con peso, calentá completamente antes de empezar.',
+      objective:'Mismo estímulo de tracción que el original, adaptado para proteger el hombro de Ceci sin perder el resto del bloque.',
+      ceciNote:'Cualquier molestia aguda (distinta de fatiga muscular normal) es señal de bajar la variante o el rango ese día. La vuelta a dominadas con peso puede esperar a que el hombro esté libre de síntomas.',
       quickRest:{ label:'Descanso entre series (2:00)', seconds:120 }
     },
     { id:'pushend', category:'strength', icon:'🤸', title:'Block B: Pushing Endurance', subtitle:'EMOM x10 min · 2-6 reps HSPU',
-      items:['Op.1: Chest-facing-wall todas las reps (6)', 'Op.2: Strict regular con esquema sostenible (2-4)'],
+      items:[
+        'Op.1: Chest-facing-wall todas las reps, esquema alto (6)',
+        'Op.2: Alternar chest-facing-wall (2-3) con strict regular (4-6)',
+        'Op.3: Strict regular con esquema sostenible (2-4)',
+        'Op.4: 5 min piked strict push-ups (4-6) + 5 min kipping HSPU (2-6)'
+      ],
+      tips:'Repetí lo que hicieron la última vez o aumenten levemente la dificultad — sin grandes saltos de volumen esta semana.',
       timer:{ segments:[{label:'HSPU (2-6 reps)', duration:60, color:'teal'}], repeat:10 }
     },
     { id:'accessory', category:'accessory', icon:'🎯', title:'Accessory', subtitle:'D1 Superset · D2 Rounds',
-      items:['Dual DB Zottman curls x8, Banded pec flys x15 — Rest 60s'],
+      items:[
+        'D1 — Superset 3 rounds: Dual DB Zottman curls x8, Banded pec flys x15 — Rest 60s',
+        'D2 — 4 rounds: Ring support hold x20-30s, DB External rotations x10, Banded face pull x10-15 — Rest 60-90s'
+      ],
+      ceciNote:'En las rotaciones externas de D2, mantenelas livianas y sin dolor — prestá especial atención al hombro acá.',
       quickRest:{ label:'Descanso (60-90s)', seconds:75 }
     }
   ],
-  summary:'Viernes conserva toda la estructura original — WOD de pareja, tracción, HSPU EMOM y accesorio.',
-  cooldown:['Estiramiento de dorsal ancho 2x30s','Respiración diafragmática 2 min']
+  summary:'Viernes conserva toda la estructura original — WOD de pareja, tracción, HSPU EMOM y accesorio — con la única adaptación real de la semana: la variante de pull-ups con peso para Ceci por su hombro, y carga levemente reducida en el WOD de pareja.',
+  cooldown:['Estiramiento de dorsal ancho (colgado suave) 2x30s','Movilidad de hombro en banda (rotaciones externas livianas) 2x10','Foam roll bíceps/dorsal 1 min por zona','Respiración diafragmática 2 min']
 },
 {
   id:'sabado', short:'SÁB', label:'Engine + Clean', dayNum:6, name:'SÁBADO',
   title:'Engine + Power Clean + Intervals',
   availability:{ jp:'train', ceci:'rest' },
-  restNote:'Es el día de mayor volumen acumulado. Ceci descansa.',
+  restNote:'Es el día de mayor volumen y fatiga acumulada de toda la semana (cardio + power clean + intervalos de alto volumen). No es el momento para la tercera sesión de Ceci en la semana.',
   blocks:[
     { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up', subtitle:'Row + Shuttle runs',
-      items:['Row 2 min @ easy + 10 Shuttle runs @ easy']
+      items:['Row 2 min @ easy + 10 Shuttle runs @ easy','Row 2 min @ moderado + 10 Shuttle runs @ moderado']
     },
     { id:'cardio', category:'cardio', icon:'⏱️', title:'Block A: Cardio Starter', subtitle:'EMOM x20 min',
-      items:['Min 1: 12/9 Cal row', 'Min 2: 5 Shuttle runs', 'Min 3: 14/11 Cal row', 'Min 4: 8 Shuttle runs'],
+      items:[
+        'Min 1: 12/9 Cal row (o 40s moderate)',
+        'Min 2: 5 Shuttle runs (o 40s moderate)',
+        'Min 3: 14/11 Cal row (o 50s medio-alto — no duro esta semana)',
+        'Min 4: 8 Shuttle runs (o 50s medio-alto)'
+      ],
+      tips:'Dos minutos a esfuerzo más bajo (dejando ~20s de descanso) y dos a esfuerzo más duro (dejando ~10s), pero bajando el techo de "duro" a "medio-alto" esta semana por el antecedente respiratorio.',
+      objective:'Reconstruir la base aeróbica con el mismo formato del original, sin llegar a esfuerzo máximo.',
       timer:{ segments:[
         {label:'Row (moderado)', duration:60, color:'muted'},
         {label:'Shuttle (moderado)', duration:60, color:'muted'},
@@ -807,191 +1022,685 @@ const WEEK = [
       ], repeat:5 }
     },
     { id:'powerclean', category:'oly', icon:'🏋️‍♂️', title:'Block B: Power Clean', subtitle:'Construcción 15-20 min',
-      items:['Construí en 15-20 min hacia ~80-85% de tu último máximo conocido'],
+      items:['Construí en 15-20 min hacia ~80-85% de tu último máximo conocido (en vez de un 1RM diario nuevo)'],
+      tips:'Método preferido: EMOM. Subí de a saltos chicos de peso para preparar mejor el cuerpo y acumular volumen en zona submáxima — sin intento de PR esta semana.',
+      objective:'Mantener el mismo formato y volumen del original, sin el riesgo de un test de máximo tras 10 días sin entrenar.',
       timer:{ segments:[{label:'Power Clean — Construcción técnica', duration:1200, color:'blue'}], repeat:1 }
     },
     { id:'intervals', category:'metcon', icon:'💥', title:'Block C: Intervals', subtitle:'Every 10:00 x3 sets, for time',
-      items:['12 Power cleans 50/35kg', '15/10 Bar parallette dips', '12 Power cleans 50/35kg', '15 Bar facing burpees'],
+      items:[
+        '12 Power cleans 50/35kg (3x4 TNG, reducido de 60/40-35kg)',
+        '15/10 Bar parallette dips o parallette push ups',
+        '12 Power cleans 50/35kg (pueden ser singles)',
+        '15 Bar facing burpees'
+      ],
+      tips:'Objetivo: ~5 min de trabajo y 5 de descanso por serie. Si la primera serie supera los 5 min, ajustá la escala para las siguientes 2 (misma indicación que el original), esta semana con carga ya reducida de base.',
+      objective:'Mismo estímulo de alto volumen de empuje/tirón y fatiga de agarre que el original, con carga y reps levemente reducidas.',
       timer:{ segments:[{label:'WOD — el resto de los 10:00 es descanso', duration:600, color:'fire'}], repeat:3 }
     },
     { id:'accessory', category:'accessory', icon:'🎯', title:'Accessorio', subtitle:'2-4 sets',
-      items:['Dual DB Zottman curls x8 + Seated banded low rows x20'],
+      items:['Dual DB Zottman curls x8 + Seated banded low rows x20 — Rest 60s entre sets'],
+      objective:'Bloque idéntico al original.',
       quickRest:{ label:'Descanso (60s)', seconds:60 }
     }
   ],
-  summary:'Sábado mantiene la estructura completa del original — cardio starter, power clean e intervalos.',
-  cooldown:['Estiramiento general de tren inferior','Respiración diafragmática 2 min']
+  summary:'Sábado mantiene la estructura completa del original — cardio starter, power clean, intervalos de alto volumen y accesorio — bajando únicamente los techos de esfuerzo/carga para cerrar la semana de reingreso sin comprometer el estímulo.',
+  cooldown:['Estiramiento general de tren inferior 3x20-30s','Movilidad de tobillo y cadera 2 min','Foam roll espalda alta/dorsal 1 min','Respiración diafragmática 2 min']
 }
 ];
 
+const CECI_WEEK = [
+{
+  id:'ceci-lunes', short:'LUN', label:'Pecho + Tríceps ✓', dayNum:1, name:'LUNES',
+  title:'Pecho + Tríceps — Sesión Completada',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'resumen', category:'accessory', icon:'✅', title:'Sesión Completada', subtitle:'Pecho + Tríceps · Hipertrofia',
+      items:[
+        'Press de banca en máquina o mancuernas — series principales completadas',
+        'Aperturas en polea o máquina — volumen de aislamiento de pecho',
+        'Extensión de Tríceps en Polea — parte 1 del cierre de brazo',
+        'Press Francés con Mancuernas — parte 2 del cierre de brazo'
+      ],
+      tips:'Primera sesión de la semana de reingreso, ya completada. Los detalles de series y cargas quedan en tu seguimiento personal; desde acá arrancamos martes con espalda y bíceps.'
+    }
+  ],
+  summary:'Lunes fue el punto de partida del reingreso post-gripe: pecho y tríceps con foco en técnica y RPE moderado. Sesión ya completada — el plan continúa martes con espalda y bíceps.',
+  cooldown:[]
+},
+{
+  id:'ceci-martes', short:'MAR', label:'Espalda + Bíceps', dayNum:2, name:'MARTES',
+  title:'Espalda + Bíceps — Hipertrofia',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Movilidad de hombro + activación de dorsal',
+      items:[
+        '5 min cardio suave (bici o cinta) a ritmo cómodo',
+        'Face Pull en Polea — 2 series x 15, carga muy liviana',
+        'Elevación en Y en Polea Baja — 2 series x 10, carga muy liviana',
+        'Rotación Externa en Polea — 2 series x 10 por lado, carga muy liviana'
+      ],
+      tips:'El objetivo es activar dorsal, romboides y manguito rotador antes de cargar peso — sin fatigar.'
+    },
+    { id:'blockA', category:'strength', icon:'💪', title:'Block A: Espalda — Jalón al Pecho', subtitle:'4 series x 10-12 reps · RPE 6-8 (RIR 2-4)',
+      items:[
+        'Jalón al pecho en polea (agarre ancho o neutro) — 4 series x 10-12 reps',
+        'Remo sentado en polea (agarre neutro) — 4 series x 10-12 reps'
+      ],
+      tips:'Buscá la sensación de trabajo en dorsal ancho y espalda media, no en el brazo. Tempo controlado, sin balanceo del torso.',
+      objective:'Construir base de hipertrofia en dorsal y espalda media con ejercicios guiados de bajo riesgo articular.',
+      quickRest:{ label:'Descanso entre series', seconds:120 }
+    },
+    { id:'blockB', category:'strength', icon:'💪', title:'Block B: Espalda Unilateral — Remo a un Brazo', subtitle:'3 series x 10-12 reps por lado · RPE 6-8',
+      items:['Remo a un brazo con mancuerna, apoyo en banco — 3 series x 10-12 reps por lado'],
+      tips:'Mantené la zona lumbar neutra y evitá rotar el torso al remar; priorizá la contracción de espalda sobre el peso levantado.',
+      objective:'Trabajar asimetrías y estabilidad unilateral de tronco.',
+      quickRest:{ label:'Descanso entre series', seconds:90 }
+    },
+    { id:'blockC', category:'accessory', icon:'🎯', title:'Block C: Bíceps — Curl + Martillo', subtitle:'3 series x 12-15 reps · Superset',
+      items:[
+        'Curl de bíceps con mancuernas — 3 series x 12-15 reps',
+        'Curl martillo — 3 series x 12-15 reps (superset con el anterior)'
+      ],
+      tips:'Ejecución lenta y controlada, sin impulso de cadera ni hombro. Es el cierre del bloque, no busques carga máxima.',
+      quickRest:{ label:'Descanso (superset completo)', seconds:100 }
+    }
+  ],
+  summary:'Martes trabaja espalda con foco en jalones y remos guiados, y cierra con bíceps en superset — volumen moderado, RPE 6-8, descansos de 1.5 a 2 minutos entre series.',
+  cooldown:['Estiramiento de dorsal ancho (colgado suave o en polea) 2x30s','Movilidad de hombro con banda 2x10','Foam roll de espalda alta 1 min','Respiración diafragmática 2 min']
+},
+{
+  id:'ceci-miercoles', short:'MIÉ', label:'Pierna — Cadena Anterior', dayNum:3, name:'MIÉRCOLES',
+  title:'Pierna — Cadena Anterior + Glúteos',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Movilidad de cadera + activación de glúteo',
+      items:[
+        '5 min bici o cinta a ritmo cómodo',
+        'Puente de Glúteo en el Piso — 2 series x 15 reps',
+        'Sentadillas con Peso Corporal — 2 series x 10 reps, rango completo sin dolor'
+      ],
+      tips:'Priorizá sentir cuádriceps y glúteo activados antes de sumar carga en máquina.'
+    },
+    { id:'blockA', category:'strength', icon:'🦵', title:'Block A: Cuádriceps — Sillón + Prensa', subtitle:'4 series x 10-12 reps · RPE 6-8 (RIR 2-4)',
+      items:[
+        'Sillón de cuádriceps (extensión de rodilla) — 4 series x 10-12 reps',
+        'Prensa 45° (pies al centro, ancho medio) — 4 series x 10-12 reps'
+      ],
+      tips:'En la prensa, evitá bloquear la rodilla al extender y no bajes más de lo que tu cadera permite sin despegar la zona lumbar del respaldo.',
+      objective:'Volumen de hipertrofia en cuádriceps con ejercicios guiados de bajo estrés en la técnica.',
+      quickRest:{ label:'Descanso entre series', seconds:120 }
+    },
+    { id:'blockB', category:'strength', icon:'🦵', title:'Block B: Glúteo — Hip Thrust', subtitle:'4 series x 10-12 reps · RPE 6-8',
+      items:['Hip thrust en rack o máquina — 4 series x 10-12 reps, pausa de 1-2s arriba'],
+      tips:'Buscá la contracción máxima de glúteo en la parte alta del movimiento; evitá hiperextender la zona lumbar.',
+      objective:'Foco directo de hipertrofia de glúteo con carga progresiva controlada.',
+      quickRest:{ label:'Descanso entre series', seconds:120 }
+    },
+    { id:'blockC', category:'accessory', icon:'🎯', title:'Block C: Step-Up + Core', subtitle:'3 series · Superset',
+      items:[
+        'Step-up en banco bajo/medio con mancuernas — 3 series x 10 reps por pierna',
+        'Plancha frontal — 3 series x 30-40s'
+      ],
+      tips:'En el step-up, apoyá el pie completo arriba y subí sin impulso de la pierna de atrás. En la plancha, mantené cadera y hombros alineados.',
+      quickRest:{ label:'Descanso (superset completo)', seconds:90 }
+    }
+  ],
+  summary:'Miércoles combina cuádriceps y glúteo con máquinas guiadas (sillón, prensa, hip thrust) y cierra con un superset de step-up y core — RPE 6-8 en el trabajo principal, descansos de 1.5 a 2 minutos.',
+  cooldown:['Estiramiento de cuádriceps de pie 2x30s por lado','Estiramiento de glúteo (figura 4) 2x30s por lado','Foam roll de cuádriceps 1 min por zona','Respiración diafragmática 2 min']
+},
+{
+  id:'ceci-jueves', short:'JUE', label:'Descanso', dayNum:4, name:'JUEVES', rest:true,
+  title:'Rest Day — Recuperación',
+  availability:{ jp:'rest', ceci:'rest' },
+  blocks:[
+    { id:'mobility', category:'warmup', icon:'🧘', title:'Opcional — Movilidad Liviana', subtitle:'15-20 min, sin carga',
+      items:[
+        '10 min de movilidad general de cadera, tobillo y columna torácica',
+        'Caminata suave 15-20 min al aire libre'
+      ],
+      tips:'Jueves es descanso completo del bloque de fuerza — si aparece cansancio o molestia residual, priorizá descanso total por sobre esta sesión opcional.'
+    }
+  ],
+  summary:'Descanso completo entre las dos sesiones de pierna de la semana (miércoles y viernes), y punto medio del reingreso post-gripe. No es un día para reponer volumen perdido.',
+  cooldown:[]
+},
+{
+  id:'ceci-viernes', short:'VIE', label:'Pierna — Cadena Posterior', dayNum:5, name:'VIERNES',
+  title:'Pierna — Cadena Posterior + Glúteos',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Movilidad de cadera + activación de isquios',
+      items:[
+        '5 min bici o cinta a ritmo cómodo',
+        'Peso Muerto Rumano con Mancuernas Livianas — 2 series x 12 reps, foco en la bisagra de cadera',
+        'Puente de Glúteo con Banda en Rodillas — 2 series x 15 reps'
+      ],
+      tips:'El foco es sentir la bisagra de cadera correctamente antes de sumar carga — rodillas semi-flexionadas, espalda neutra.'
+    },
+    { id:'blockA', category:'strength', icon:'🦵', title:'Block A: Isquios — Camilla + RDL', subtitle:'4 series x 10-12 reps · RPE 6-8 (RIR 2-4)',
+      items:[
+        'Camilla de femorales (curl acostado o sentado) — 4 series x 10-12 reps',
+        'Peso muerto rumano con mancuernas — 4 series x 10-12 reps'
+      ],
+      tips:'En el RDL, la barra o mancuernas bajan pegadas a la pierna; el límite del rango es donde la espalda empieza a perder la posición neutra.',
+      objective:'Hipertrofia de isquiotibiales combinando aislamiento guiado y patrón de bisagra libre.',
+      quickRest:{ label:'Descanso entre series', seconds:120 }
+    },
+    { id:'blockB', category:'strength', icon:'🦵', title:'Block B: Glúteo Unilateral — Hip Thrust', subtitle:'3 series x 10-12 reps por lado · RPE 6-8',
+      items:['Hip thrust a una pierna (banco o rack) — 3 series x 10-12 reps por lado'],
+      tips:'Apoyate bien con el pie de la pierna de trabajo y evitá rotar la cadera hacia el lado libre.',
+      objective:'Corregir asimetrías de fuerza entre ambos glúteos.',
+      quickRest:{ label:'Descanso entre series', seconds:100 }
+    },
+    { id:'blockC', category:'accessory', icon:'🎯', title:'Block C: Prensa Pies Altos + Buenos Días', subtitle:'3 series · Superset',
+      items:[
+        'Prensa 45° con pies altos en la plataforma — 3 series x 12 reps',
+        'Buenos días con banda o barra vacía — 3 series x 12 reps'
+      ],
+      tips:'Pies altos en la prensa desplaza el énfasis hacia isquios y glúteo. En los buenos días, movimiento lento y rango corto, sin buscar carga.',
+      quickRest:{ label:'Descanso (superset completo)', seconds:90 }
+    }
+  ],
+  summary:'Viernes completa el trabajo de pierna de la semana con foco en cadena posterior — camilla, RDL, hip thrust unilateral y un cierre de prensa/buenos días — mismo rango de RPE 6-8 y descansos de 1.5 a 2 minutos.',
+  cooldown:['Estiramiento de isquiotibiales de pie o sentada 2x30s por lado','Estiramiento de glúteo (figura 4) 2x30s por lado','Foam roll de isquios 1 min por zona','Respiración diafragmática 2 min']
+},
+{
+  id:'ceci-sabado', short:'SÁB', label:'Torso Full Body Ligero', dayNum:6, name:'SÁBADO',
+  title:'Torso / Full Body Ligero',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Activación general, ritmo suave',
+      items:[
+        '5 min cardio suave a elección (bici, cinta o elíptico)',
+        '2 series x 10 rotaciones de hombro + 10 círculos de cadera'
+      ],
+      tips:'Sábado cierra la semana con carga baja — el warm up también es más corto y liviano que el resto de los días.'
+    },
+    { id:'blockA', category:'strength', icon:'💪', title:'Block A: Torso — Press + Remo', subtitle:'3 series x 12-15 reps · RPE 5-6',
+      items:[
+        'Press de pecho en máquina o mancuernas — 3 series x 12-15 reps',
+        'Remo en polea sentado — 3 series x 12-15 reps'
+      ],
+      tips:'Esfuerzo bajo-moderado en toda la sesión — dejá 4-6 repeticiones en reserva en cada serie, sin buscar fallo ni cargas nuevas.',
+      objective:'Mantener el estímulo de fuerza superior con fatiga mínima antes del fin de semana.',
+      quickRest:{ label:'Descanso entre series', seconds:90 }
+    },
+    { id:'blockB', category:'strength', icon:'💪', title:'Block B: Hombro — Press', subtitle:'3 series x 12-15 reps · RPE 5-6',
+      items:['Press de hombro en máquina o mancuernas, sentada — 3 series x 12-15 reps'],
+      tips:'Rango cómodo, sin dolor en la parte alta del movimiento. Si aparece cualquier molestia de hombro, reducí el rango o el peso.',
+      quickRest:{ label:'Descanso entre series', seconds:90 }
+    },
+    { id:'blockC', category:'accessory', icon:'🎯', title:'Block C: Brazos + Core Suave', subtitle:'2-3 series · Circuito',
+      items:[
+        'Curl de bíceps con mancuernas — 2-3 series x 15 reps',
+        'Extensión de tríceps en polea — 2-3 series x 15 reps',
+        'Core suave: plancha 2-3 series x 20-30s o elevación de piernas acostada x12-15 reps'
+      ],
+      tips:'Circuito de cierre a intensidad baja — es un buen momento para trabajar técnica y sentir músculo, no cargar peso.',
+      quickRest:{ label:'Descanso (circuito completo)', seconds:90 }
+    }
+  ],
+  summary:'Sábado cierra la semana con un full body liviano de torso, hombro, brazos y core — RPE 5-6 en todos los bloques, sin buscar fatiga metabólica ni cargas nuevas, para llegar descansada al domingo.',
+  cooldown:['Estiramiento de pecho en marco de puerta 2x30s por lado','Movilidad de hombro con banda 2x10','Respiración diafragmática 2-3 min']
+}
+];
+
+function getWeek(){ return state.athlete==='ceci' ? CECI_WEEK : WEEK; }
+
 const CATEGORY_META = {
-  warmup:{ cls:'bi-warmup', labelCls:'bl-warmup' },
-  oly:{ cls:'bi-oly', labelCls:'bl-oly' },
-  strength:{ cls:'bi-strength', labelCls:'bl-strength' },
-  metcon:{ cls:'bi-metcon', labelCls:'bl-metcon' },
-  cardio:{ cls:'bi-cardio', labelCls:'bl-cardio' },
-  accessory:{ cls:'bi-accessory', labelCls:'bl-accessory' }
+  warmup:{ cls:'bi-warmup', labelCls:'bl-warmup', insightsCls:'insights-warmup' },
+  oly:{ cls:'bi-oly', labelCls:'bl-oly', insightsCls:'insights-oly' },
+  strength:{ cls:'bi-strength', labelCls:'bl-strength', insightsCls:'insights-strength' },
+  metcon:{ cls:'bi-metcon', labelCls:'bl-metcon', insightsCls:'insights-metcon' },
+  cardio:{ cls:'bi-cardio', labelCls:'bl-cardio', insightsCls:'insights-cardio' },
+  accessory:{ cls:'bi-accessory', labelCls:'bl-accessory', insightsCls:'insights-accessory' }
 };
 
-const state = { athlete:'jp', currentDay:'lunes', completed:{}, overrideRest:{} };
-let timerCounter = 0;
+const TIMER_COLORS = { fire:'#FF6D00', teal:'#00BFA5', blue:'#64B5F6', muted:'#8A8A8A', orange:'#FFA726' };
 
 /* =========================================================
-   AUDIO & WAKELOCK MANAGER
+   STATE
+========================================================= */
+const state = { athlete:'jp', currentDay:'lunes', completed:{ 'ceci-lunes__resumen': true }, overrideRest:{} };
+let timerCounter = 0;
+
+/* Registro liviano de timers activos, usado únicamente por el Mini-HUD flotante
+   (Sticky Timer Player) — no interviene en la lógica propia de cada timer. */
+const liveTimers = [];
+let lastStartedTimer = null;
+
+/* =========================================================
+   AUDIO — Web Audio API, beeps simples con desbloqueo mobile
+   (un solo AudioContext compartido, desbloqueado sincrónicamente
+   en el primer tap del usuario sobre cualquier botón de timer)
 ========================================================= */
 let _audioCtx = null;
-function ensureAudioCtx(){ if(!_audioCtx) _audioCtx = new (window.AudioContext||window.webkitAudioContext)(); return _audioCtx; }
+function ensureAudioCtx(){
+  if(!_audioCtx) _audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  return _audioCtx;
+}
 function unlockAudio(){
-  try{ const ctx = ensureAudioCtx(); if(ctx.state === 'suspended') ctx.resume(); }catch(e){}
+  try{
+    const ctx = ensureAudioCtx();
+    if(ctx.state === 'suspended') ctx.resume();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.01);
+  }catch(e){ /* Web Audio no disponible: seguimos sin sonido */ }
 }
 function playBeep(freq, dur, peakGain, delay){
   try{
-    const ctx = ensureAudioCtx(); const start = ctx.currentTime + (delay || 0);
-    const osc = ctx.createOscillator(); const gain = ctx.createGain();
-    osc.type = 'sine'; osc.frequency.setValueAtTime(freq, start);
-    gain.gain.setValueAtTime(0.0001, start); gain.gain.linearRampToValueAtTime(peakGain, start + 0.012);
+    const ctx = ensureAudioCtx();
+    const start = ctx.currentTime + (delay || 0);
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, start);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.linearRampToValueAtTime(peakGain, start + 0.012);
     gain.gain.setValueAtTime(peakGain, start + Math.max(dur - 0.04, 0.012));
     gain.gain.linearRampToValueAtTime(0.0001, start + dur);
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.start(start); osc.stop(start + dur + 0.03);
-  }catch(e){}
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(start);
+    osc.stop(start + dur + 0.03);
+  }catch(e){ console.warn('playBeep falló:', e); }
 }
 function beepCountdown(){ playBeep(880, 0.12, 0.6); }
 function beepGo(){ playBeep(1568, 0.32, 0.65); }
 function beepStop(){ playBeep(440, 0.45, 0.65); }
-function beepFinish(){ playBeep(1568, 0.16, 0.65, 0); playBeep(1568, 0.16, 0.65, 0.22); playBeep(1568, 0.35, 0.65, 0.44); }
-function fmt(sec){ sec = Math.max(0, Math.round(sec)); const m = Math.floor(sec/60), s = sec % 60; return (m<10?'0':'')+m+':'+(s<10?'0':'')+s; }
+function beepFinish(){
+  playBeep(1568, 0.16, 0.65, 0);
+  playBeep(1568, 0.16, 0.65, 0.22);
+  playBeep(1568, 0.35, 0.65, 0.44);
+}
+function vibrate(pattern){
+  try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){}
+}
+function fmt(sec){
+  sec = Math.max(0, Math.round(sec));
+  const m = Math.floor(sec/60), s = sec % 60;
+  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
 
+/* =========================================================
+   WAKE LOCK MANAGER — keeps the screen on while any timer runs.
+   Uses the Screen Wake Lock API (needs HTTPS/localhost; silently
+   no-ops on unsupported browsers or file:// previews).
+========================================================= */
 const WakeLockManager = (function(){
-  let sentinel = null, count = 0;
-  async function acquireSentinel(){ if(sentinel || !('wakeLock' in navigator)) return; try{ sentinel = await navigator.wakeLock.request('screen'); sentinel.addEventListener('release', ()=>{ sentinel = null; }); }catch(e){} }
+  let sentinel = null;
+  let count = 0;
+  const indicators = new Set();
+  function refreshIndicators(){
+    indicators.forEach(el=>el.classList.toggle('on', !!sentinel));
+  }
+  async function acquireSentinel(){
+    if(sentinel || !('wakeLock' in navigator)) return;
+    try{
+      sentinel = await navigator.wakeLock.request('screen');
+      sentinel.addEventListener('release', ()=>{ sentinel = null; refreshIndicators(); });
+      refreshIndicators();
+    }catch(e){ sentinel = null; }
+  }
+  function register(indicatorEl){ if(indicatorEl) indicators.add(indicatorEl); refreshIndicators(); }
   function acquire(){ count++; acquireSentinel(); }
-  function release(){ count = Math.max(0, count-1); if(count===0 && sentinel){ sentinel.release().catch(()=>{}); sentinel = null; } }
-  return { acquire, release };
+  function release(){
+    count = Math.max(0, count-1);
+    if(count===0 && sentinel){ sentinel.release().catch(()=>{}); sentinel = null; refreshIndicators(); }
+  }
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState==='visible' && count>0) acquireSentinel();
+  });
+  return { acquire, release, register };
 })();
 
 /* =========================================================
-   PARSER & RENDER LINE
+   BIBLIOTECA DE VIDEOS DE TÉCNICA (Ceci)
+   Mapeo Nombre de ejercicio (tal cual aparece en el plan) → ID de YouTube.
+   Fuente: planilla de biblioteca de ejercicios provista por el coach.
+========================================================= */
+const VIDEO_MAP = {
+  'Face Pull en Polea': 'IeOqdw9WI90',
+  'Elevación en Y en Polea Baja': 'HLqokPogDE4',
+  'Rotación Externa en Polea': 'fuWq7fg74dc',
+  'Jalón al pecho en polea (agarre ancho o neutro)': 'e3gQM9iHxrU',
+  'Remo sentado en polea (agarre neutro)': 'qD1WZ5pSuvk',
+  'Remo a un brazo con mancuerna, apoyo en banco': 'vu_YDt9nGv4',
+  'Curl de bíceps con mancuernas': 'MKWBV29S6c0',
+  'Curl martillo': 'fM0TQLoesLs',
+  'Puente de Glúteo en el Piso': '6gl4x_OqDQ0',
+  'Sentadillas con Peso Corporal': 'hOzIP_sDfU0',
+  'Sillón de cuádriceps (extensión de rodilla)': 'uM86QE59Tgc',
+  'Prensa 45° (pies al centro, ancho medio)': 'EotSw18oR9w',
+  'Hip thrust en rack o máquina': 'CvuVYMFd11g',
+  'Step-up en banco bajo/medio con mancuernas': '37tVohr7LcE',
+  'Plancha frontal': 'xe2MXatLTUw',
+  'Peso Muerto Rumano con Mancuernas Livianas': 'hu3jRvTc_po',
+  'Puente de Glúteo con Banda en Rodillas': 'Zr2RLjIjCN0',
+  'Camilla de femorales (curl acostado o sentado)': 'lGNeJsdqJwg',
+  'Peso muerto rumano con mancuernas': 'hu3jRvTc_po',
+  'Hip thrust a una pierna (banco o rack)': 'KW7yo5x7-HI',
+  'Prensa 45° con pies altos en la plataforma': 'EotSw18oR9w',
+  'Buenos días con banda o barra vacía': 'YA-h3n9L4YU',
+  'Press de pecho en máquina o mancuernas': 'JXJmPXlqwh0',
+  'Remo en polea sentado': 'iXGHN-MWFfY',
+  'Press de hombro en máquina o mancuernas, sentada': '6v4nrRVySj0',
+  'Extensión de tríceps en polea': '1FoWlRS2Edc',
+  'Extensión de Tríceps en Polea': '1FoWlRS2Edc',
+  'Press Francés con Mancuernas': 'e3hmoAot--s',
+  'Press de banca en máquina o mancuernas': 'JXJmPXlqwh0',
+  'Aperturas en polea o máquina': '05_meIKMKFA'
+};
+function videoLinkHtml(name){
+  const ytid = VIDEO_MAP[(name||'').trim()];
+  if(!ytid) return '';
+  return ` <a class="video-link" href="javascript:void(0)" data-yt="${ytid}">▶ Ver técnica</a>`;
+}
+
+/* =========================================================
+   ITEM LINE PARSER → ex-row / section-label / divider
 ========================================================= */
 function renderLine(text){
   const dividerMatch = text.match(/^—\s*(.+?)\s*—$/);
   if(dividerMatch) return `<div class="ex-divider">${dividerMatch[1]}</div>`;
 
+  const tagMatch = text.match(/^([A-Z][0-9])\s*—\s*(.+)$/);
+  if(tagMatch){
+    const isComplex = /constru/i.test(tagMatch[2]);
+    return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${tagMatch[2]}${videoLinkHtml(tagMatch[2])}</span><span class="ex-detail"><strong>${tagMatch[1]}</strong></span></div>`;
+  }
+  const opMatch = text.match(/^(Op\.\d+):\s*(.+)$/);
+  if(opMatch){
+    return `<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">${opMatch[2]}${videoLinkHtml(opMatch[2])}</span><span class="ex-detail"><strong>${opMatch[1]}</strong></span></div>`;
+  }
   const dashSplit = text.split(' — ');
   if(dashSplit.length === 2){
-    return `<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">${dashSplit[0]}</span><span class="ex-detail"><strong>${dashSplit[1]}</strong></span></div>`;
+    const isComplex = /constru/i.test(text);
+    return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${dashSplit[0]}${videoLinkHtml(dashSplit[0])}</span><span class="ex-detail">${dashSplit[1]}</span></div>`;
   }
-  return `<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">${text}</span></div>`;
+  const isComplex = /constru/i.test(text);
+  return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${text}${videoLinkHtml(text)}</span></div>`;
 }
 
 /* =========================================================
-   SEGMENT TIMER & STOPWATCH
+   SEGMENT TIMER
 ========================================================= */
-class SegmentTimer {
+class SegmentTimer{
   constructor(root, segments, repeat){
     this.root = root; this.segments = segments; this.repeat = repeat;
     this.totalUnits = segments.length * repeat;
-    this.unitIndex = 0; this.elapsed = 0; this.running = false;
-    this.phase = 'idle'; this.prepDuration = 10; this.prepElapsed = 0;
+    this.totalDuration = segments.reduce((sum,s)=>sum+s.duration,0) * repeat;
+    this.cumulativeBase = 0;
+    this.roundInfo = this.buildRoundInfo();
+    this.unitIndex = 0; this.elapsed = 0; this.running = false; this.rafId = null; this.lastTs = null;
+    /* reloj único: fases 'idle' → 'prep' (10s Preparate) → 'run' → 'done' */
+    this.phase = 'idle';
+    this.prepDuration = 10;
+    this.prepElapsed = 0;
+    this._prepBeeped = new Set();
+    this.kind = 'segment';
     this.build();
+    liveTimers.push(this);
+  }
+  /* Distinguishes real work rounds from rest segments so the round counter
+     never counts a "Descanso" as if it were an exercise round. Segments
+     without any `rest:true` flag behave exactly as before (every segment
+     counts as a round — e.g. plain EMOMs). */
+  buildRoundInfo(){
+    const hasRest = this.segments.some(s=>s.rest);
+    const workPerCycle = hasRest ? this.segments.filter(s=>!s.rest).length : this.segments.length;
+    const workTotal = workPerCycle * this.repeat;
+    const info = [];
+    let workCounter = 0;
+    for(let r=0; r<this.repeat; r++){
+      for(const seg of this.segments){
+        if(hasRest && seg.rest){
+          const upcoming = workCounter + 1;
+          info.push({ label: workTotal>1 ? (upcoming>workTotal ? 'Descanso final' : ('Próx. Ronda '+upcoming+' / '+workTotal)) : '' });
+        } else {
+          workCounter++;
+          info.push({ label: workTotal>1 ? ('Ronda '+workCounter+' / '+workTotal) : '' });
+        }
+      }
+    }
+    return info;
   }
   currentSeg(){ return this.segments[this.unitIndex % this.segments.length]; }
   build(){
     this.root.insertAdjacentHTML('beforeend', `
+      <div class="timer-phase-tag phase-prep">Preparate</div>
+      <div class="timer-seg-name"></div>
       <div class="timer-display">00:10</div>
-      <div style="display:flex;justify-content:center;gap:16px;">
-        <button class="nav-pill btn-reset" style="background:#222;">↺ Reiniciar</button>
-        <button class="nav-pill btn-toggle" style="background:var(--fire);color:#fff;">▶ Iniciar</button>
+      <div class="timer-round-big"></div>
+      <div class="timer-round-bar"><div class="timer-round-bar-fill phase-prep"></div></div>
+      <div class="timer-controls-round">
+        <button class="tbtn-round tbtn-reset-round btn-reset" title="Reiniciar" aria-label="Reiniciar">↺</button>
+        <button class="tbtn-round tbtn-play btn-toggle" title="Iniciar" aria-label="Iniciar">▶</button>
       </div>
+      <div class="wake-indicator">🔒 Pantalla activa</div>
     `);
+    this.elPhase = this.root.querySelector('.timer-phase-tag');
+    this.elName = this.root.querySelector('.timer-seg-name');
+    this.elRoundBig = this.root.querySelector('.timer-round-big');
+    this.elBarFill = this.root.querySelector('.timer-round-bar-fill');
     this.elTime = this.root.querySelector('.timer-display');
     this.btnToggle = this.root.querySelector('.btn-toggle');
     this.btnReset = this.root.querySelector('.btn-reset');
-    this.btnToggle.addEventListener('click', ()=>{ unlockAudio(); this.running ? this.pause() : this.start(); });
+    this.btnToggle.addEventListener('click', ()=>{
+      unlockAudio();
+      if(this.running) this.pause(); else this.start();
+    });
     this.btnReset.addEventListener('click', ()=>{ unlockAudio(); this.reset(); });
+    WakeLockManager.register(this.root.querySelector('.wake-indicator'));
+    this.updateDisplay();
+  }
+  updateDisplay(){
+    if(this.phase==='idle' || this.phase==='prep'){
+      const remaining = this.phase==='prep' ? Math.max(0, this.prepDuration - this.prepElapsed) : this.prepDuration;
+      this.elPhase.textContent = 'Preparate';
+      this.elPhase.className = 'timer-phase-tag phase-prep';
+      this.elName.textContent = '';
+      this.elName.style.visibility = 'hidden';
+      const firstInfo = this.roundInfo[0];
+      this.elRoundBig.textContent = firstInfo && firstInfo.label ? ('Arranca: '+firstInfo.label) : '';
+      this.elTime.textContent = fmt(remaining);
+      this.root.classList.remove('tb-work','tb-rest','tb-done'); this.root.classList.add('tb-prep');
+      const prepFrac = this.phase==='prep' ? Math.min(1, this.prepElapsed/this.prepDuration) : 0;
+      this.elBarFill.style.width = (prepFrac*100)+'%';
+      this.elBarFill.className = 'timer-round-bar-fill phase-prep';
+      return;
+    }
+    const seg = this.currentSeg();
+    const remaining = seg.duration - this.elapsed;
+    const done = this.phase === 'done';
+    const isRest = !done && !!seg.rest;
+    this.elPhase.textContent = done ? 'Completo' : (isRest ? 'Descanso' : 'Trabajo');
+    this.elPhase.className = 'timer-phase-tag ' + (done ? 'phase-done' : (isRest ? 'phase-rest' : 'phase-work'));
+    this.elName.textContent = done ? '' : (seg.label || '');
+    this.elName.style.visibility = (!done && seg.label) ? 'visible' : 'hidden';
+    const info = this.roundInfo[Math.min(this.unitIndex, this.roundInfo.length-1)];
+    this.elRoundBig.textContent = done ? '¡Completo!' : (info ? info.label : '');
+    this.elTime.textContent = fmt(remaining>0?remaining:0);
+    this.root.classList.remove('tb-prep');
+    this.root.classList.toggle('tb-work', !done && !isRest);
+    this.root.classList.toggle('tb-rest', !done && isRest);
+    this.root.classList.toggle('tb-done', done);
+    const progressed = done ? this.totalDuration : (this.cumulativeBase + this.elapsed);
+    const frac = this.totalDuration>0 ? Math.min(1, progressed/this.totalDuration) : 0;
+    this.elBarFill.style.width = (frac*100)+'%';
+    this.elBarFill.className = 'timer-round-bar-fill ' + (done ? 'phase-done' : (isRest ? 'phase-rest' : 'phase-work'));
   }
   start(){
     if(this.running) return;
-    this.running = true; WakeLockManager.acquire();
-    this.btnToggle.textContent = '⏸ Pausar';
-    if(this.phase==='idle') this.phase = 'prep';
+    unlockAudio();
+    lastStartedTimer = this;
+    if(this.phase==='done') this.reset();
+    this.running = true;
+    WakeLockManager.acquire();
+    this.btnToggle.textContent = '⏸'; this.btnToggle.classList.add('is-running'); this.btnToggle.title = 'Pausar';
+    if(this.phase==='idle'){ this.phase = 'prep'; this.prepElapsed = 0; this._prepBeeped = new Set(); }
     this.lastTs = performance.now();
     const loop = (ts)=>{
       if(!this.running) return;
       const dt = (ts - this.lastTs)/1000; this.lastTs = ts;
+
       if(this.phase==='prep'){
         this.prepElapsed += dt;
-        const rem = Math.max(0, this.prepDuration - this.prepElapsed);
-        this.elTime.textContent = fmt(rem);
-        if(this.prepElapsed >= this.prepDuration){ this.phase = 'run'; beepGo(); }
-      } else {
-        this.elapsed += dt;
-        const seg = this.currentSeg();
-        const rem = Math.max(0, seg.duration - this.elapsed);
-        this.elTime.textContent = fmt(rem);
-        if(this.elapsed >= seg.duration){
-          this.elapsed = 0; this.unitIndex++;
-          if(this.unitIndex >= this.totalUnits){ this.running = false; WakeLockManager.release(); beepFinish(); return; }
-          beepGo();
+        const remainingInt = Math.ceil(Math.max(0, this.prepDuration - this.prepElapsed));
+        if(remainingInt<=3 && remainingInt>=1 && !this._prepBeeped.has(remainingInt)){
+          this._prepBeeped.add(remainingInt);
+          beepCountdown();
         }
+        if(this.prepElapsed >= this.prepDuration){
+          this.phase = 'run';
+          this.unitIndex = 0; this.elapsed = 0; this.cumulativeBase = 0;
+          beepGo(); vibrate(70);
+        }
+        this.updateDisplay();
+        this.rafId = requestAnimationFrame(loop);
+        return;
       }
-      requestAnimationFrame(loop);
+
+      this.elapsed += dt;
+      const seg = this.currentSeg();
+      if(this.elapsed >= seg.duration){
+        this.cumulativeBase += seg.duration;
+        this.elapsed = 0; this.unitIndex++;
+        if(this.unitIndex >= this.totalUnits){
+          this.phase = 'done';
+          this.running = false; this.updateDisplay();
+          WakeLockManager.release();
+          this.btnToggle.textContent = '▶'; this.btnToggle.classList.remove('is-running'); this.btnToggle.title = 'Reiniciar';
+          beepFinish(); vibrate([80,50,80,50,200]);
+          return;
+        }
+        const nextSeg = this.currentSeg();
+        if(nextSeg.rest){ beepStop(); vibrate(120); } else { beepGo(); vibrate(70); }
+      }
+      this.updateDisplay();
+      this.rafId = requestAnimationFrame(loop);
     };
-    requestAnimationFrame(loop);
+    this.rafId = requestAnimationFrame(loop);
   }
-  pause(){ this.running = false; WakeLockManager.release(); this.btnToggle.textContent = '▶ Reanudar'; }
-  reset(){ this.running = false; WakeLockManager.release(); this.phase = 'idle'; this.prepElapsed = 0; this.unitIndex = 0; this.elapsed = 0; this.elTime.textContent = '00:10'; this.btnToggle.textContent = '▶ Iniciar'; }
+  pause(){
+    if(!this.running) return;
+    this.running = false;
+    WakeLockManager.release();
+    if(this.rafId) cancelAnimationFrame(this.rafId);
+    this.btnToggle.textContent = '▶'; this.btnToggle.classList.remove('is-running'); this.btnToggle.title = 'Reanudar';
+  }
+  reset(){
+    if(this.running){ this.running = false; WakeLockManager.release(); }
+    if(this.rafId) cancelAnimationFrame(this.rafId);
+    this.phase = 'idle'; this.prepElapsed = 0; this._prepBeeped = new Set();
+    this.unitIndex = 0; this.elapsed = 0; this.cumulativeBase = 0;
+    this.btnToggle.textContent = '▶'; this.btnToggle.classList.remove('is-running'); this.btnToggle.title = 'Iniciar';
+    this.updateDisplay();
+  }
 }
 
-class Stopwatch {
-  constructor(root){ this.root = root; this.elapsed = 0; this.running = false; this.build(); }
+/* =========================================================
+   STOPWATCH
+========================================================= */
+class Stopwatch{
+  constructor(root){ this.root = root; this.elapsed = 0; this.running = false; this.kind = 'stopwatch'; this.build(); liveTimers.push(this); }
   build(){
     this.root.insertAdjacentHTML('beforeend', `
+      <div class="timer-phase-tag phase-work">For Time</div>
       <div class="timer-display">00:00</div>
-      <div style="display:flex;justify-content:center;gap:16px;">
-        <button class="nav-pill btn-reset" style="background:#222;">↺ Reiniciar</button>
-        <button class="nav-pill btn-toggle" style="background:var(--fire);color:#fff;">▶ Iniciar</button>
+      <div class="timer-controls-round">
+        <button class="tbtn-round tbtn-reset-round btn-reset" title="Reiniciar" aria-label="Reiniciar">↺</button>
+        <button class="tbtn-round tbtn-play btn-toggle" title="Iniciar" aria-label="Iniciar">▶</button>
       </div>
+      <div class="wake-indicator">🔒 Pantalla activa</div>
     `);
     this.elTime = this.root.querySelector('.timer-display');
     this.btnToggle = this.root.querySelector('.btn-toggle');
     this.btnReset = this.root.querySelector('.btn-reset');
-    this.btnToggle.addEventListener('click', ()=>{ unlockAudio(); this.running ? this.pause() : this.start(); });
+    this.btnToggle.addEventListener('click', ()=>{
+      unlockAudio();
+      if(this.running) this.pause(); else this.start();
+    });
     this.btnReset.addEventListener('click', ()=>{ unlockAudio(); this.reset(); });
+    WakeLockManager.register(this.root.querySelector('.wake-indicator'));
   }
   start(){
     if(this.running) return;
-    this.running = true; WakeLockManager.acquire(); this.btnToggle.textContent = '⏸ Parar'; beepGo();
+    unlockAudio();
+    lastStartedTimer = this;
+    this.running = true;
+    WakeLockManager.acquire();
+    this.btnToggle.textContent = '⏸'; this.btnToggle.classList.add('is-running'); this.btnToggle.title = 'Parar';
+    beepGo(); vibrate(70);
     this.lastTs = performance.now();
     const loop = (ts)=>{
       if(!this.running) return;
-      this.elapsed += (ts - this.lastTs)/1000; this.lastTs = ts;
+      this.elapsed += (ts-this.lastTs)/1000; this.lastTs = ts;
       this.elTime.textContent = fmt(this.elapsed);
-      requestAnimationFrame(loop);
+      this.rafId = requestAnimationFrame(loop);
     };
-    requestAnimationFrame(loop);
+    this.rafId = requestAnimationFrame(loop);
   }
-  pause(){ this.running = false; WakeLockManager.release(); this.btnToggle.textContent = '▶ Reanudar'; beepStop(); }
-  reset(){ this.running = false; WakeLockManager.release(); this.elapsed = 0; this.elTime.textContent = '00:00'; this.btnToggle.textContent = '▶ Iniciar'; }
+  pause(){
+    if(!this.running) return;
+    this.running = false;
+    WakeLockManager.release();
+    if(this.rafId) cancelAnimationFrame(this.rafId);
+    this.btnToggle.textContent = '▶'; this.btnToggle.classList.remove('is-running'); this.btnToggle.title = 'Reanudar';
+    beepStop();
+  }
+  reset(){
+    if(this.running){ this.running = false; WakeLockManager.release(); }
+    if(this.rafId) cancelAnimationFrame(this.rafId);
+    this.elapsed = 0; this.elTime.textContent = '00:00';
+    this.btnToggle.textContent = '▶'; this.btnToggle.classList.remove('is-running'); this.btnToggle.title = 'Iniciar';
+  }
 }
 
+/* =========================================================
+   QUICK REST TIMER
+========================================================= */
 function buildQuickTimer(root, seconds, label){
-  root.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;background:#111;padding:12px;border-radius:8px;"><span>⏲ ${label}</span><strong class="qt-disp" style="font-family:'Barlow Condensed';font-size:1.4rem;">${fmt(seconds)}</strong><button class="nav-pill qt-btn">Iniciar</button></div>`;
-  const btn = root.querySelector('.qt-btn'), disp = root.querySelector('.qt-disp');
-  let rem = seconds, running = false, lastTs = null;
+  root.innerHTML = `
+    <div class="quick-timer-left">⏲ <span>${label}</span></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="qt-display quick-timer-display">${fmt(seconds)}</span>
+      <button class="qt-btn quick-timer-btn">Iniciar</button>
+    </div>
+  `;
+  const display = root.querySelector('.qt-display');
+  const btn = root.querySelector('.qt-btn');
+  let remaining = seconds, rafId=null, lastTs=null, running=false;
   btn.addEventListener('click', ()=>{
-    unlockAudio(); if(running) return; running = true; lastTs = performance.now(); beepGo();
+    unlockAudio();
+    if(running) return;
+    if(remaining<=0) remaining = seconds;
+    running = true; btn.textContent = '...'; lastTs = performance.now();
+    beepGo(); vibrate(70);
+    WakeLockManager.acquire();
     const loop = (ts)=>{
-      if(!running) return; rem -= (ts - lastTs)/1000; lastTs = ts;
-      if(rem <= 0){ disp.textContent = fmt(0); running = false; beepFinish(); return; }
-      disp.textContent = fmt(rem); requestAnimationFrame(loop);
+      if(!running) return;
+      remaining -= (ts-lastTs)/1000; lastTs = ts;
+      if(remaining<=0){
+        remaining = 0; display.textContent = fmt(0); running = false;
+        btn.textContent = 'Reiniciar'; beepFinish(); vibrate([80,50,80,50,200]);
+        WakeLockManager.release();
+        return;
+      }
+      display.textContent = fmt(remaining);
+      rafId = requestAnimationFrame(loop);
     };
-    requestAnimationFrame(loop);
+    rafId = requestAnimationFrame(loop);
   });
 }
 
 /* =========================================================
-   RENDER DÍAS Y BLOQUES
+   RENDER
 ========================================================= */
 const tabsWrap = document.getElementById('week-tabs');
 const main = document.getElementById('mainContent');
@@ -999,7 +1708,7 @@ const main = document.getElementById('mainContent');
 function isRestForAthlete(day){ return day.availability[state.athlete] === 'rest'; }
 
 function renderTabs(){
-  tabsWrap.innerHTML = WEEK.map(d=>`
+  tabsWrap.innerHTML = getWeek().map(d=>`
     <div class="day-tab" data-day="${d.id}">
       <span class="tab-name">${d.short}</span>
       <span class="tab-label">${d.label}</span>
@@ -1007,33 +1716,64 @@ function renderTabs(){
     </div>
   `).join('');
   tabsWrap.querySelectorAll('.day-tab').forEach(tab=>{
-    tab.addEventListener('click', ()=>{ state.currentDay = tab.dataset.day; refreshTabs(); refreshDayVisibility(); });
+    tab.addEventListener('click', ()=>{
+      state.currentDay = tab.dataset.day;
+      refreshTabs();
+      refreshDayVisibility();
+    });
   });
 }
 
 function refreshTabs(){
   tabsWrap.querySelectorAll('.day-tab').forEach(tab=>{
-    const day = WEEK.find(d=>d.id===tab.dataset.day);
+    const day = getWeek().find(d=>d.id===tab.dataset.day);
     tab.classList.toggle('active', tab.dataset.day === state.currentDay);
-    tab.classList.toggle('rest-day', day.rest || isRestForAthlete(day));
+    const restForAthlete = day.rest || (isRestForAthlete(day) && !state.overrideRest[day.id]);
+    tab.classList.toggle('rest-day', restForAthlete);
+    const total = day.blocks.length;
+    const done = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
+    tab.classList.toggle('completed-day', total>0 && done===total);
   });
 }
 
 function renderBlockBody(block){
   let html = block.items.map(renderLine).join('');
+
   if(block.timer){
-    const tid = 'timer-'+(timerCounter++); html += `<div class="timer-box" id="${tid}"></div>`;
+    const tid = 'timer-'+(timerCounter++);
+    html += `<div class="timer-box" id="${tid}"></div>`;
     setTimeout(()=>{ new SegmentTimer(document.getElementById(tid), block.timer.segments, block.timer.repeat); }, 0);
   }
+  if(block.timer2){
+    const tid2 = 'timer-'+(timerCounter++);
+    html += `<div class="timer-box" id="${tid2}"><p class="timer-box-label">${block.timer2.label}</p></div>`;
+    setTimeout(()=>{ new SegmentTimer(document.getElementById(tid2), block.timer2.segments, block.timer2.repeat); }, 0);
+  }
   if(block.stopwatch){
-    const tid = 'timer-'+(timerCounter++); html += `<div class="timer-box" id="${tid}"></div>`;
+    const tid = 'timer-'+(timerCounter++);
+    html += `<div class="timer-box" id="${tid}"></div>`;
     setTimeout(()=>{ new Stopwatch(document.getElementById(tid)); }, 0);
   }
   if(block.quickRest){
-    const tid = 'qt-'+(timerCounter++); html += `<div class="quick-timer" id="${tid}"></div>`;
+    const tid = 'qt-'+(timerCounter++);
+    html += `<div class="quick-timer" id="${tid}"></div>`;
     setTimeout(()=>{ buildQuickTimer(document.getElementById(tid), block.quickRest.seconds, block.quickRest.label); }, 0);
   }
-  if(block.tips){ html += `<div class="coach-note"><strong>Coach Note</strong>${block.tips}</div>`; }
+  if(block.tips){
+    html += `<div class="coach-note"><strong>Coach Note</strong>${block.tips}</div>`;
+  }
+  if(block.ceciNote && state.athlete==='ceci'){
+    html += `<div class="scaling-note"><strong>Ceci — Nota</strong>${block.ceciNote}</div>`;
+  }
+  if(block.objective){
+    const meta = CATEGORY_META[block.category] || CATEGORY_META.accessory;
+    html += `<div class="block-insights ${meta.insightsCls}">
+      <div class="insights-header">${block.icon} Objetivo &amp; Enfoque</div>
+      <div class="insights-body">
+        <div class="insight-item"><span class="insight-icon">🎯</span><div class="insight-content"><div class="insight-label">Objetivo</div><div class="insight-text">${block.objective}</div></div></div>
+      </div>
+    </div>`;
+  }
   return html;
 }
 
@@ -1041,15 +1781,18 @@ function renderBlock(day, block){
   const key = day.id+'__'+block.id;
   const done = !!state.completed[key];
   const meta = CATEGORY_META[block.category] || CATEGORY_META.accessory;
+  const startCollapsed = block.category === 'accessory';
   return `
-  <div class="block${done?' block-done':''}" data-block-key="${key}">
+  <div class="block${startCollapsed?' collapsed':''}${done?' block-done':''}" data-block-key="${key}">
     <div class="block-header">
       <div class="block-icon ${meta.cls}">${block.icon||'•'}</div>
       <div class="block-header-text">
         <div class="block-label ${meta.labelCls}">${block.title}</div>
         <div class="block-subtitle">${block.subtitle||''}</div>
       </div>
-      <label class="block-check"><input type="checkbox" class="block-check-input" ${done?'checked':''} data-key="${key}"></label>
+      <label class="block-check" title="Marcar como completado">
+        <input type="checkbox" class="block-check-input" ${done?'checked':''} data-key="${key}">
+      </label>
       <span class="block-chevron">▼</span>
     </div>
     <div class="block-body">${renderBlockBody(block)}</div>
@@ -1057,34 +1800,101 @@ function renderBlock(day, block){
 }
 
 function renderDay(day){
-  const quote = STOIC_QUOTES[day.dayNum] || '';
-  
+  const rest = isRestForAthlete(day);
+  const override = !!state.overrideRest[day.id];
+
+  let athleteChips = '';
+  if(!day.rest){
+    const jpTrain = day.availability.jp === 'train';
+    const ceciTrain = day.availability.ceci === 'train';
+    if(jpTrain && ceciTrain) athleteChips = `<span class="athlete-chip">⚡ JP &amp; Ceci</span>`;
+    else if(jpTrain) athleteChips = `<span class="athlete-chip">⚡ JP</span><span class="athlete-chip muted">😴 Ceci descansa</span>`;
+  }
+
+  let restBanner = '';
+  if(rest && !override){
+    restBanner = `<div class="rest-banner">
+      <span class="rb-icon">⚠️</span>
+      <div>
+        <p class="rest-banner-title">Descanso recomendado para Ceci</p>
+        <p class="rest-banner-text">${day.restNote||''}</p>
+        <label class="rest-banner-check">
+          <input type="checkbox" class="override-check" data-day="${day.id}" ${override?'checked':''}>
+          <span>Entrenar igual hoy</span>
+        </label>
+      </div>
+    </div>`;
+  } else if(rest && override){
+    restBanner = `<div class="rest-banner" style="background:rgba(0,191,165,.05);border-color:rgba(0,191,165,.25);">
+      <span class="rb-icon">✅</span>
+      <div>
+        <p class="rest-banner-title" style="color:var(--teal);">Entrenando igual hoy</p>
+        <p class="rest-banner-text">${day.restNote||''}</p>
+        <label class="rest-banner-check">
+          <input type="checkbox" class="override-check" data-day="${day.id}" checked>
+          <span>Volver a modo descanso</span>
+        </label>
+      </div>
+    </div>`;
+  }
+
+  const total = day.blocks.length;
+  const doneCount = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
+  const allDone = total>0 && doneCount===total;
+
+  if(day.rest){
+    return `
+    <div class="day-view ${day.id===state.currentDay?'active':''}" id="day-${day.id}">
+      <div class="day-header">
+        <div>
+          <div class="day-eyebrow">${day.name} — Día ${day.dayNum}</div>
+          <div class="day-title">${day.title}</div>
+        </div>
+      </div>
+      <div class="rest-view">
+        <div class="rest-icon">💤</div>
+        <h2>Día de Descanso Completo</h2>
+        <p>Especialmente importante esta semana por el cuadro gripal reciente — el sistema inmune y nervioso todavía se están recuperando.</p>
+        <div class="rest-checklist">
+          <div class="rest-check-item">💧 <span>Hidratación reforzada durante todo el día</span></div>
+          <div class="rest-check-item">😴 <span>Dormir 7-9h, priorizar sueño de calidad</span></div>
+          <div class="rest-check-item">🥩 <span>Buena ingesta proteica (~1.6-2g/kg)</span></div>
+        </div>
+      </div>
+      <div class="blocks-stack">
+        ${day.blocks.map(b=>renderBlock(day,b)).join('')}
+      </div>
+      ${day.summary?`<div class="info-card"><p class="info-card-title">Resumen del día</p><p>${day.summary}</p></div>`:''}
+    </div>`;
+  }
+
   return `
   <div class="day-view ${day.id===state.currentDay?'active':''}" id="day-${day.id}">
-    
-    <!-- TARJETA MOTIVACIONAL KAIZEN-ESTOICA EN TONO ARGENTINO NEUTRO -->
-    <div class="stoic-card">
-      <div class="stoic-header">⚡ Mente de Acero · Kaizen / Estoicismo</div>
-      <div class="stoic-quote">"${quote}"</div>
-    </div>
-
     <div class="day-header">
       <div>
         <div class="day-eyebrow">${day.name} — Día ${day.dayNum}</div>
         <div class="day-title">${day.title}</div>
+        <div class="day-athletes">${athleteChips}</div>
       </div>
+      <button class="day-complete-btn ${allDone?'done':''}" data-day="${day.id}">${allDone?'✓ Día completado':'Marcar día completo'}</button>
     </div>
-    
+    ${restBanner}
     <div class="blocks-stack">
       ${day.blocks.map(b=>renderBlock(day,b)).join('')}
     </div>
-    ${day.summary?`<div style="margin-top:1.5rem;background:#111;padding:1.2rem;border-radius:12px;border:1px solid var(--border);"><strong style="color:var(--fire-glow);font-family:'Barlow Condensed';font-size:1.1rem;text-transform:uppercase;">Resumen</strong><p style="font-size:0.9rem;color:#DDD;margin-top:4px;">${day.summary}</p></div>`:''}
+    ${day.summary?`<div class="info-card"><p class="info-card-title">Resumen del día</p><p>${day.summary}</p></div>`:''}
+    ${day.cooldown && day.cooldown.length?`<div class="info-card"><p class="info-card-title">Cool-Down &amp; Movilidad</p><ul>${day.cooldown.map(c=>`<li><span>›</span><span>${c}</span></li>`).join('')}</ul></div>`:''}
   </div>`;
 }
 
 function renderAll(){
-  main.innerHTML = WEEK.map(renderDay).join('');
-  wireBlockHeaders(); wireBlockChecks(); updateProgress(); refreshTabs();
+  main.innerHTML = getWeek().map(renderDay).join('');
+  wireBlockHeaders();
+  wireBlockChecks();
+  wireOverrideChecks();
+  wireDayCompleteButtons();
+  updateProgress();
+  refreshTabs();
 }
 
 function wireBlockHeaders(){
@@ -1098,75 +1908,345 @@ function wireBlockHeaders(){
 
 function wireBlockChecks(){
   document.querySelectorAll('.block-check-input').forEach(chk=>{
+    chk.addEventListener('click', e=>e.stopPropagation());
     chk.addEventListener('change', ()=>{
       state.completed[chk.dataset.key] = chk.checked;
-      const b = chk.closest('.block'); b.classList.toggle('block-done', chk.checked);
-      if(chk.checked){ b.classList.add('block-flash'); setTimeout(()=>b.classList.remove('block-flash'), 900); }
+      const blockEl = chk.closest('.block');
+      blockEl.classList.toggle('block-done', chk.checked);
+      if(chk.checked){
+        blockEl.classList.remove('block-flash');
+        void blockEl.offsetWidth; /* reinicia la animación aunque ya tenga la clase */
+        blockEl.classList.add('block-flash');
+        blockEl.addEventListener('animationend', function onFlashEnd(){
+          blockEl.classList.remove('block-flash');
+          blockEl.removeEventListener('animationend', onFlashEnd);
+        });
+      }
       updateProgress();
+      refreshTabs();
+      updateDayButton(chk.dataset.key.split('__')[0]);
     });
   });
 }
 
+function wireOverrideChecks(){
+  document.querySelectorAll('.override-check').forEach(chk=>{
+    chk.addEventListener('change', ()=>{
+      state.overrideRest[chk.dataset.day] = chk.checked;
+      renderAll();
+    });
+  });
+}
+
+function wireDayCompleteButtons(){
+  document.querySelectorAll('.day-complete-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const day = getWeek().find(d=>d.id===btn.dataset.day);
+      const total = day.blocks.length;
+      const doneCount = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
+      const setTo = !(total>0 && doneCount===total);
+      day.blocks.forEach(b=>{ state.completed[day.id+'__'+b.id] = setTo; });
+      renderAll();
+    });
+  });
+}
+
+function updateDayButton(dayId){
+  const day = getWeek().find(d=>d.id===dayId);
+  if(!day) return;
+  const btn = document.querySelector(`.day-complete-btn[data-day="${dayId}"]`);
+  if(!btn) return;
+  const total = day.blocks.length;
+  const doneCount = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
+  const allDone = total>0 && doneCount===total;
+  btn.classList.toggle('done', allDone);
+  btn.textContent = allDone ? '✓ Día completado' : 'Marcar día completo';
+}
+
 function refreshDayVisibility(){
-  document.querySelectorAll('.day-view').forEach(v=>{ v.classList.toggle('active', v.id === 'day-'+state.currentDay); });
+  document.querySelectorAll('.day-view').forEach(v=>{
+    v.classList.toggle('active', v.id === 'day-'+state.currentDay);
+  });
 }
 
 function updateProgress(){
-  let total=0, done=0;
-  WEEK.forEach(day=>{ day.blocks.forEach(b=>{ total++; if(state.completed[day.id+'__'+b.id]) done++; }); });
-  const pct = total ? Math.round(done/total*100) : 0;
+  let totalAll=0, doneAll=0;
+  getWeek().forEach(day=>{
+    if(day.rest) return;
+    const applicable = !isRestForAthlete(day) || state.overrideRest[day.id];
+    if(!applicable) return;
+    day.blocks.forEach(b=>{
+      totalAll++;
+      if(state.completed[day.id+'__'+b.id]) doneAll++;
+    });
+  });
+  const pct = totalAll? Math.round(doneAll/totalAll*100) : 0;
   document.getElementById('progress-fill').style.width = pct+'%';
   document.getElementById('progress-count').textContent = pct+'%';
 }
 
 /* =========================================================
-   ATHLETE SWITCH & HIGH CONTRAST TOGGLE
+   ATHLETE SWITCH
 ========================================================= */
+function refreshAthleteButtons(){
+  document.querySelectorAll('.athlete-pill').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.athlete === state.athlete);
+  });
+}
+
+const HERO_COPY = {
+  jp: {
+    title: 'Reintroducción a la <em>Construcción de Rendimiento.</em>',
+    sub: 'Misma estructura del bloque original, cargas recalibradas para retomar con criterio. JP entrena los 5 días de la semana.'
+  },
+  ceci: {
+    title: 'Reingreso <em>Post-Gripe.</em>',
+    sub: 'Musculación de martes a sábado, con jueves de descanso. Lunes (pecho + tríceps) ya está completado — el foco ahora es espalda, pierna y torso, con RPE 6-8 y descansos de 1.5 a 2 minutos entre series.'
+  }
+};
+function updateHero(){
+  const copy = HERO_COPY[state.athlete] || HERO_COPY.jp;
+  document.getElementById('heroTitle').innerHTML = copy.title;
+  document.getElementById('heroSub').textContent = copy.sub;
+}
+
 document.querySelectorAll('.athlete-pill').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     state.athlete = btn.dataset.athlete;
-    document.querySelectorAll('.athlete-pill').forEach(b=>b.classList.toggle('active', b===btn));
-    renderAll(); refreshDayVisibility();
+    const week = getWeek();
+    if(!week.find(d=>d.id===state.currentDay)){
+      state.currentDay = week[0].id;
+    }
+    refreshAthleteButtons();
+    updateHero();
+    renderTabs();
+    renderAll();
+    refreshDayVisibility();
   });
 });
 
-document.getElementById('hcToggle').addEventListener('click', function(){
-  const on = document.body.classList.toggle('hc-mode');
-  this.setAttribute('aria-pressed', on);
+/* =========================================================
+   % 1RM CALCULATOR MODAL
+========================================================= */
+const calcModal = document.getElementById('calcModal');
+document.getElementById('calcBtn').addEventListener('click', ()=>{ calcModal.classList.add('open'); computeCalc(); });
+document.getElementById('calcClose').addEventListener('click', ()=>{ calcModal.classList.remove('open'); });
+calcModal.addEventListener('click', (e)=>{ if(e.target===calcModal) calcModal.classList.remove('open'); });
+document.getElementById('calcInput').addEventListener('input', computeCalc);
+document.getElementById('calcRound').addEventListener('change', computeCalc);
+
+/* =========================================================
+   VIDEO POPUP — técnica de ejercicio (Ceci)
+========================================================= */
+function isVideoPopupOpen(){
+  const wrap = document.getElementById('video-popup-wrap');
+  return !!(wrap && wrap.classList.contains('open'));
+}
+function openVideoPopup(videoId){
+  if(!videoId) return;
+  const wrap = document.getElementById('video-popup-wrap');
+  const iframe = document.getElementById('video-popup-iframe');
+  const fallbackLink = document.getElementById('video-popup-fallback-link');
+  iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1';
+  if(fallbackLink) fallbackLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+  wrap.classList.add('open');
+}
+function closeVideoPopup(){
+  const wrap = document.getElementById('video-popup-wrap');
+  const iframe = document.getElementById('video-popup-iframe');
+  if(!wrap || !wrap.classList.contains('open')) return;
+  iframe.src = '';
+  wrap.classList.remove('open');
+}
+document.getElementById('video-popup-close').addEventListener('click', closeVideoPopup);
+document.addEventListener('click', function(e){
+  const link = e.target.closest('.video-link');
+  if(!link) return;
+  e.preventDefault();
+  e.stopPropagation();
+  openVideoPopup(link.getAttribute('data-yt'));
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && isVideoPopupOpen()) closeVideoPopup();
 });
 
 /* =========================================================
-   MOTOR DE PARALLAX (REACCIONA AL SCROLL EN 3 CAPAS)
+   MODO DE ALTA LEGIBILIDAD (toggle interior/exterior de box)
+========================================================= */
+const hcToggle = document.getElementById('hcToggle');
+if(hcToggle){
+  hcToggle.addEventListener('click', ()=>{
+    const on = document.body.classList.toggle('hc-mode');
+    hcToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+
+function computeCalc(){
+  const oneRM = parseFloat(document.getElementById('calcInput').value);
+  const round = parseFloat(document.getElementById('calcRound').value);
+  const table = document.getElementById('calcTable');
+  const pcts = [50,55,60,65,70,73,75,78,80,83,85,87,90,92,95,100];
+  if(!oneRM || oneRM<=0){
+    table.innerHTML = '<p class="calc-empty">Ingresá tu 1RM para ver la tabla.</p>';
+    return;
+  }
+  table.innerHTML = pcts.map(p=>{
+    const raw = oneRM * p/100;
+    const rounded = Math.round(raw/round)*round;
+    return `<div class="calc-cell"><div class="calc-pct">${p}%</div><div class="calc-val">${rounded}</div></div>`;
+  }).join('');
+}
+
+/* =========================================================
+   PARALLAX BACKGROUND (blobs + fibras + mural, respeta reduced-motion)
 ========================================================= */
 (function initParallax(){
   const layers = document.querySelectorAll('.parallax-layer[data-depth]');
+  if(!layers.length) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return; // capas quedan estáticas, sin transform
+  const MAX_SHIFT = 46; // px — límite seguro dentro del margen de overscan del contenedor
   let ticking = false;
+  function update(){
+    const y = window.scrollY;
+    layers.forEach(layer=>{
+      const depth = parseFloat(layer.dataset.depth) || 0;
+      const shift = Math.max(-MAX_SHIFT, Math.min(MAX_SHIFT, y * depth));
+      layer.style.transform = 'translate3d(0,' + shift + 'px,0)';
+    });
+    ticking = false;
+  }
   window.addEventListener('scroll', ()=>{
-    if(!ticking){
-      requestAnimationFrame(()=>{
-        const y = window.scrollY;
-        layers.forEach(l=>{
-          const depth = parseFloat(l.dataset.depth)||0;
-          l.style.transform = `translate3d(0, ${y * depth}px, 0)`;
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
   }, { passive: true });
+  update();
 })();
 
-/* STICKY BAR REVEAL */
-window.addEventListener('scroll', ()=>{
+/* =========================================================
+   CHALK / MAGNESIO — partículas flotantes (capa "layer-chalk")
+========================================================= */
+(function initChalkParticles(){
+  const layer = document.getElementById('chalkLayer');
+  if(!layer) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return; // sin partículas animadas si el usuario prefiere menos movimiento
+  const COUNT = 22;
+  for(let i=0;i<COUNT;i++){
+    const el = document.createElement('div');
+    el.className = 'chalk-speck';
+    const size = 2 + Math.random()*4;
+    const left = Math.random()*100;
+    const top = 15 + Math.random()*75;
+    const duration = 14 + Math.random()*18;
+    const delay = -(Math.random()*duration);
+    const driftX = (Math.random()*60-30).toFixed(1)+'px';
+    const driftY = -(80+Math.random()*160).toFixed(1)+'px';
+    const op = (0.25+Math.random()*0.35).toFixed(2);
+    el.style.cssText = 'left:'+left+'%; top:'+top+'%; width:'+size+'px; height:'+size+'px; ' +
+      'animation-duration:'+duration+'s; animation-delay:'+delay+'s; ' +
+      '--drift-x:'+driftX+'; --drift-y:'+driftY+'; --speck-op:'+op+';';
+    layer.appendChild(el);
+  }
+})();
+
+/* =========================================================
+   STICKY BAR REVEAL (aparece solo al scrollear más allá del masthead)
+========================================================= */
+(function initStickyBar(){
   const masthead = document.querySelector('.masthead');
   const stickyBar = document.querySelector('.sticky-bar');
-  if(masthead && stickyBar){
-    stickyBar.classList.toggle('show', window.scrollY > masthead.offsetHeight);
+  if(!masthead || !stickyBar) return;
+  let threshold = 0;
+  let ticking = false;
+  function measure(){ threshold = masthead.offsetHeight; }
+  function update(){
+    stickyBar.classList.toggle('show', window.scrollY > threshold);
+    ticking = false;
   }
-}, { passive: true });
+  window.addEventListener('scroll', ()=>{
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', measure);
+  measure();
+  update();
+})();
 
-/* INIT */
-renderTabs(); renderAll();
+/* =========================================================
+   MINI-HUD DE CRONÓMETRO FLOTANTE (Sticky Timer Player)
+   Aparece cuando un timer en ejecución (SegmentTimer o Stopwatch)
+   sale del viewport. Es un espejo de solo-lectura del timer real:
+   los controles del HUD disparan un click sobre los botones
+   originales, así que la lógica de audio/wake-lock/fases no se
+   duplica en ningún lado.
+========================================================= */
+function timerHudSnapshot(t){
+  if(t.kind === 'stopwatch'){
+    return { phase:'FOR TIME', cls:'hud-work', time: t.elTime.textContent };
+  }
+  const cls = t.root.classList.contains('tb-rest') ? 'hud-rest'
+    : t.root.classList.contains('tb-prep') ? 'hud-prep'
+    : t.root.classList.contains('tb-done') ? 'hud-done'
+    : 'hud-work';
+  return { phase: (t.elPhase.textContent || '').toUpperCase(), cls, time: t.elTime.textContent };
+}
+(function initTimerHUD(){
+  const hud = document.getElementById('timerHud');
+  const hudInfo = hud && hud.querySelector('.hud-info');
+  const hudPhase = document.getElementById('hudPhase');
+  const hudTime = document.getElementById('hudTime');
+  const hudPlay = document.getElementById('hudPlay');
+  const hudReset = document.getElementById('hudReset');
+  const hudClose = document.getElementById('hudClose');
+  if(!hud || !hudInfo || !hudPhase || !hudTime || !hudPlay || !hudReset || !hudClose) return;
+
+  let visible = false;
+  let currentTarget = null;
+  let dismissedFor = null;
+
+  function pickCandidate(){
+    if(lastStartedTimer && lastStartedTimer.running) return lastStartedTimer;
+    return liveTimers.find(t=>t.running) || null;
+  }
+  function show(t){
+    currentTarget = t;
+    const snap = timerHudSnapshot(t);
+    hud.className = 'timer-hud show ' + snap.cls;
+    hudPhase.textContent = snap.phase;
+    hudTime.textContent = snap.time;
+    hudPlay.textContent = t.running ? '⏸' : '▶';
+    hud.setAttribute('aria-hidden', 'false');
+    visible = true;
+  }
+  function hide(){
+    if(visible){ hud.className = 'timer-hud'; hud.setAttribute('aria-hidden', 'true'); }
+    visible = false;
+  }
+  function loop(){
+    const candidate = pickCandidate();
+    if(!candidate){ hide(); dismissedFor = null; currentTarget = null; requestAnimationFrame(loop); return; }
+    if(candidate !== currentTarget) currentTarget = candidate;
+    const rect = candidate.root.getBoundingClientRect();
+    const outOfView = rect.bottom < 80 || rect.top > window.innerHeight - 40;
+    if(!outOfView) dismissedFor = null;
+    if(outOfView && dismissedFor !== candidate) show(candidate); else hide();
+    requestAnimationFrame(loop);
+  }
+  hudPlay.addEventListener('click', ()=>{ if(currentTarget && currentTarget.btnToggle) currentTarget.btnToggle.click(); });
+  hudReset.addEventListener('click', ()=>{ if(currentTarget && currentTarget.btnReset) currentTarget.btnReset.click(); });
+  hudClose.addEventListener('click', ()=>{ dismissedFor = currentTarget; hide(); });
+  hudInfo.addEventListener('click', ()=>{
+    if(currentTarget) currentTarget.root.scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+  requestAnimationFrame(loop);
+})();
+
+/* =========================================================
+   INIT
+========================================================= */
+renderTabs();
+refreshAthleteButtons();
+updateHero();
+renderAll();
 </script>
 </body>
 </html>
