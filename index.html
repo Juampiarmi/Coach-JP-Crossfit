@@ -1337,18 +1337,29 @@ let lastStartedTimer = null;
 
 /* =========================================================
    AUDIO — Web Audio API, beeps simples con desbloqueo mobile
-   (un solo AudioContext compartido, desbloqueado sincrónicamente
-   en el primer tap del usuario sobre cualquier botón de timer)
+   (AudioContext compartido; en mobile —sobre todo iOS/Safari—
+   el sistema operativo suspende el contexto con mucha más
+   facilidad que en desktop: apenas la pantalla se bloquea, la
+   app pasa a segundo plano un instante, o cambia de pestaña.
+   Por eso NO alcanza con desbloquearlo una sola vez: lo
+   reintentamos en cada beep, en cualquier toque de la pantalla,
+   y cada vez que la app vuelve a primer plano.) 
 ========================================================= */
 let _audioCtx = null;
 function ensureAudioCtx(){
   if(!_audioCtx) _audioCtx = new (window.AudioContext||window.webkitAudioContext)();
   return _audioCtx;
 }
+function resumeAudioCtx(){
+  try{
+    const ctx = ensureAudioCtx();
+    if(ctx.state !== 'running') ctx.resume().catch(()=>{});
+  }catch(e){ /* Web Audio no disponible: seguimos sin sonido (queda la vibración) */ }
+}
 function unlockAudio(){
   try{
     const ctx = ensureAudioCtx();
-    if(ctx.state === 'suspended') ctx.resume();
+    resumeAudioCtx();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.0001, ctx.currentTime);
@@ -1357,9 +1368,20 @@ function unlockAudio(){
     osc.stop(ctx.currentTime + 0.01);
   }catch(e){ /* Web Audio no disponible: seguimos sin sonido */ }
 }
+/* Desbloqueo agresivo: CUALQUIER toque en cualquier parte de la pantalla
+   intenta reanudar el audio (no solo los botones de los timers). Es un
+   listener persistente (no "once") porque el contexto se puede volver
+   a suspender varias veces durante la sesión de entrenamiento. */
+['touchstart','pointerdown','click'].forEach(evt=>{
+  document.addEventListener(evt, resumeAudioCtx, { passive: true });
+});
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState === 'visible') resumeAudioCtx();
+});
 function playBeep(freq, dur, peakGain, delay, type){
   try{
     const ctx = ensureAudioCtx();
+    resumeAudioCtx();
     const start = ctx.currentTime + (delay || 0);
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
