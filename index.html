@@ -1357,13 +1357,13 @@ function unlockAudio(){
     osc.stop(ctx.currentTime + 0.01);
   }catch(e){ /* Web Audio no disponible: seguimos sin sonido */ }
 }
-function playBeep(freq, dur, peakGain, delay){
+function playBeep(freq, dur, peakGain, delay, type){
   try{
     const ctx = ensureAudioCtx();
     const start = ctx.currentTime + (delay || 0);
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.type = 'sine';
+    osc.type = type || 'sine';
     osc.frequency.setValueAtTime(freq, start);
     gain.gain.setValueAtTime(0.0001, start);
     gain.gain.linearRampToValueAtTime(peakGain, start + 0.012);
@@ -1375,13 +1375,24 @@ function playBeep(freq, dur, peakGain, delay){
     osc.stop(start + dur + 0.03);
   }catch(e){ console.warn('playBeep falló:', e); }
 }
-function beepCountdown(){ playBeep(880, 0.12, 0.6); }
-function beepGo(){ playBeep(1568, 0.32, 0.65); }
-function beepStop(){ playBeep(440, 0.45, 0.65); }
+/* Cuenta regresiva 3-2-1: beep seco y nítido, tipo Tabata/Gymboss */
+function beepCountdown(){ playBeep(1046, 0.1, 0.55, 0, 'triangle'); }
+/* "GO" — bocina de arranque de doble tono ascendente, más punchy que un beep simple */
+function beepGo(){
+  playBeep(1568, 0.11, 0.7, 0, 'triangle');
+  playBeep(2093, 0.28, 0.65, 0.1, 'triangle');
+}
+/* Entrada a descanso — tono grave y cálido, claramente distinto del "GO" */
+function beepStop(){
+  playBeep(392, 0.16, 0.55, 0, 'sine');
+  playBeep(330, 0.4, 0.55, 0.16, 'sine');
+}
+/* Fin del timer — fanfarria de 4 notas ascendentes */
 function beepFinish(){
-  playBeep(1568, 0.16, 0.65, 0);
-  playBeep(1568, 0.16, 0.65, 0.22);
-  playBeep(1568, 0.35, 0.65, 0.44);
+  playBeep(1046, 0.13, 0.6, 0, 'triangle');
+  playBeep(1318, 0.13, 0.6, 0.16, 'triangle');
+  playBeep(1568, 0.13, 0.6, 0.32, 'triangle');
+  playBeep(2093, 0.4, 0.7, 0.48, 'triangle');
 }
 function vibrate(pattern){
   try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){}
