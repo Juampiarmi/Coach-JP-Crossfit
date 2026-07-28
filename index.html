@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-<meta name="theme-color" content="#080809" />
+<meta name="theme-color" content="#0E0E0F" />
 <meta name="description" content="Coach JP — Mesociclo Fuerza / Hipertrofia, Semana 1" />
-<title>Coach JP — Heavy Duty Performance</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23080809'/%3E%3Cpath d='M13 4L6.5 13.5 12 13l-1 6.5 6.5-9.5-5.5.5z' fill='%23FF3D00' stroke='%23000' stroke-width='0.8' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<title>Coach JP — Mesociclo Fuerza / Hipertrofia</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230A0A0B'/%3E%3Cpath d='M13 4L6.5 13.5 12 13l-1 6.5 6.5-9.5-5.5.5z' fill='%23FFD600' stroke='%23000' stroke-width='0.8' stroke-linejoin='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --fire: #FF3D00;
@@ -21,34 +21,26 @@
     --blue: #2979FF;
     --blue-light: #64B5F6;
     --orange: #FFA726;
-    
-    /* Heavy Duty Industrial Palette */
-    --bg: #070708;
-    --bg-card: rgba(18, 18, 20, 0.75);
-    --bg-card-hover: rgba(26, 26, 30, 0.85);
-    --bg-surface: #0D0D0F;
-    --bg-elevated: #151518;
-    --text-primary: #F5F5F7;
-    --text-secondary: #9E9EA0;
-    --text-muted: #58585E;
-    
-    --border: rgba(255,255,255,0.08);
+    --bg: #0E0E0F;
+    --bg-card: #161617;
+    --bg-card-hover: #1C1C1E;
+    --bg-surface: #111112;
+    --bg-elevated: #1A1A1B;
+    --text-primary: #F2F2F2;
+    --text-secondary: #8A8A8A;
+    --text-muted: #484848;
+    --border: rgba(255,255,255,0.07);
     --border-subtle: rgba(255,255,255,0.04);
-    --border-metal: rgba(255, 61, 0, 0.3);
-
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
-    --radius-xl: 22px;
-    
-    --shadow-sm: 0 4px 12px rgba(0,0,0,0.5);
-    --shadow-md: 0 12px 36px -6px rgba(0,0,0,0.7);
-    --shadow-lg: 0 24px 64px -12px rgba(0,0,0,0.85);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --shadow-sm: 0 2px 10px -2px rgba(0,0,0,0.35);
+    --shadow-md: 0 10px 28px -8px rgba(0,0,0,0.5);
+    --shadow-lg: 0 24px 64px -16px rgba(0,0,0,0.65);
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scrollbar-color: var(--fire) var(--bg); scrollbar-width: thin; }
-  
+  html { scroll-behavior: smooth; scrollbar-color: var(--border) transparent; scrollbar-width: thin; }
   body {
     background: var(--bg);
     color: var(--text-primary);
@@ -60,425 +52,619 @@
     position: relative;
     overflow-x: hidden;
   }
-
-  ::selection { background: var(--fire); color: #fff; }
+  ::selection { background: rgba(255,61,0,0.35); color: #fff; }
   ::-webkit-scrollbar { height: 6px; width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: #2A2A2E; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--fire); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
 
-  /* ── HEAVY DUTY CROSSFIT GYM PARALLAX BACKGROUND ── */
-  .gym-viewport {
-    position: fixed; inset: 0; z-index: -3; pointer-events: none; overflow: hidden;
-  }
-
-  /* Concrete Wall & Concrete Grain Texture Layer */
-  .gym-layer-concrete {
-    position: absolute; inset: -10%; width: 120%; height: 120%;
-    background-color: #070708;
-    background-image: 
-      radial-gradient(circle at 50% 0%, rgba(255, 61, 0, 0.15), transparent 70%),
-      radial-gradient(circle at 85% 60%, rgba(0, 191, 165, 0.08), transparent 60%),
-      radial-gradient(circle at 15% 85%, rgba(124, 77, 255, 0.08), transparent 60%);
-    will-change: transform;
-  }
-
-  /* Structural Metal Rack & Industrial Grid Layer */
-  .gym-layer-structure {
-    position: absolute; inset: -10%; width: 120%; height: 120%;
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    will-change: transform;
-  }
-
-  /* Chalk, Ambient Lighting & Spotlights Layer */
-  .gym-layer-lights {
-    position: absolute; inset: -10%; width: 120%; height: 120%;
-    background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 109, 0, 0.2), transparent 80%);
-    mix-blend-mode: screen;
-    will-change: transform;
-  }
-
+  /* ── AMBIENT BACKGROUND ── */
   @media (prefers-reduced-motion: reduce) {
-    .gym-layer-concrete, .gym-layer-structure, .gym-layer-lights { transform: none !important; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   }
 
-  /* ── MASTHEAD ── */
+  /* ── FONDO CINEMÁTICO "STEEL VAULT & RAW CHALK" ── */
+  .steel-vault-bg {
+    position: fixed; top: -9%; left: -6%; width: 112%; height: 118%;
+    z-index: -6; overflow: hidden; pointer-events: none;
+  }
+  .parallax-layer { position: absolute; inset: -8%; width: 116%; height: 116%; will-change: transform; }
+  .layer-steel-wash {
+    background: linear-gradient(165deg, #1B1C1E 0%, #101011 42%, #08090A 100%);
+  }
+  .layer-plate { opacity: 0.55; display: flex; align-items: center; justify-content: center;
+    mask-image: radial-gradient(ellipse 100% 65% at 50% 25%, black 35%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 100% 65% at 50% 25%, black 35%, transparent 85%);
+  }
+  .layer-plate svg, .layer-haze svg { width: 100%; height: 100%; display: block; }
+  .layer-haze { display: flex; align-items: center; justify-content: center; }
+  .layer-lights {
+    background:
+      radial-gradient(ellipse 280px 620px at 16% -12%, rgba(255,255,255,0.055), transparent 62%),
+      radial-gradient(ellipse 240px 560px at 50% -10%, rgba(255,246,220,0.05), transparent 60%),
+      radial-gradient(ellipse 280px 620px at 84% -12%, rgba(255,255,255,0.055), transparent 62%);
+    filter: blur(3px);
+    animation: lightFlare 7s ease-in-out infinite;
+  }
+  @keyframes lightFlare { 0%, 100% { opacity: 0.82; } 50% { opacity: 1; } }
+  .layer-chalk { overflow: visible; }
+  .chalk-speck {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0) 72%);
+    filter: blur(0.4px);
+    animation: chalkDrift linear infinite;
+  }
+  @keyframes chalkDrift {
+    0% { transform: translate(0,0); opacity: 0; }
+    8% { opacity: var(--speck-op, 0.5); }
+    92% { opacity: var(--speck-op, 0.5); }
+    100% { transform: translate(var(--drift-x, 20px), var(--drift-y, -160px)); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-layer { transform: none !important; }
+    .layer-lights, .chalk-speck { animation: none !important; }
+  }
+
+  /* ── MASTHEAD (grande, a todo el ancho, no sticky) ── */
   .masthead {
     position: relative; z-index: 5; width: 100%;
-    padding: 20px 1.25rem clamp(24px, 5vw, 40px);
+    padding: 14px 1.25rem clamp(22px, 4vw, 34px);
     display: flex; flex-direction: column; align-items: center;
-    background: linear-gradient(180deg, rgba(15, 15, 18, 0.9) 0%, rgba(7, 7, 8, 0) 100%);
-    border-bottom: 1px solid var(--border-subtle);
+    background: linear-gradient(180deg, rgba(255,61,0,0.07), transparent 75%);
+    border-bottom: 1px solid var(--border);
   }
-
-  .masthead-utility { width: 100%; max-width: 1140px; display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-bottom: clamp(12px, 3vw, 24px); }
-  
-  .masthead-brand { display: flex; flex-direction: column; align-items: center; gap: 12px; text-decoration: none; }
-  
+  .masthead-utility { width: 100%; max-width: 1140px; display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-bottom: clamp(10px, 3vw, 22px); }
+  .masthead-brand { display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; }
   .masthead-logo {
-    width: clamp(70px, 10vw, 110px); height: clamp(70px, 10vw, 110px); flex-shrink: 0;
+    width: clamp(64px, 9vw, 100px); height: clamp(64px, 9vw, 100px); flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(145deg, #1A1A1E 0%, #0A0A0C 100%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    border: 1px solid var(--border);
-    box-shadow: 
-      0 0 25px rgba(255, 61, 0, 0.25),
-      inset 0 1px 2px rgba(255, 255, 255, 0.2);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    background: linear-gradient(155deg, #2E2E30 0%, #141415 45%, #000 100%);
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    box-shadow:
+      0 0 0 2.5px #000,
+      0 0 0 4.5px rgba(255,214,0,0.18),
+      0 14px 32px -8px rgba(255,214,0,0.35),
+      inset 0 3px 4px rgba(255,255,255,0.18),
+      inset 0 -6px 12px rgba(0,0,0,0.65);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
   }
-  .masthead-brand:hover .masthead-logo { transform: scale(1.06) rotate(-2deg); box-shadow: 0 0 35px rgba(255, 61, 0, 0.4); }
-  
+  .masthead-brand:hover .masthead-logo { transform: rotate(-5deg) scale(1.05); }
   .masthead-logo svg {
-    width: 52%; height: 52%; transform: rotate(-4deg);
-    filter: drop-shadow(0 0 8px rgba(255,214,0,0.6));
-    animation: boltPulse 3s infinite ease-in-out;
+    width: 50%; height: 50%; transform: rotate(-4deg);
+    filter: drop-shadow(0 0 6px rgba(255,214,0,0.55));
+    animation: boltFlicker 4.6s infinite;
   }
-  .masthead-logo svg path { fill: var(--gold); stroke: #000; stroke-width: 1; stroke-linejoin: round; }
-
-  @keyframes boltPulse {
-    0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(255,214,0,0.6)); }
-    50% { opacity: 0.85; filter: drop-shadow(0 0 16px rgba(255,61,0,0.8)); }
+  .masthead-logo svg path { fill: var(--gold); stroke: #000; stroke-width: 1.1; stroke-linejoin: round; }
+  @keyframes boltFlicker {
+    0%, 3%, 6%, 100% { opacity: 1; }
+    4% { opacity: 0.3; }
+    5% { opacity: 0.85; }
+    38% { opacity: 1; }
+    39% { opacity: 0.4; }
+    40% { opacity: 1; }
+    41% { opacity: 0.65; }
+    42% { opacity: 1; }
+    78% { opacity: 1; }
+    79% { opacity: 0.35; }
+    81% { opacity: 1; }
   }
-
   .masthead-wordmark {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.2rem, 5vw, 3.2rem);
-    letter-spacing: 0.04em; color: var(--text-primary); text-transform: uppercase; text-align: center;
-    line-height: 0.9; position: relative; padding-bottom: 8px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.9rem, 4.4vw, 2.7rem);
+    letter-spacing: 0.02em; color: var(--text-primary); white-space: nowrap; text-align: center;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.55);
+    display: inline-block; position: relative; padding-bottom: 5px;
   }
   .masthead-wordmark::after {
-    content: ''; position: absolute; left: 15%; right: 15%; bottom: 0; height: 3px;
-    background: linear-gradient(90deg, transparent, var(--fire), transparent);
+    content: ''; position: absolute; left: 8%; right: 8%; bottom: -1px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--fire) 30%, var(--fire) 70%, transparent);
+    border-radius: 2px;
   }
-  .masthead-wordmark span { color: var(--fire); text-shadow: 0 0 20px rgba(255,61,0,0.5); }
+  .masthead-wordmark span { color: var(--fire); text-shadow: 0 2px 0 rgba(0,0,0,0.55), 0 0 22px rgba(255,61,0,0.45); }
 
-  /* ── STICKY BAR ── */
+  /* ── STICKY BAR (solo logo + wordmark, aparece al scrollear) ── */
   .sticky-bar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    background: rgba(10, 10, 12, 0.92);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    background: rgba(14,14,15,0.97);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    padding: 8px 1.25rem;
+    box-shadow: 0 12px 32px -18px rgba(0,0,0,0.8);
+    padding: 7px 1.25rem;
     display: flex; align-items: center; justify-content: center;
     transform: translateY(-100%); opacity: 0; pointer-events: none;
     transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
   }
   .sticky-bar.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
-  
+  @media (prefers-reduced-motion: reduce) { .sticky-bar { transition: opacity 0.2s ease; } }
   .sticky-brand {
-    display: flex; align-items: center; justify-content: center; gap: 12px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
     text-decoration: none; flex: 1; min-width: 0; max-width: 1140px; margin: 0 auto;
   }
   .sticky-logo {
-    width: 38px; height: 38px; flex-shrink: 0;
+    width: 44px; height: 44px; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    background: #141416;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    box-shadow: 0 0 10px rgba(255,61,0,0.3);
+    background: linear-gradient(155deg, #2E2E30 0%, #141415 45%, #000 100%);
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    box-shadow:
+      0 0 0 2px #000,
+      0 0 0 3.5px rgba(255,214,0,0.18),
+      0 10px 22px -6px rgba(255,214,0,0.32),
+      inset 0 2px 3px rgba(255,255,255,0.16),
+      inset 0 -5px 9px rgba(0,0,0,0.6);
   }
-  .sticky-logo svg { width: 22px; height: 22px; }
-  .sticky-logo svg path { fill: var(--gold); }
+  .sticky-logo svg { width: 26px; height: 26px; transform: rotate(-4deg); filter: drop-shadow(0 0 4px rgba(255,214,0,0.5)); animation: boltFlicker 4.6s infinite; }
+  .sticky-logo svg path { fill: var(--gold); stroke: #000; stroke-width: 1.2; stroke-linejoin: round; }
   .sticky-wordmark {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.6rem;
-    letter-spacing: 0.03em; color: var(--text-primary); text-transform: uppercase;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.5rem;
+    letter-spacing: 0.02em; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.55);
   }
-  .sticky-wordmark span { color: var(--fire); }
+  .sticky-wordmark span { color: var(--fire); text-shadow: 0 2px 0 rgba(0,0,0,0.55), 0 0 18px rgba(255,61,0,0.4); }
+
+  /* ── "JP" — ELECTRICIDAD ESTÁTICA Y ENERGÍA VOLCÁNICA ── */
+  .electric-jp {
+    position: relative;
+    display: inline-block;
+    color: var(--fire) !important;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.55), 0 0 10px rgba(255,61,0,0.55), 0 0 22px rgba(255,214,0,0.3) !important;
+    animation: electricFlicker 3.4s infinite;
+    transform: translateZ(0);
+    will-change: opacity, transform;
+  }
+  .electric-jp::before,
+  .electric-jp::after {
+    content: '';
+    position: absolute;
+    width: 7px; height: 7px;
+    clip-path: polygon(50% 0%, 78% 38%, 100% 42%, 58% 56%, 72% 100%, 42% 62%, 0% 56%, 44% 44%);
+    filter: drop-shadow(0 0 5px rgba(0,191,165,0.85)) drop-shadow(0 0 8px rgba(255,214,0,0.7));
+    opacity: 0;
+    pointer-events: none;
+    animation: electricSpark 3.4s infinite;
+  }
+  .electric-jp::before {
+    top: -5px; right: -7px;
+    background: linear-gradient(135deg, var(--gold), var(--fire));
+    animation-delay: 0.15s;
+  }
+  .electric-jp::after {
+    bottom: -3px; left: -8px;
+    width: 6px; height: 6px;
+    background: linear-gradient(135deg, var(--teal), var(--gold));
+    filter: drop-shadow(0 0 5px rgba(255,61,0,0.8)) drop-shadow(0 0 8px rgba(0,191,165,0.65));
+    animation-delay: 1.7s;
+  }
+  @keyframes electricFlicker {
+    0%, 41%, 100% { opacity: 1; transform: translateY(0) scale(1); filter: drop-shadow(0 0 3px rgba(255,61,0,0.5)); }
+    42% { opacity: 0.45; transform: translateY(-0.5px) scale(0.99); filter: drop-shadow(0 0 8px rgba(0,191,165,0.7)); }
+    43% { opacity: 1; transform: translateY(0.5px) scale(1.01); filter: drop-shadow(0 0 10px rgba(255,214,0,0.75)); }
+    44% { opacity: 0.6; transform: translateY(0) scale(1); }
+    45%, 66% { opacity: 1; }
+    67% { opacity: 0.4; filter: drop-shadow(0 0 6px rgba(255,61,0,0.6)); }
+    68% { opacity: 1; transform: scale(1.008); filter: drop-shadow(0 0 9px rgba(0,191,165,0.6)); }
+    69% { opacity: 0.7; transform: scale(1); }
+    70%, 91% { opacity: 1; }
+    92% { opacity: 0.55; filter: drop-shadow(0 0 7px rgba(255,214,0,0.7)); }
+    93% { opacity: 1; }
+  }
+  @keyframes electricSpark {
+    0%, 38%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+    40% { opacity: 1; transform: scale(1.15) rotate(10deg); }
+    42% { opacity: 0; transform: scale(0.5) rotate(-8deg); }
+    44% { opacity: 0.9; transform: scale(1) rotate(6deg); }
+    47%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  }
+  .masthead-brand:hover .electric-jp,
+  .masthead-brand:focus-visible .electric-jp,
+  .sticky-brand:hover .electric-jp,
+  .sticky-brand:focus-visible .electric-jp {
+    animation-duration: 0.5s;
+  }
+  .masthead-brand:hover .electric-jp::before,
+  .masthead-brand:hover .electric-jp::after,
+  .masthead-brand:focus-visible .electric-jp::before,
+  .masthead-brand:focus-visible .electric-jp::after,
+  .sticky-brand:hover .electric-jp::before,
+  .sticky-brand:hover .electric-jp::after,
+  .sticky-brand:focus-visible .electric-jp::before,
+  .sticky-brand:focus-visible .electric-jp::after {
+    animation-duration: 0.35s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .electric-jp,
+    .electric-jp::before,
+    .electric-jp::after {
+      animation-duration: 7s !important;
+    }
+    .masthead-brand:hover .electric-jp,
+    .masthead-brand:focus-visible .electric-jp,
+    .sticky-brand:hover .electric-jp,
+    .sticky-brand:focus-visible .electric-jp,
+    .masthead-brand:hover .electric-jp::before,
+    .masthead-brand:hover .electric-jp::after,
+    .masthead-brand:focus-visible .electric-jp::before,
+    .masthead-brand:focus-visible .electric-jp::after,
+    .sticky-brand:hover .electric-jp::before,
+    .sticky-brand:hover .electric-jp::after,
+    .sticky-brand:focus-visible .electric-jp::before,
+    .sticky-brand:focus-visible .electric-jp::after {
+      animation-duration: 2.4s !important;
+    }
+  }
 
   .nav-right { display: flex; align-items: center; gap: 8px; }
   .nav-pill {
-    position: relative; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; padding: 6px 14px; border-radius: 4px;
-    transition: all 0.25s ease; border: 1px solid var(--border); background: var(--bg-surface);
-    font-family: 'Inter', sans-serif; cursor: pointer; color: var(--text-secondary);
+    position: relative; font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+    transition: all 0.2s ease; border: 1px solid transparent; background: none;
+    font-family: 'Inter', sans-serif; cursor: pointer;
   }
-  .athlete-pill:hover:not(.active) { color: var(--text-primary); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
-  .athlete-pill.active { background: rgba(255,61,0,0.15); border-color: var(--fire); color: var(--text-primary); box-shadow: 0 0 12px rgba(255,61,0,0.25); }
-  
-  .calc-pill { background: rgba(255,214,0,0.1); border-color: rgba(255,214,0,0.3); color: var(--gold); }
-  .calc-pill:hover { background: rgba(255,214,0,0.2); border-color: var(--gold); box-shadow: 0 0 15px rgba(255,214,0,0.25); transform: translateY(-1px); }
-  
-  .athlete-switch { display: flex; gap: 4px; background: #000; border-radius: 6px; padding: 3px; border: 1px solid var(--border); }
-  :focus-visible { outline: 2px solid var(--fire); outline-offset: 2px; }
+  .athlete-pill { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-secondary); }
+  .athlete-pill:hover:not(.active) { color: var(--text-primary); border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.07); }
+  .athlete-pill.active { background: rgba(255,214,0,0.1); border-color: rgba(255,214,0,0.3); color: var(--gold); }
+  .calc-pill { background: rgba(255,61,0,0.1); border: 1px solid rgba(255,61,0,0.25); color: var(--fire-glow); }
+  .calc-pill:hover { border-color: rgba(255,61,0,0.5); box-shadow: 0 0 14px rgba(255,61,0,0.18); transform: translateY(-1px); }
+  .athlete-switch { display: flex; gap: 4px; background: var(--bg-elevated); border-radius: 20px; padding: 3px; }
+  .hc-toggle { background: rgba(255,255,255,0.045); border: 1px solid var(--border); color: var(--text-secondary); }
+  .hc-toggle:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.22); }
+  .hc-toggle[aria-pressed="true"] { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.4); color: #fff; box-shadow: 0 0 12px rgba(255,255,255,0.15); }
+
+  /* ── MODO DE ALTA LEGIBILIDAD (interior/exterior de box) ── */
+  body.hc-mode {
+    --text-secondary: #D6D6D6;
+    --text-muted: #9A9A9A;
+    --border: rgba(255,255,255,0.22);
+    --border-subtle: rgba(255,255,255,0.14);
+    --bg-card: #1B1B1D;
+    --bg-elevated: #212123;
+  }
+  body.hc-mode .steel-vault-bg { opacity: 0.32; }
+  body.hc-mode .hero h1, body.hc-mode .day-title, body.hc-mode .block-label { text-shadow: 0 1px 0 rgba(0,0,0,0.9); }
+  body.hc-mode .timer-display, body.hc-mode .timer-round-big { text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
+  body.hc-mode .ex-name, body.hc-mode .ex-detail, body.hc-mode .block-subtitle, body.hc-mode .hero-sub { color: var(--text-primary); }
+  body.hc-mode .block { border-width: 1.5px; }
+  body.hc-mode .timer-box { border-width: 3px; }
+  :focus-visible { outline: 2px solid var(--fire-glow); outline-offset: 2px; border-radius: 4px; }
 
   /* ── HERO ── */
-  .hero { position: relative; padding: 2rem 1.25rem 1.5rem; max-width: 1140px; margin: 0 auto; }
-  .brand-tagline { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.75rem; max-width: 580px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .hero-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fire); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px; }
-  .hero-eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--fire); display: inline-block; }
-  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 0.6rem; }
-  .hero h1 em { font-style: normal; color: var(--fire); text-shadow: 0 0 20px rgba(255,61,0,0.3); }
-  .hero-sub { color: var(--text-secondary); font-size: 0.95rem; max-width: 600px; font-weight: 400; }
+  .hero { position: relative; padding: 1.75rem 1.25rem 1.5rem; max-width: 1140px; margin: 0 auto; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; right: -60px; top: -70px; width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(255,61,0,0.16), transparent 70%);
+    filter: blur(4px); pointer-events: none; z-index: 0;
+  }
+  .hero::after {
+    content: '⚡'; position: absolute; right: -6px; top: -34px; font-size: 190px; line-height: 1;
+    opacity: 0.035; pointer-events: none; z-index: 0; transform: rotate(8deg);
+  }
+  .hero > * { position: relative; z-index: 1; }
+  .brand-tagline { font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.6rem; max-width: 520px; line-height: 1.5; }
+  .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fire); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
+  .hero-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--fire); display: inline-block; }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.9rem, 5.5vw, 3rem); line-height: 1.05; letter-spacing: 0.01em; margin-bottom: 0.5rem; }
+  .hero h1 em { font-style: normal; color: var(--fire); }
+  .hero-sub { color: var(--text-secondary); font-size: 0.9rem; max-width: 520px; }
 
   /* ── WEEK TABS ── */
-  .week-tabs-wrap { 
-    background: rgba(10, 10, 12, 0.85); 
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-y: 1px solid var(--border); 
-    position: sticky; top: 0; z-index: 100; overflow-x: auto; 
-  }
+  .week-tabs-wrap { background: rgba(14,14,15,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 58px; z-index: 100; overflow-x: auto; }
   .week-tabs-wrap::-webkit-scrollbar { display: none; }
   .week-tabs { max-width: 1140px; margin: 0 auto; display: flex; padding: 0 1.25rem; min-width: max-content; }
-  
-  .day-tab { 
-    display: flex; flex-direction: column; align-items: center; padding: 0.85rem 1.25rem; 
-    cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.25s ease; 
-    gap: 3px; min-width: 88px; user-select: none; position: relative;
-  }
+  .day-tab { display: flex; flex-direction: column; align-items: center; padding: 0.7rem 1.1rem; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s ease; gap: 2px; min-width: 80px; user-select: none; }
   .day-tab:hover { background: rgba(255,255,255,0.03); }
-  .day-tab.active { border-bottom-color: var(--fire); background: rgba(255,61,0,0.05); }
-  .day-tab.rest-day { opacity: 0.4; }
-  .day-tab.rest-day:hover { opacity: 0.6; }
-  .day-tab.completed-day .day-dot { background: var(--teal) !important; box-shadow: 0 0 8px var(--teal); }
-  
-  .tab-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); }
-  .day-tab.active .tab-name { color: #FFF; }
-  .tab-label { font-size: 10px; color: var(--text-muted); letter-spacing: 0.05em; font-weight: 600; text-transform: uppercase; }
-  .day-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); margin-top: 4px; transition: all 0.25s ease; }
-  .day-tab.active .day-dot { background: var(--fire); box-shadow: 0 0 8px var(--fire); }
+  .day-tab.active { border-bottom-color: var(--fire); }
+  .day-tab.rest-day { opacity: 0.45; }
+  .day-tab.rest-day:hover { background: rgba(255,255,255,0.015); opacity: 0.55; }
+  .day-tab.completed-day .day-dot { background: var(--teal) !important; box-shadow: 0 0 6px rgba(0,191,165,0.5); }
+  .tab-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.2s; }
+  .day-tab.active .tab-name { color: var(--fire-glow); }
+  .tab-label { font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; white-space: nowrap; }
+  .day-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-muted); margin-top: 3px; transition: background 0.2s ease, box-shadow 0.2s ease; }
+  .day-tab.active .day-dot { background: var(--fire); box-shadow: 0 0 6px rgba(255,61,0,0.5); }
 
   /* ── PROGRESS BAR ── */
-  .progress-bar-wrap { max-width: 1140px; margin: 0 auto; padding: 1.2rem 1.25rem 0; }
-  .progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 1.2rem; }
-  .progress-track { flex: 1; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-subtle); }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--fire), var(--gold)); border-radius: 3px; box-shadow: 0 0 12px rgba(255,61,0,0.6); transition: width 0.45s cubic-bezier(0.4,0,0.2,1); }
-  .progress-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
-  .progress-count { font-size: 13px; color: var(--text-primary); font-weight: 700; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.05em; }
+  .progress-bar-wrap { max-width: 1140px; margin: 0 auto; padding: 0.8rem 1.25rem 0; }
+  .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .progress-track { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--fire), var(--fire-glow)); border-radius: 2px; box-shadow: 0 0 10px rgba(255,109,0,0.5); transition: width 0.45s cubic-bezier(0.4,0,0.2,1); }
+  .progress-label { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+  .progress-count { font-size: 12px; color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
 
   /* ── MAIN LAYOUT ── */
   .main { max-width: 1140px; margin: 0 auto; padding: 0 1.25rem 4rem; }
   .day-view { display: none; }
-  .day-view.active { display: block; animation: dayFadeIn 0.35s cubic-bezier(0.16,1,0.3,1); }
-  @keyframes dayFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-  
-  .day-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; padding-top: 1.5rem; flex-wrap: wrap; }
-  .day-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.2rem; }
-  .day-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 4.5vw, 2.5rem); letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; }
-  .day-athletes { display: flex; gap: 8px; margin-top: 0.6rem; flex-wrap: wrap; }
-  
-  .athlete-chip { background: rgba(255,214,0,0.1); border: 1px solid rgba(255,214,0,0.25); color: var(--gold); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .day-view.active { display: block; animation: dayFadeIn 0.4s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes dayFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .day-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; padding-top: 1.5rem; flex-wrap: wrap; }
+  .day-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem; }
+  .day-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.5rem, 4vw, 2.1rem); letter-spacing: 0.01em; line-height: 1.1; }
+  .day-athletes { display: flex; gap: 7px; margin-top: 0.5rem; flex-wrap: wrap; }
+  .athlete-chip { background: rgba(255,214,0,0.08); border: 1px solid rgba(255,214,0,0.2); color: #C8A600; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; }
   .athlete-chip.muted { background: rgba(255,255,255,0.03); border-color: var(--border); color: var(--text-muted); }
 
-  .day-complete-btn { 
-    background: rgba(0,191,165,0.12); border: 1px solid rgba(0,191,165,0.35); color: var(--teal); 
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 0.08em; 
-    text-transform: uppercase; padding: 10px 24px; border-radius: 4px; cursor: pointer; transition: all 0.25s ease; white-space: nowrap; 
-  }
-  .day-complete-btn:hover { border-color: var(--teal); box-shadow: 0 0 20px rgba(0,191,165,0.25); transform: translateY(-1px); }
-  .day-complete-btn.done { background: var(--teal); color: #000; border-color: var(--teal); font-weight: 900; box-shadow: 0 0 20px rgba(0,191,165,0.3); }
+  .day-complete-btn { background: rgba(0,191,165,0.1); border: 1px solid rgba(0,191,165,0.3); color: var(--teal); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.07em; text-transform: uppercase; padding: 10px 22px; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; align-self: flex-start; }
+  .day-complete-btn:hover { border-color: rgba(0,191,165,0.5); box-shadow: 0 0 16px rgba(0,191,165,0.15); transform: translateY(-1px); }
+  .day-complete-btn:active { transform: scale(0.97); }
+  .day-complete-btn.done { background: rgba(0,191,165,0.16); border-color: rgba(0,191,165,0.4); box-shadow: 0 0 18px rgba(0,191,165,0.12); }
 
-  /* ── REST BANNER ── */
-  .rest-banner { border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 1.5rem; background: rgba(255,61,0,0.08); border: 1px solid rgba(255,61,0,0.3); display: flex; gap: 14px; }
-  .rest-banner .rb-icon { font-size: 1.4rem; line-height: 1; }
-  .rest-banner-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--fire-glow); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
-  .rest-banner-text { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
-  .rest-banner-check { display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 0.85rem; font-weight: 700; color: var(--text-primary); cursor: pointer; text-transform: uppercase; letter-spacing: 0.04em; }
-  .rest-banner-check input { accent-color: var(--fire); width: 18px; height: 18px; }
+  /* ── REST BANNER (per-athlete recommended rest) ── */
+  .rest-banner { border-radius: var(--radius-lg); padding: 16px 18px; margin-bottom: 1.25rem; background: rgba(255,61,0,0.06); border: 1px solid rgba(255,61,0,0.25); box-shadow: var(--shadow-sm); display: flex; gap: 12px; }
+  .rest-banner .rb-icon { font-size: 1.3rem; line-height: 1.2; }
+  .rest-banner-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--fire-glow); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
+  .rest-banner-text { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+  .rest-banner-check { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 0.8rem; font-weight: 600; color: var(--text-primary); cursor: pointer; }
+  .rest-banner-check input { accent-color: var(--fire); width: 16px; height: 16px; }
 
   /* ── BLOCKS ── */
-  .blocks-stack { display: flex; flex-direction: column; gap: 1.2rem; }
-  
+  .blocks-stack { display: flex; flex-direction: column; gap: 1rem; }
   .block {
-    background: var(--bg-card); 
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--border); border-radius: var(--radius-md);
-    overflow: hidden; box-shadow: var(--shadow-md);
-    transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
-    position: relative;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    overflow: hidden; box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease, opacity .2s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    animation: blockFadeIn 0.45s cubic-bezier(0.16,1,0.3,1) backwards;
   }
-  .block::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-    background: var(--border); transition: background 0.25s ease;
+  .block:hover { border-color: rgba(255,255,255,0.13); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .block.block-done { opacity: 0.55; }
+  .block.block-done .block-label { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: currentColor; opacity: 0.75; transition: opacity .3s ease; }
+  @keyframes blockFadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  /* Micro-animación al completar un bloque: destello neón en el borde */
+  .block.block-flash { animation: blockCompleteGlow 0.9s ease-out; }
+  @keyframes blockCompleteGlow {
+    0% { border-color: rgba(0,191,165,0.9); box-shadow: 0 0 0 rgba(0,191,165,0); }
+    25% { border-color: rgba(0,191,165,0.95); box-shadow: 0 0 34px 4px rgba(0,191,165,0.55), 0 0 0 1px rgba(0,191,165,0.5) inset; }
+    100% { border-color: var(--border); box-shadow: var(--shadow-sm); }
   }
-  .block:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-  .block.block-done { opacity: 0.5; }
-  .block.block-done::before { background: var(--teal); }
-
-  .block-header { display: flex; align-items: center; gap: 12px; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: background 0.2s ease; }
-  .block-header:hover { background: rgba(255,255,255,0.02); }
+  @media (prefers-reduced-motion: reduce) { .block.block-flash { animation: none; } }
+  .blocks-stack .block:nth-child(1) { animation-delay: 0.02s; }
+  .blocks-stack .block:nth-child(2) { animation-delay: 0.07s; }
+  .blocks-stack .block:nth-child(3) { animation-delay: 0.12s; }
+  .blocks-stack .block:nth-child(4) { animation-delay: 0.17s; }
+  .blocks-stack .block:nth-child(5) { animation-delay: 0.22s; }
+  .blocks-stack .block:nth-child(6) { animation-delay: 0.27s; }
+  .blocks-stack .block:nth-child(n+7) { animation-delay: 0.32s; }
+  .block-header { display: flex; align-items: center; gap: 10px; padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: background 0.2s ease; }
+  .block-header:hover { background: rgba(255,255,255,0.025); }
   .block.collapsed .block-header { border-bottom-color: transparent; }
-  
-  .block-icon { width: 34px; height: 34px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-  
-  .bi-warmup { background: rgba(255,167,38,0.15); border: 1px solid rgba(255,167,38,0.3); }
-  .bi-oly { background: rgba(41,121,255,0.15); border: 1px solid rgba(41,121,255,0.3); }
-  .bi-strength { background: rgba(0,191,165,0.15); border: 1px solid rgba(0,191,165,0.3); }
-  .bi-metcon { background: rgba(255,61,0,0.18); border: 1px solid rgba(255,61,0,0.35); }
-  .bi-cardio { background: rgba(124,77,255,0.15); border: 1px solid rgba(124,77,255,0.3); }
-  .bi-accessory { background: rgba(144,164,174,0.15); border: 1px solid rgba(144,164,174,0.3); }
-
+  .block-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; transition: transform 0.2s ease; }
+  .block-header:hover .block-icon { transform: scale(1.08); }
+  .bi-warmup { background: rgba(255,167,38,0.14); border: 1px solid rgba(255,167,38,0.15); }
+  .bi-oly { background: rgba(41,121,255,0.12); border: 1px solid rgba(41,121,255,0.13); }
+  .bi-strength { background: rgba(0,191,165,0.12); border: 1px solid rgba(0,191,165,0.13); }
+  .bi-metcon { background: rgba(255,61,0,0.15); border: 1px solid rgba(255,61,0,0.15); }
+  .bi-cardio { background: rgba(124,77,255,0.12); border: 1px solid rgba(124,77,255,0.12); }
+  .bi-accessory { background: rgba(144,164,174,0.1); border: 1px solid rgba(144,164,174,0.1); }
   .block-header-text { flex: 1; min-width: 0; }
-  .block-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.1; }
-  
+  .block-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; }
   .bl-warmup { color: #FFA726; }
   .bl-oly { color: #64B5F6; }
   .bl-strength { color: var(--teal); }
   .bl-metcon { color: #FF3D00; }
   .bl-cardio { color: #B39DDB; }
   .bl-accessory { color: #B0BEC5; }
-  
-  .block-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; font-weight: 500; }
-  .block-check { flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
-  .block-check input { width: 19px; height: 19px; accent-color: var(--teal); cursor: pointer; }
-  .block-chevron { color: var(--text-muted); font-size: 12px; transition: transform 0.25s ease; flex-shrink: 0; }
+  .block-subtitle { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+  .block-check { flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
+  .block-check input { width: 17px; height: 17px; accent-color: var(--teal); cursor: pointer; }
+  .block-chevron { color: var(--text-muted); font-size: 12px; transition: transform 0.22s ease; flex-shrink: 0; }
   .block.collapsed .block-chevron { transform: rotate(-90deg); }
-  
-  .block-body { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0; }
+  .block-body { padding: 0.9rem 1.1rem; display: flex; flex-direction: column; gap: 0; }
   .block.collapsed .block-body { display: none; }
 
+  /* ── SECTION LABEL ── */
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin: 0.85rem 0 0.45rem; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+  .section-label:first-child { margin-top: 0; }
+
   /* ── EXERCISE ROW ── */
-  .ex-row { display: flex; gap: 12px; padding: 0.65rem 0.5rem; margin: 0 -0.5rem; border-bottom: 1px solid var(--border-subtle); align-items: flex-start; transition: background 0.15s ease; }
+  .ex-row { display: flex; gap: 10px; padding: 0.5rem 0.4rem; margin: 0 -0.4rem; border-bottom: 1px solid var(--border-subtle); align-items: flex-start; border-radius: 6px; transition: background 0.15s ease; }
   .ex-row:hover { background: rgba(255,255,255,0.02); }
-  .ex-row:last-child { border-bottom: none; }
-  .ex-bullet { width: 6px; height: 6px; border-radius: 1px; background: var(--text-muted); flex-shrink: 0; margin-top: 8px; transform: rotate(45deg); }
-  .ex-name { font-size: 0.9rem; font-weight: 500; flex: 1; line-height: 1.5; color: var(--text-primary); }
-  .ex-detail { font-size: 12px; color: var(--text-secondary); text-align: right; flex-shrink: 0; line-height: 1.5; max-width: 180px; font-weight: 500; }
-  .ex-detail strong { display: block; color: var(--text-primary); font-weight: 700; font-size: 13px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.03em; }
-  .ex-row.complex { background: rgba(255,61,0,0.05); border: 1px solid rgba(255,61,0,0.15); border-radius: var(--radius-sm); padding: 0.75rem 0.85rem; margin: 0.4rem 0; }
-  .ex-divider { display: flex; align-items: center; gap: 12px; margin: 0.5rem 0; color: var(--text-muted); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; }
+  .ex-row:last-child { border-bottom: none; padding-bottom: 0.5rem; }
+  .ex-bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; margin-top: 7px; }
+  .ex-name { font-size: 0.875rem; font-weight: 500; flex: 1; line-height: 1.45; color: var(--text-primary); }
+  .ex-detail { font-size: 11.5px; color: var(--text-secondary); text-align: right; flex-shrink: 0; line-height: 1.55; max-width: 170px; min-width: 60px; }
+  .ex-detail strong { display: block; color: var(--text-primary); font-weight: 600; font-size: 13px; }
+  .ex-row.complex { background: rgba(255,61,0,0.04); border: 1px solid rgba(255,61,0,0.09); border-radius: var(--radius-sm); padding: 0.6rem 0.75rem; margin: 0.3rem 0; }
+  .ex-divider { display: flex; align-items: center; gap: 10px; margin: 0.3rem 0; color: var(--text-muted); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
   .ex-divider::before, .ex-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* ── NOTES ── */
-  .coach-note { background: rgba(41,121,255,0.06); border-left: 3px solid var(--blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.75rem 1rem; margin-top: 0.85rem; font-size: 13px; color: #B0C4DE; line-height: 1.6; }
-  .coach-note strong { color: var(--blue-light); display: block; margin-bottom: 2px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; }
-  .scaling-note { background: rgba(0,191,165,0.06); border-left: 3px solid var(--teal); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.75rem 1rem; margin-top: 0.6rem; font-size: 13px; color: #E2E8F0; line-height: 1.6; }
-  .scaling-note strong { color: var(--teal); display: block; margin-bottom: 2px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; }
+  /* ── VIDEO DE TÉCNICA (link + popup flotante) ── */
+  .video-link { color: var(--gold); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; font-size: 11px; letter-spacing: 0.02em; border-bottom: 1px solid rgba(255,214,0,0.35); padding-bottom: 1px; cursor: pointer; white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease; }
+  .video-link:hover { color: var(--fire-glow); border-color: var(--fire-glow); }
+  .video-popup-wrap { display: none; position: fixed; bottom: 20px; right: 20px; z-index: 300; width: 320px; max-width: calc(100vw - 32px); }
+  .video-popup-wrap.open { display: block; }
+  .video-popup { position: relative; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 16px 44px rgba(0,0,0,0.6); animation: videoPopIn 0.22s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes videoPopIn { from { transform: translateY(16px) scale(0.96); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+  .video-popup-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px 8px 12px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
+  .video-popup-close { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-secondary); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 11px; line-height: 1; transition: all 0.2s ease; flex-shrink: 0; }
+  .video-popup-close:hover { background: var(--fire); border-color: var(--fire); color: #fff; }
+  .video-popup-frame { position: relative; width: 100%; padding-top: 56.25%; background: #000; }
+  .video-popup-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video-popup-fallback { padding: 7px 12px; background: rgba(255,255,255,0.02); border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); text-align: center; }
+  .video-popup-fallback a { color: var(--gold); font-weight: 600; text-decoration: none; }
+  .video-popup-fallback a:hover { color: var(--fire-glow); }
+  @media (max-width: 640px) {
+    .video-popup-wrap { left: 12px; right: 12px; bottom: 12px; width: auto; max-width: none; }
+  }
 
-  /* ── INSIGHTS ── */
-  .block-insights { margin-top: 1rem; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
-  .insights-header { display: flex; align-items: center; gap: 8px; padding: 0.6rem 0.9rem; font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; background: rgba(0,0,0,0.3); border-bottom: 1px solid var(--border); }
-  .insights-body { padding: 0.85rem; display: flex; flex-direction: column; gap: 0.6rem; }
-  .insight-item { display: flex; gap: 8px; align-items: flex-start; }
-  .insight-icon { font-size: 14px; flex-shrink: 0; line-height: 1; }
+  /* ── NOTES ── */
+  .coach-note { background: rgba(41,121,255,0.05); border-left: 2px solid rgba(41,121,255,0.4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.65rem 0.9rem; margin-top: 0.75rem; font-size: 12.5px; color: #94A3B8; line-height: 1.6; }
+  .coach-note strong { color: #64B5F6; display: block; margin-bottom: 3px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .scaling-note { background: rgba(0,191,165,0.04); border-left: 2px solid rgba(0,191,165,0.4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.65rem 0.9rem; margin-top: 0.5rem; font-size: 12.5px; color: #E2E8F0; line-height: 1.6; }
+  .scaling-note strong { color: var(--teal); display: block; margin-bottom: 3px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── BLOCK INSIGHTS ── */
+  .block-insights { margin-top: 1rem; border-radius: var(--radius-md); overflow: hidden; border: 1px solid transparent; }
+  .block-insights.insights-warmup { background: rgba(255,167,38,0.04); border-color: rgba(255,167,38,0.12); }
+  .block-insights.insights-oly { background: rgba(66,165,245,0.04); border-color: rgba(66,165,245,0.12); }
+  .block-insights.insights-strength { background: rgba(0,191,165,0.04); border-color: rgba(0,191,165,0.12); }
+  .block-insights.insights-metcon { background: rgba(255,61,0,0.05); border-color: rgba(255,61,0,0.15); }
+  .block-insights.insights-cardio { background: rgba(124,77,255,0.04); border-color: rgba(124,77,255,0.12); }
+  .block-insights.insights-accessory { background: rgba(144,164,174,0.04); border-color: rgba(144,164,174,0.12); }
+  .insights-header { display: flex; align-items: center; gap: 7px; padding: 0.55rem 0.85rem; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .insights-warmup .insights-header { color: #FFA726; }
+  .insights-oly .insights-header { color: #64B5F6; }
+  .insights-strength .insights-header { color: var(--teal); }
+  .insights-metcon .insights-header { color: var(--fire-glow); }
+  .insights-cardio .insights-header { color: #B39DDB; }
+  .insights-accessory .insights-header { color: #B0BEC5; }
+  .insights-body { padding: 0.75rem 0.85rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .insight-item { display: flex; gap: 0.55rem; align-items: flex-start; }
+  .insight-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; line-height: 1; }
   .insight-content { flex: 1; }
-  .insight-label { font-size: 9px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
-  .insight-text { font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); }
+  .insight-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
+  .insight-text { font-size: 12.5px; line-height: 1.55; color: var(--text-secondary); }
 
   /* ── TIMERS ── */
-  .timer-box { width: 100%; margin-top: 1rem; background: #0A0A0C; border: 2px solid var(--border); border-radius: var(--radius-md); padding: 22px 18px; text-align: center; box-shadow: var(--shadow-md); transition: all 0.3s ease; }
-  .timer-box.tb-work { border-color: var(--teal); box-shadow: 0 0 30px rgba(0,191,165,0.15); }
-  .timer-box.tb-rest { border-color: var(--fire); box-shadow: 0 0 30px rgba(255,61,0,0.18); }
-  .timer-box.tb-prep { border-color: var(--purple); box-shadow: 0 0 30px rgba(124,77,255,0.18); }
-  .timer-box.tb-done { border-color: var(--gold); box-shadow: 0 0 30px rgba(255,214,0,0.2); }
-  
-  .timer-box-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); font-weight: 800; margin-bottom: 8px; }
-  .timer-phase-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(0.9rem, 3.5vw, 1.15rem); letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 22px; border-radius: 4px; color: #fff; margin-bottom: 12px; }
-  .timer-phase-tag.phase-work { background: var(--teal); color: #000; }
-  .timer-phase-tag.phase-rest { background: var(--fire); }
-  .timer-phase-tag.phase-done { background: var(--gold); color: #000; }
-  .timer-phase-tag.phase-prep { background: var(--purple); }
-  
-  .timer-seg-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: clamp(0.9rem, 3.5vw, 1.1rem); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; min-height: 1.3em; }
-  .timer-display { width: 100%; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3.8rem, 20vw, 8rem); line-height: 0.9; letter-spacing: 0.02em; margin: 8px 0 16px; color: var(--text-primary); text-shadow: 0 0 20px rgba(255,255,255,0.1); }
-  .timer-round-big { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(1.1rem, 4.5vw, 1.5rem); letter-spacing: 0.05em; color: var(--text-primary); margin-bottom: 12px; min-height: 1.3em; text-transform: uppercase; }
-  
-  .timer-round-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; margin: 0 0 22px; border: 1px solid var(--border-subtle); }
-  .timer-round-bar-fill { height: 100%; width: 0%; transition: width 0.25s linear; }
-  .timer-round-bar-fill.phase-work { background: var(--teal); }
-  .timer-round-bar-fill.phase-rest { background: var(--fire); }
-  .timer-round-bar-fill.phase-done { background: var(--gold); }
-  .timer-round-bar-fill.phase-prep { background: var(--purple); }
-  
-  .timer-controls-round { display: flex; align-items: center; justify-content: center; gap: 20px; }
-  .tbtn-round { border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+  .timer-box { width: 100%; box-sizing: border-box; margin-top: 0.9rem; background: var(--bg-elevated); border: 2px solid var(--border); border-radius: var(--radius-md); padding: 20px 16px; text-align: center; box-shadow: var(--shadow-sm); transition: border-color .25s ease, box-shadow .25s ease; }
+  .timer-box.tb-work { border-color: rgba(0,191,165,0.45); box-shadow: var(--shadow-sm), 0 0 26px rgba(0,191,165,0.1) inset; }
+  .timer-box.tb-rest { border-color: rgba(255,61,0,0.45); box-shadow: var(--shadow-sm), 0 0 26px rgba(255,61,0,0.1) inset; }
+  .timer-box.tb-prep { border-color: rgba(124,77,255,0.5); box-shadow: var(--shadow-sm), 0 0 26px rgba(124,77,255,0.14) inset; }
+  .timer-box.tb-done { border-color: rgba(255,214,0,0.5); box-shadow: var(--shadow-sm), 0 0 26px rgba(255,214,0,0.14) inset; }
+  .timer-box-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
+  .timer-phase-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(0.85rem, 3.2vw, 1.05rem); letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 20px; border-radius: 30px; color: #fff; margin-bottom: 10px; }
+  .timer-phase-tag.phase-work { background: linear-gradient(90deg, #00897B, var(--teal)); box-shadow: 0 0 20px rgba(0,191,165,0.35); }
+  .timer-phase-tag.phase-rest { background: linear-gradient(90deg, var(--fire), var(--fire-glow)); box-shadow: 0 0 20px rgba(255,61,0,0.4); }
+  .timer-phase-tag.phase-done { background: linear-gradient(90deg, #C8A600, var(--gold)); color: #1a1400; box-shadow: 0 0 20px rgba(255,214,0,0.4); }
+  .timer-phase-tag.phase-prep { background: linear-gradient(90deg, var(--purple), var(--purple-light)); box-shadow: 0 0 20px rgba(124,77,255,0.4); }
+  .timer-seg-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: clamp(0.85rem, 3.4vw, 1.05rem); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 2px; min-height: 1.3em; }
+  .timer-display { width: 100%; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3.5rem, 19vw, 7.5rem); line-height: 1; letter-spacing: 0.01em; margin: 6px 0 14px; color: var(--text-primary); }
+  .timer-round-big { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(1.05rem, 4.2vw, 1.4rem); letter-spacing: 0.03em; color: var(--text-primary); margin-bottom: 10px; min-height: 1.3em; }
+  .timer-round-bar { width: 100%; box-sizing: border-box; height: 10px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin: 0 0 20px; }
+  .timer-round-bar-fill { height: 100%; border-radius: 6px; width: 0%; transition: width 0.25s linear, background 0.25s ease; }
+  .timer-round-bar-fill.phase-work { background: linear-gradient(90deg, #00897B, var(--teal)); }
+  .timer-round-bar-fill.phase-rest { background: linear-gradient(90deg, var(--fire), var(--fire-glow)); }
+  .timer-round-bar-fill.phase-done { background: linear-gradient(90deg, #C8A600, var(--gold)); }
+  .timer-round-bar-fill.phase-prep { background: linear-gradient(90deg, var(--purple), var(--purple-light)); }
+  .timer-controls-round { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 4px; }
+  .tbtn-round { border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; transition: transform .15s ease, box-shadow .25s ease, background .25s ease; }
   .tbtn-round:active { transform: scale(0.92); }
-  
-  .tbtn-play { width: 76px; height: 76px; border-radius: 50%; font-size: 1.8rem; color: #fff; background: var(--fire); box-shadow: 0 8px 24px rgba(255,61,0,0.4); }
-  .tbtn-play.is-running { background: var(--teal); color: #000; box-shadow: 0 8px 24px rgba(0,191,165,0.4); }
-  .tbtn-reset-round { width: 52px; height: 52px; border-radius: 50%; font-size: 1.3rem; background: #18181B; border: 1px solid var(--border); color: var(--text-secondary); }
-  .tbtn-reset-round:hover { border-color: rgba(255,255,255,0.3); color: var(--text-primary); }
-
-  .wake-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 800; margin-top: 12px; opacity: 0; transition: opacity .3s ease; }
+  .tbtn-play { width: 72px; height: 72px; border-radius: 50%; font-size: 1.6rem; color: #fff; background: linear-gradient(135deg, var(--fire), var(--fire-glow)); box-shadow: 0 10px 26px -6px rgba(255,61,0,0.55), inset 0 2px 3px rgba(255,255,255,0.3); }
+  .tbtn-play.is-running { background: linear-gradient(135deg, #00897B, var(--teal)); box-shadow: 0 10px 26px -6px rgba(0,191,165,0.5), inset 0 2px 3px rgba(255,255,255,0.25); }
+  .tbtn-reset-round { width: 50px; height: 50px; border-radius: 50%; font-size: 1.2rem; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); }
+  .tbtn-reset-round:hover { border-color: rgba(255,255,255,0.22); color: var(--text-primary); }
+  .hide { display: none !important; }
+  .wake-indicator { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-top: 10px; opacity: 0; transition: opacity .3s ease; }
   .wake-indicator.on { opacity: 1; color: var(--teal); }
 
-  .quick-timer { display: flex; align-items: center; justify-content: space-between; background: #0A0A0C; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; margin-top: 1rem; gap: 12px; }
-  .quick-timer-left { font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .quick-timer-display { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--text-primary); }
-  .quick-timer-btn { background: rgba(255,167,38,0.15); border: 1px solid rgba(255,167,38,0.4); color: var(--orange); font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 16px; border-radius: 4px; cursor: pointer; transition: all 0.2s ease; }
-  .quick-timer-btn:hover { background: var(--orange); color: #000; box-shadow: 0 0 15px rgba(255,167,38,0.3); }
+  /* ── MINI-HUD DE CRONÓMETRO FLOTANTE (Sticky Timer Player) ── */
+  .timer-hud {
+    position: fixed; left: 50%; bottom: 18px; transform: translate(-50%, 140%);
+    z-index: 250; display: flex; align-items: center; gap: 14px;
+    background: rgba(20,20,22,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid var(--border); border-radius: 100px;
+    padding: 8px 10px 8px 18px; box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6);
+    opacity: 0; pointer-events: none; max-width: calc(100% - 24px);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .timer-hud.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+  .timer-hud.hud-work { border-color: rgba(0,191,165,0.5); box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6), 0 0 22px rgba(0,191,165,0.18); }
+  .timer-hud.hud-rest { border-color: rgba(255,61,0,0.5); box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6), 0 0 22px rgba(255,61,0,0.18); }
+  .timer-hud.hud-prep { border-color: rgba(124,77,255,0.5); box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6), 0 0 22px rgba(124,77,255,0.18); }
+  .timer-hud.hud-done { border-color: rgba(255,214,0,0.5); box-shadow: 0 14px 38px -10px rgba(0,0,0,0.6), 0 0 22px rgba(255,214,0,0.18); }
+  .hud-info { display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+  .hud-phase { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--text-secondary); white-space: nowrap; }
+  .hud-time { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.4rem; color: var(--text-primary); min-width: 64px; }
+  .hud-controls { display: flex; align-items: center; gap: 6px; }
+  .hud-btn { border: none; cursor: pointer; border-radius: 50%; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; transition: transform .15s ease; }
+  .hud-btn:active { transform: scale(0.9); }
+  .hud-play { width: 40px; height: 40px; font-size: 1rem; color: #fff; background: linear-gradient(135deg, var(--fire), var(--fire-glow)); }
+  .timer-hud.hud-work .hud-play, .timer-hud.hud-done .hud-play { background: linear-gradient(135deg, #00897B, var(--teal)); }
+  .hud-reset { width: 32px; height: 32px; font-size: 0.9rem; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); }
+  .hud-close { border: none; background: transparent; color: var(--text-muted); font-size: 1.1rem; cursor: pointer; padding: 4px 2px 4px 6px; line-height: 1; }
+  .hud-close:hover { color: var(--text-primary); }
+  @media (max-width: 600px) {
+    .timer-hud { left: 12px; right: 12px; bottom: 12px; transform: translateY(140%); border-radius: 20px; padding: 8px 10px 8px 16px; max-width: none; padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+    .timer-hud.show { transform: translateY(0); }
+    .hud-time { font-size: 1.25rem; min-width: 56px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .timer-hud { transition: opacity .2s ease; } }
+
+  .quick-timer { display: flex; align-items: center; justify-content: space-between; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 0.9rem; flex-wrap: wrap; gap: 8px; box-shadow: var(--shadow-sm); }
+  .quick-timer-btn { transition: all 0.15s ease; }
+  .quick-timer-btn:hover { border-color: rgba(255,167,38,0.55); box-shadow: 0 0 12px rgba(255,167,38,0.2); transform: translateY(-1px); }
+  .quick-timer-left { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .quick-timer-display { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.3rem; }
+  .quick-timer-btn { background: rgba(255,167,38,0.12); border: 1px solid rgba(255,167,38,0.3); color: var(--orange); font-weight: 700; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 14px; border-radius: 8px; cursor: pointer; }
 
   /* ── REST DAY VIEW ── */
-  .rest-view { text-align: center; padding: 3.5rem 1rem 2rem; color: var(--text-muted); }
-  .rest-view .rest-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-  .rest-view h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
-  .rest-view p { max-width: 500px; margin: 0 auto; font-size: 0.95rem; line-height: 1.6; }
-  .rest-checklist { display: flex; flex-direction: column; gap: 10px; max-width: 360px; margin: 2rem auto 0; text-align: left; }
-  .rest-check-item { display: flex; gap: 12px; align-items: center; font-size: 14px; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; font-weight: 500; }
+  .rest-view { text-align: center; padding: 3rem 1rem 1rem; color: var(--text-muted); }
+  .rest-view .rest-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .rest-view h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+  .rest-view p { max-width: 480px; margin: 0 auto; font-size: 0.88rem; line-height: 1.6; }
+  .rest-checklist { display: flex; flex-direction: column; gap: 8px; max-width: 320px; margin: 1.5rem auto 0; text-align: left; }
+  .rest-check-item { display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; }
 
   /* ── SUMMARY / COOLDOWN ── */
-  .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem 1.4rem; margin-top: 1.25rem; box-shadow: var(--shadow-sm); }
-  .info-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); font-weight: 800; margin-bottom: 0.6rem; }
-  .info-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
-  .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  .info-card li { font-size: 0.88rem; color: var(--text-secondary); display: flex; gap: 10px; line-height: 1.5; }
-  .info-card li span:first-child { color: var(--fire); font-weight: 900; }
+  .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.2rem; margin-top: 1rem; box-shadow: var(--shadow-sm); }
+  .info-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); font-weight: 700; margin-bottom: 0.6rem; }
+  .info-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+  .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .info-card li { font-size: 0.82rem; color: var(--text-secondary); display: flex; gap: 8px; line-height: 1.5; }
+  .info-card li span:first-child { color: var(--text-muted); flex-shrink: 0; }
 
   /* ── CALC MODAL ── */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.85); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 300; padding: 20px; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 300; padding: 20px; }
   .modal-overlay.open { display: flex; animation: overlayFadeIn 0.2s ease; }
   @keyframes overlayFadeIn { from { opacity: 0; } to { opacity: 1; } }
-  
-  .modal { background: #121214; border: 1px solid var(--border); border-radius: var(--radius-lg); width: 100%; max-width: 400px; padding: 24px; box-shadow: var(--shadow-lg); animation: modalPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
-  @keyframes modalPop { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-  
-  .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-  .modal-head h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px; }
-  .modal-head h2 .mh-icon { color: var(--gold); }
-  .modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; line-height: 1; transition: color 0.2s ease; }
-  .modal-close:hover { color: var(--text-primary); }
-  
-  .field { margin-bottom: 16px; }
-  .field label { display: block; font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
-  .field input, .field select { width: 100%; background: #0A0A0C; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s ease; }
+  .modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 100%; max-width: 380px; padding: 22px; box-shadow: var(--shadow-lg); animation: modalPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+  @keyframes modalPop { from { opacity: 0; transform: scale(0.94) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal-close { transition: color 0.15s ease, transform 0.15s ease; }
+  .modal-close:hover { color: var(--text-primary); transform: rotate(90deg); }
+  .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .modal-head h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.03em; display: flex; align-items: center; gap: 8px; }
+  .modal-head h2 .mh-icon { color: var(--fire-glow); }
+  .modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 0.68rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .field input, .field select { width: 100%; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; }
   .field input:focus, .field select:focus { border-color: var(--fire); }
-  
   .calc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; max-height: 280px; overflow-y: auto; }
-  .calc-cell { background: #0A0A0C; border: 1px solid var(--border); border-radius: 6px; padding: 10px 6px; text-align: center; }
-  .calc-pct { font-size: 10px; color: var(--text-muted); font-weight: 800; }
-  .calc-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; color: var(--gold); font-size: 1.2rem; }
-  .calc-empty { grid-column: 1/-1; color: var(--text-muted); font-size: 0.85rem; padding: 15px 0; text-align: center; }
+  .calc-cell { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 9px; padding: 8px 4px; text-align: center; }
+  .calc-pct { font-size: 0.62rem; color: var(--text-muted); font-weight: 700; }
+  .calc-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; color: var(--fire-glow); font-size: 1.05rem; }
+  .calc-empty { grid-column: 1/-1; color: var(--text-muted); font-size: 0.78rem; padding: 10px 0; text-align: center; }
 
-  footer.site-footer { max-width: 1140px; margin: 3rem auto 0; padding: 2rem 1.25rem 0; text-align: center; border-top: 1px solid var(--border); }
-  footer.site-footer p { font-size: 0.75rem; color: var(--text-muted); margin: 3px 0; text-transform: uppercase; letter-spacing: 0.05em; }
+  footer.site-footer { max-width: 1140px; margin: 2rem auto 0; padding: 1.5rem 1.25rem 0; text-align: center; border-top: 1px solid var(--border); }
+  footer.site-footer p { font-size: 0.72rem; color: var(--text-muted); margin: 2px 0; }
   footer.site-footer b { color: var(--text-secondary); }
 
   @media (max-width: 600px) {
-    .hero h1 { font-size: 2rem; }
-    .day-tab { min-width: 72px; padding: 0.75rem 0.8rem; }
+    .hero h1 { font-size: 1.75rem; }
+    .day-tab { min-width: 64px; padding: 0.65rem 0.7rem; }
     .tab-label { font-size: 9px; }
-    .block-label { font-size: 0.95rem; }
-    .ex-detail { max-width: 130px; }
-    .day-complete-btn { font-size: 0.85rem; padding: 8px 16px; }
+    .block-label { font-size: 0.85rem; }
+    .ex-detail { max-width: 130px; min-width: 50px; }
+    .day-complete-btn { font-size: 0.82rem; padding: 9px 16px; }
+    .nav-right { gap: 4px; }
+    .nav-pill { padding: 5px 9px; font-size: 10px; }
     .masthead-utility { justify-content: center; flex-wrap: wrap; }
   }
 </style>
 </head>
 <body>
-
-<!-- ── PARALLAX CROSSFIT HEAVY DUTY VIEWPORT BACKGROUND ── -->
-<div class="gym-viewport" aria-hidden="true">
-  <!-- Layer 1: Concrete Base & Spotlights -->
-  <div class="gym-layer-concrete" id="layerConcrete"></div>
-  
-  <!-- Layer 2: Metal Cage Rig Structure & Industrial Grid -->
-  <div class="gym-layer-structure" id="layerStructure">
-    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0.04;">
+<div class="steel-vault-bg" aria-hidden="true">
+  <div class="parallax-layer layer-steel-wash" data-depth="0"></div>
+  <div class="parallax-layer layer-plate" data-depth="0.012">
+    <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
       <defs>
-        <pattern id="rack-pattern" width="120" height="120" patternUnits="userSpaceOnUse">
-          <path d="M 0 0 L 120 0 M 0 0 L 0 120 M 120 0 L 0 120" fill="none" stroke="#FFF" stroke-width="1.5"/>
-          <circle cx="60" cy="60" r="4" fill="#FFF"/>
+        <pattern id="diamondPlate" width="46" height="46" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <path d="M23 4 L34 23 L23 42 L12 23 Z" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.07)" stroke-width="1.3"/>
+          <circle cx="23" cy="22" r="2.2" fill="rgba(0,0,0,0.4)"/>
+          <circle cx="23" cy="20.6" r="1.4" fill="rgba(255,255,255,0.12)"/>
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill="url(#rack-pattern)"/>
+      <rect x="0" y="0" width="800" height="800" fill="url(#diamondPlate)"/>
     </svg>
   </div>
-  
-  <!-- Layer 3: Chalk Dust & Lighting Effects -->
-  <div class="gym-layer-lights" id="layerLights"></div>
+  <div class="parallax-layer layer-haze" data-depth="0.018">
+    <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <filter id="dustHaze" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="7" stitchTiles="stitch" result="n"/>
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/>
+        </filter>
+      </defs>
+      <rect x="0" y="0" width="1600" height="1000" filter="url(#dustHaze)"/>
+    </svg>
+  </div>
+  <div class="parallax-layer layer-lights" data-depth="0.03"></div>
+  <div class="parallax-layer layer-chalk" data-depth="0.05" id="chalkLayer"></div>
 </div>
-
 <header class="masthead">
   <div class="masthead-utility">
     <div class="athlete-switch" id="athleteSwitch">
@@ -486,21 +672,21 @@
       <button class="nav-pill athlete-pill" data-athlete="ceci">CECI</button>
     </div>
     <button class="nav-pill calc-pill" id="calcBtn">% 1RM</button>
+    <button class="nav-pill hc-toggle" id="hcToggle" title="Modo de alta legibilidad (interior/exterior de box)" aria-pressed="false">☀ HC</button>
   </div>
   <a class="masthead-brand" href="#">
     <div class="masthead-logo">
       <svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.99 12 12.01 11 22l8.91-10.99-7.91.98z"/></svg>
     </div>
-    <span class="masthead-wordmark">COACH<span>&nbsp;JP</span></span>
+    <span class="masthead-wordmark">COACH<span class="electric-jp">&nbsp;JP</span></span>
   </a>
 </header>
-
 <div class="sticky-bar">
   <a class="sticky-brand" href="#">
     <div class="sticky-logo">
       <svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.99 12 12.01 11 22l8.91-10.99-7.91.98z"/></svg>
     </div>
-    <span class="sticky-wordmark">COACH<span>&nbsp;JP</span></span>
+    <span class="sticky-wordmark">COACH<span class="electric-jp">&nbsp;JP</span></span>
   </a>
 </div>
 
@@ -549,6 +735,31 @@
       </select>
     </div>
     <div id="calcTable" class="calc-grid"><p class="calc-empty">Ingresá tu 1RM para ver la tabla.</p></div>
+  </div>
+</div>
+
+<div id="timerHud" class="timer-hud" aria-hidden="true">
+  <div class="hud-info">
+    <span class="hud-phase" id="hudPhase">TRABAJO</span>
+    <span class="hud-time" id="hudTime">00:00</span>
+  </div>
+  <div class="hud-controls">
+    <button class="hud-btn hud-reset" id="hudReset" type="button" title="Reiniciar" aria-label="Reiniciar">↺</button>
+    <button class="hud-btn hud-play" id="hudPlay" type="button" title="Pausar o reanudar" aria-label="Pausar o reanudar">⏸</button>
+  </div>
+  <button class="hud-close" id="hudClose" type="button" title="Ocultar" aria-label="Ocultar">×</button>
+</div>
+
+<div class="video-popup-wrap" id="video-popup-wrap">
+  <div class="video-popup">
+    <div class="video-popup-header">
+      <span>Técnica del ejercicio</span>
+      <button class="video-popup-close" id="video-popup-close" aria-label="Cerrar video">&#x2715;</button>
+    </div>
+    <div class="video-popup-frame">
+      <iframe id="video-popup-iframe" src="" title="Video técnica de ejercicio" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video-popup-fallback">¿No carga? <a id="video-popup-fallback-link" href="#" target="_blank" rel="noopener">Abrilo en YouTube ↗</a></div>
   </div>
 </div>
 
@@ -759,7 +970,7 @@ const WEEK = [
         '10 Dual DB prone rows (heavy)',
         '3 Rope climbs (regular)'
       ],
-      tips:'Si tenés capacidad de dominadas strictly con peso, calentá completamente antes de empezar.',
+      tips:'Si tenés capacidad de dominadas estrictas con peso, calentá completamente antes de empezar.',
       objective:'Mismo estímulo de tracción que el original, adaptado para proteger el hombro de Ceci sin perder el resto del bloque.',
       ceciNote:'Cualquier molestia aguda (distinta de fatiga muscular normal) es señal de bajar la variante o el rango ese día. La vuelta a dominadas con peso puede esperar a que el hombro esté libre de síntomas.',
       quickRest:{ label:'Descanso entre series (2:00)', seconds:120 }
@@ -839,6 +1050,205 @@ const WEEK = [
 }
 ];
 
+const CECI_WEEK = [
+{
+  id:'ceci-lunes', short:'LUN', label:'Pecho + Tríceps ✓', dayNum:1, name:'LUNES',
+  title:'Pecho + Tríceps — Sesión Completada',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'resumen', category:'accessory', icon:'✅', title:'Sesión Completada', subtitle:'Pecho + Tríceps · Hipertrofia',
+      items:[
+        'Press de banca en máquina o mancuernas — series principales completadas',
+        'Aperturas en polea o máquina — volumen de aislamiento de pecho',
+        'Extensión de Tríceps en Polea — parte 1 del cierre de brazo',
+        'Press Francés con Mancuernas — parte 2 del cierre de brazo'
+      ],
+      tips:'Primera sesión de la semana de reingreso, ya completada. Los detalles de series y cargas quedan en tu seguimiento personal; desde acá arrancamos martes con espalda y bíceps.'
+    }
+  ],
+  summary:'Lunes fue el punto de partida del reingreso post-gripe: pecho y tríceps con foco en técnica y RPE moderado. Sesión ya completada — el plan continúa martes con espalda y bíceps.',
+  cooldown:[]
+},
+{
+  id:'ceci-martes', short:'MAR', label:'Espalda + Bíceps', dayNum:2, name:'MARTES',
+  title:'Espalda + Bíceps — Hipertrofia',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Movilidad de hombro + activación de dorsal',
+      items:[
+        '5 min cardio suave (bici o cinta) a ritmo cómodo',
+        'Face Pull en Polea — 2 series x 15, carga muy liviana',
+        'Elevación en Y en Polea Baja — 2 series x 10, carga muy liviana',
+        'Rotación Externa en Polea — 2 series x 10 por lado, carga muy liviana'
+      ],
+      tips:'El objetivo es activar dorsal, romboides y manguito rotador antes de cargar peso — sin fatigar.'
+    },
+    { id:'blockA', category:'strength', icon:'💪', title:'Block A: Espalda — Jalón al Pecho', subtitle:'4 series x 10-12 reps · RPE 6-8 (RIR 2-4)',
+      items:[
+        'Jalón al pecho en polea (agarre ancho o neutro) — 4 series x 10-12 reps',
+        'Remo sentado en polea (agarre neutro) — 4 series x 10-12 reps'
+      ],
+      tips:'Buscá la sensación de trabajo en dorsal ancho y espalda media, no en el brazo. Tempo controlado, sin balanceo del torso.',
+      objective:'Construir base de hipertrofia en dorsal y espalda media con ejercicios guiados de bajo riesgo articular.',
+      quickRest:{ label:'Descanso entre series', seconds:120 }
+    },
+    { id:'blockB', category:'strength', icon:'💪', title:'Block B: Espalda Unilateral — Remo a un Brazo', subtitle:'3 series x 10-12 reps por lado · RPE 6-8',
+      items:['Remo a un brazo con mancuerna, apoyo en banco — 3 series x 10-12 reps por lado'],
+      tips:'Mantené la zona lumbar neutra y evitá rotar el torso al remar; priorizá la contracción de espalda sobre el peso levantado.',
+      objective:'Trabajar asimetrías y estabilidad unilateral de tronco.',
+      quickRest:{ label:'Descanso entre series', seconds:90 }
+    },
+    { id:'blockC', category:'accessory', icon:'🎯', title:'Block C: Bíceps — Curl + Martillo', subtitle:'3 series x 12-15 reps · Superset',
+      items:[
+        'Curl de bíceps con mancuernas — 3 series x 12-15 reps',
+        'Curl martillo — 3 series x 12-15 reps (superset con el anterior)'
+      ],
+      tips:'Ejecución lenta y controlada, sin impulso de cadera ni hombro. Es el cierre del bloque, no busques carga máxima.',
+      quickRest:{ label:'Descanso (superset completo)', seconds:100 }
+    }
+  ],
+  summary:'Martes trabaja espalda con foco en jalones y remos guiados, y cierra con bíceps en superset — volumen moderado, RPE 6-8, descansos de 1.5 a 2 minutos entre series.',
+  cooldown:['Estiramiento de dorsal ancho (colgado suave o en polea) 2x30s','Movilidad de hombro con banda 2x10','Foam roll de espalda alta 1 min','Respiración diafragmática 2 min']
+},
+{
+  id:'ceci-miercoles', short:'MIÉ', label:'Pierna — Cadena Anterior', dayNum:3, name:'MIÉRCOLES',
+  title:'Pierna — Cadena Anterior + Glúteos',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Movilidad de cadera + activación de glúteo',
+      items:[
+        '5 min bici o cinta a ritmo cómodo',
+        'Puente de Glúteo en el Piso — 2 series x 15 reps',
+        'Sentadillas con Peso Corporal — 2 series x 10 reps, rango completo sin dolor'
+      ],
+      tips:'Priorizá sentir cuádriceps y glúteo activados antes de sumar carga en máquina.'
+    },
+    { id:'blockA', category:'strength', icon:'🦵', title:'Block A: Cuádriceps — Sillón + Prensa', subtitle:'4 series x 10-12 reps · RPE 6-8 (RIR 2-4)',
+      items:[
+        'Sillón de cuádriceps (extensión de rodilla) — 4 series x 10-12 reps',
+        'Prensa 45° (pies al centro, ancho medio) — 4 series x 10-12 reps'
+      ],
+      tips:'En la prensa, evitá bloquear la rodilla al extender y no bajes más de lo que tu cadera permite sin despegar la zona lumbar del respaldo.',
+      objective:'Volumen de hipertrofia en cuádriceps con ejercicios guiados de bajo estrés en la técnica.',
+      quickRest:{ label:'Descanso entre series', seconds:120 }
+    },
+    { id:'blockB', category:'strength', icon:'🦵', title:'Block B: Glúteo — Hip Thrust', subtitle:'4 series x 10-12 reps · RPE 6-8',
+      items:['Hip thrust en rack o máquina — 4 series x 10-12 reps, pausa de 1-2s arriba'],
+      tips:'Buscá la contracción máxima de glúteo en la parte alta del movimiento; evitá hiperextender la zona lumbar.',
+      objective:'Foco directo de hipertrofia de glúteo con carga progresiva controlada.',
+      quickRest:{ label:'Descanso entre series', seconds:120 }
+    },
+    { id:'blockC', category:'accessory', icon:'🎯', title:'Block C: Step-Up + Core', subtitle:'3 series · Superset',
+      items:[
+        'Step-up en banco bajo/medio con mancuernas — 3 series x 10 reps por pierna',
+        'Plancha frontal — 3 series x 30-40s'
+      ],
+      tips:'En el step-up, apoyá el pie completo arriba y subí sin impulso de la pierna de atrás. En la plancha, mantené cadera y hombros alineados.',
+      quickRest:{ label:'Descanso (superset completo)', seconds:90 }
+    }
+  ],
+  summary:'Miércoles combina cuádriceps y glúteo con máquinas guiadas (sillón, prensa, hip thrust) y cierra con un superset de step-up y core — RPE 6-8 en el trabajo principal, descansos de 1.5 a 2 minutos.',
+  cooldown:['Estiramiento de cuádriceps de pie 2x30s por lado','Estiramiento de glúteo (figura 4) 2x30s por lado','Foam roll de cuádriceps 1 min por zona','Respiración diafragmática 2 min']
+},
+{
+  id:'ceci-jueves', short:'JUE', label:'Descanso', dayNum:4, name:'JUEVES', rest:true,
+  title:'Rest Day — Recuperación',
+  availability:{ jp:'rest', ceci:'rest' },
+  blocks:[
+    { id:'mobility', category:'warmup', icon:'🧘', title:'Opcional — Movilidad Liviana', subtitle:'15-20 min, sin carga',
+      items:[
+        '10 min de movilidad general de cadera, tobillo y columna torácica',
+        'Caminata suave 15-20 min al aire libre'
+      ],
+      tips:'Jueves es descanso completo del bloque de fuerza — si aparece cansancio o molestia residual, priorizá descanso total por sobre esta sesión opcional.'
+    }
+  ],
+  summary:'Descanso completo entre las dos sesiones de pierna de la semana (miércoles y viernes), y punto medio del reingreso post-gripe. No es un día para reponer volumen perdido.',
+  cooldown:[]
+},
+{
+  id:'ceci-viernes', short:'VIE', label:'Pierna — Cadena Posterior', dayNum:5, name:'VIERNES',
+  title:'Pierna — Cadena Posterior + Glúteos',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Movilidad de cadera + activación de isquios',
+      items:[
+        '5 min bici o cinta a ritmo cómodo',
+        'Peso Muerto Rumano con Mancuernas Livianas — 2 series x 12 reps, foco en la bisagra de cadera',
+        'Puente de Glúteo con Banda en Rodillas — 2 series x 15 reps'
+      ],
+      tips:'El foco es sentir la bisagra de cadera correctamente antes de sumar carga — rodillas semi-flexionadas, espalda neutra.'
+    },
+    { id:'blockA', category:'strength', icon:'🦵', title:'Block A: Isquios — Camilla + RDL', subtitle:'4 series x 10-12 reps · RPE 6-8 (RIR 2-4)',
+      items:[
+        'Camilla de femorales (curl acostado o sentado) — 4 series x 10-12 reps',
+        'Peso muerto rumano con mancuernas — 4 series x 10-12 reps'
+      ],
+      tips:'En el RDL, la barra o mancuernas bajan pegadas a la pierna; el límite del rango es donde la espalda empieza a perder la posición neutra.',
+      objective:'Hipertrofia de isquiotibiales combinando aislamiento guiado y patrón de bisagra libre.',
+      quickRest:{ label:'Descanso entre series', seconds:120 }
+    },
+    { id:'blockB', category:'strength', icon:'🦵', title:'Block B: Glúteo Unilateral — Hip Thrust', subtitle:'3 series x 10-12 reps por lado · RPE 6-8',
+      items:['Hip thrust a una pierna (banco o rack) — 3 series x 10-12 reps por lado'],
+      tips:'Apoyate bien con el pie de la pierna de trabajo y evitá rotar la cadera hacia el lado libre.',
+      objective:'Corregir asimetrías de fuerza entre ambos glúteos.',
+      quickRest:{ label:'Descanso entre series', seconds:100 }
+    },
+    { id:'blockC', category:'accessory', icon:'🎯', title:'Block C: Prensa Pies Altos + Buenos Días', subtitle:'3 series · Superset',
+      items:[
+        'Prensa 45° con pies altos en la plataforma — 3 series x 12 reps',
+        'Buenos días con banda o barra vacía — 3 series x 12 reps'
+      ],
+      tips:'Pies altos en la prensa desplaza el énfasis hacia isquios y glúteo. En los buenos días, movimiento lento y rango corto, sin buscar carga.',
+      quickRest:{ label:'Descanso (superset completo)', seconds:90 }
+    }
+  ],
+  summary:'Viernes completa el trabajo de pierna de la semana con foco en cadena posterior — camilla, RDL, hip thrust unilateral y un cierre de prensa/buenos días — mismo rango de RPE 6-8 y descansos de 1.5 a 2 minutos.',
+  cooldown:['Estiramiento de isquiotibiales de pie o sentada 2x30s por lado','Estiramiento de glúteo (figura 4) 2x30s por lado','Foam roll de isquios 1 min por zona','Respiración diafragmática 2 min']
+},
+{
+  id:'ceci-sabado', short:'SÁB', label:'Torso Full Body Ligero', dayNum:6, name:'SÁBADO',
+  title:'Torso / Full Body Ligero',
+  availability:{ jp:'rest', ceci:'train' },
+  blocks:[
+    { id:'warmup', category:'warmup', icon:'🔥', title:'Warm Up & Activación', subtitle:'Activación general, ritmo suave',
+      items:[
+        '5 min cardio suave a elección (bici, cinta o elíptico)',
+        '2 series x 10 rotaciones de hombro + 10 círculos de cadera'
+      ],
+      tips:'Sábado cierra la semana con carga baja — el warm up también es más corto y liviano que el resto de los días.'
+    },
+    { id:'blockA', category:'strength', icon:'💪', title:'Block A: Torso — Press + Remo', subtitle:'3 series x 12-15 reps · RPE 5-6',
+      items:[
+        'Press de pecho en máquina o mancuernas — 3 series x 12-15 reps',
+        'Remo en polea sentado — 3 series x 12-15 reps'
+      ],
+      tips:'Esfuerzo bajo-moderado en toda la sesión — dejá 4-6 repeticiones en reserva en cada serie, sin buscar fallo ni cargas nuevas.',
+      objective:'Mantener el estímulo de fuerza superior con fatiga mínima antes del fin de semana.',
+      quickRest:{ label:'Descanso entre series', seconds:90 }
+    },
+    { id:'blockB', category:'strength', icon:'💪', title:'Block B: Hombro — Press', subtitle:'3 series x 12-15 reps · RPE 5-6',
+      items:['Press de hombro en máquina o mancuernas, sentada — 3 series x 12-15 reps'],
+      tips:'Rango cómodo, sin dolor en la parte alta del movimiento. Si aparece cualquier molestia de hombro, reducí el rango o el peso.',
+      quickRest:{ label:'Descanso entre series', seconds:90 }
+    },
+    { id:'blockC', category:'accessory', icon:'🎯', title:'Block C: Brazos + Core Suave', subtitle:'2-3 series · Circuito',
+      items:[
+        'Curl de bíceps con mancuernas — 2-3 series x 15 reps',
+        'Extensión de tríceps en polea — 2-3 series x 15 reps',
+        'Core suave: plancha 2-3 series x 20-30s o elevación de piernas acostada x12-15 reps'
+      ],
+      tips:'Circuito de cierre a intensidad baja — es un buen momento para trabajar técnica y sentir músculo, no cargar peso.',
+      quickRest:{ label:'Descanso (circuito completo)', seconds:90 }
+    }
+  ],
+  summary:'Sábado cierra la semana con un full body liviano de torso, hombro, brazos y core — RPE 5-6 en todos los bloques, sin buscar fatiga metabólica ni cargas nuevas, para llegar descansada al domingo.',
+  cooldown:['Estiramiento de pecho en marco de puerta 2x30s por lado','Movilidad de hombro con banda 2x10','Respiración diafragmática 2-3 min']
+}
+];
+
+function getWeek(){ return state.athlete==='ceci' ? CECI_WEEK : WEEK; }
+
 const CATEGORY_META = {
   warmup:{ cls:'bi-warmup', labelCls:'bl-warmup', insightsCls:'insights-warmup' },
   oly:{ cls:'bi-oly', labelCls:'bl-oly', insightsCls:'insights-oly' },
@@ -853,11 +1263,18 @@ const TIMER_COLORS = { fire:'#FF6D00', teal:'#00BFA5', blue:'#64B5F6', muted:'#8
 /* =========================================================
    STATE
 ========================================================= */
-const state = { athlete:'jp', currentDay:'lunes', completed:{}, overrideRest:{} };
+const state = { athlete:'jp', currentDay:'lunes', completed:{ 'ceci-lunes__resumen': true }, overrideRest:{} };
 let timerCounter = 0;
 
+/* Registro liviano de timers activos, usado únicamente por el Mini-HUD flotante
+   (Sticky Timer Player) — no interviene en la lógica propia de cada timer. */
+const liveTimers = [];
+let lastStartedTimer = null;
+
 /* =========================================================
-   AUDIO API
+   AUDIO — Web Audio API, beeps simples con desbloqueo mobile
+   (un solo AudioContext compartido, desbloqueado sincrónicamente
+   en el primer tap del usuario sobre cualquier botón de timer)
 ========================================================= */
 let _audioCtx = null;
 function ensureAudioCtx(){
@@ -874,7 +1291,7 @@ function unlockAudio(){
     osc.connect(gain); gain.connect(ctx.destination);
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.01);
-  }catch(e){ }
+  }catch(e){ /* Web Audio no disponible: seguimos sin sonido */ }
 }
 function playBeep(freq, dur, peakGain, delay){
   try{
@@ -912,7 +1329,9 @@ function fmt(sec){
 }
 
 /* =========================================================
-   WAKE LOCK MANAGER
+   WAKE LOCK MANAGER — keeps the screen on while any timer runs.
+   Uses the Screen Wake Lock API (needs HTTPS/localhost; silently
+   no-ops on unsupported browsers or file:// previews).
 ========================================================= */
 const WakeLockManager = (function(){
   let sentinel = null;
@@ -942,7 +1361,50 @@ const WakeLockManager = (function(){
 })();
 
 /* =========================================================
-   PARSER & RENDER LINE
+   BIBLIOTECA DE VIDEOS DE TÉCNICA (Ceci)
+   Mapeo Nombre de ejercicio (tal cual aparece en el plan) → ID de YouTube.
+   Fuente: planilla de biblioteca de ejercicios provista por el coach.
+========================================================= */
+const VIDEO_MAP = {
+  'Face Pull en Polea': 'IeOqdw9WI90',
+  'Elevación en Y en Polea Baja': 'HLqokPogDE4',
+  'Rotación Externa en Polea': 'fuWq7fg74dc',
+  'Jalón al pecho en polea (agarre ancho o neutro)': 'e3gQM9iHxrU',
+  'Remo sentado en polea (agarre neutro)': 'qD1WZ5pSuvk',
+  'Remo a un brazo con mancuerna, apoyo en banco': 'vu_YDt9nGv4',
+  'Curl de bíceps con mancuernas': 'MKWBV29S6c0',
+  'Curl martillo': 'fM0TQLoesLs',
+  'Puente de Glúteo en el Piso': '6gl4x_OqDQ0',
+  'Sentadillas con Peso Corporal': 'hOzIP_sDfU0',
+  'Sillón de cuádriceps (extensión de rodilla)': 'uM86QE59Tgc',
+  'Prensa 45° (pies al centro, ancho medio)': 'EotSw18oR9w',
+  'Hip thrust en rack o máquina': 'CvuVYMFd11g',
+  'Step-up en banco bajo/medio con mancuernas': '37tVohr7LcE',
+  'Plancha frontal': 'xe2MXatLTUw',
+  'Peso Muerto Rumano con Mancuernas Livianas': 'hu3jRvTc_po',
+  'Puente de Glúteo con Banda en Rodillas': 'Zr2RLjIjCN0',
+  'Camilla de femorales (curl acostado o sentado)': 'lGNeJsdqJwg',
+  'Peso muerto rumano con mancuernas': 'hu3jRvTc_po',
+  'Hip thrust a una pierna (banco o rack)': 'KW7yo5x7-HI',
+  'Prensa 45° con pies altos en la plataforma': 'EotSw18oR9w',
+  'Buenos días con banda o barra vacía': 'YA-h3n9L4YU',
+  'Press de pecho en máquina o mancuernas': 'JXJmPXlqwh0',
+  'Remo en polea sentado': 'iXGHN-MWFfY',
+  'Press de hombro en máquina o mancuernas, sentada': '6v4nrRVySj0',
+  'Extensión de tríceps en polea': '1FoWlRS2Edc',
+  'Extensión de Tríceps en Polea': '1FoWlRS2Edc',
+  'Press Francés con Mancuernas': 'e3hmoAot--s',
+  'Press de banca en máquina o mancuernas': 'JXJmPXlqwh0',
+  'Aperturas en polea o máquina': '05_meIKMKFA'
+};
+function videoLinkHtml(name){
+  const ytid = VIDEO_MAP[(name||'').trim()];
+  if(!ytid) return '';
+  return ` <a class="video-link" href="javascript:void(0)" data-yt="${ytid}">▶ Ver técnica</a>`;
+}
+
+/* =========================================================
+   ITEM LINE PARSER → ex-row / section-label / divider
 ========================================================= */
 function renderLine(text){
   const dividerMatch = text.match(/^—\s*(.+?)\s*—$/);
@@ -951,19 +1413,19 @@ function renderLine(text){
   const tagMatch = text.match(/^([A-Z][0-9])\s*—\s*(.+)$/);
   if(tagMatch){
     const isComplex = /constru/i.test(tagMatch[2]);
-    return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${tagMatch[2]}</span><span class="ex-detail"><strong>${tagMatch[1]}</strong></span></div>`;
+    return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${tagMatch[2]}${videoLinkHtml(tagMatch[2])}</span><span class="ex-detail"><strong>${tagMatch[1]}</strong></span></div>`;
   }
   const opMatch = text.match(/^(Op\.\d+):\s*(.+)$/);
   if(opMatch){
-    return `<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">${opMatch[2]}</span><span class="ex-detail"><strong>${opMatch[1]}</strong></span></div>`;
+    return `<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">${opMatch[2]}${videoLinkHtml(opMatch[2])}</span><span class="ex-detail"><strong>${opMatch[1]}</strong></span></div>`;
   }
   const dashSplit = text.split(' — ');
   if(dashSplit.length === 2){
     const isComplex = /constru/i.test(text);
-    return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${dashSplit[0]}</span><span class="ex-detail">${dashSplit[1]}</span></div>`;
+    return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${dashSplit[0]}${videoLinkHtml(dashSplit[0])}</span><span class="ex-detail">${dashSplit[1]}</span></div>`;
   }
   const isComplex = /constru/i.test(text);
-  return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${text}</span></div>`;
+  return `<div class="ex-row${isComplex?' complex':''}"><div class="ex-bullet"></div><span class="ex-name">${text}${videoLinkHtml(text)}</span></div>`;
 }
 
 /* =========================================================
@@ -977,12 +1439,19 @@ class SegmentTimer{
     this.cumulativeBase = 0;
     this.roundInfo = this.buildRoundInfo();
     this.unitIndex = 0; this.elapsed = 0; this.running = false; this.rafId = null; this.lastTs = null;
+    /* reloj único: fases 'idle' → 'prep' (10s Preparate) → 'run' → 'done' */
     this.phase = 'idle';
     this.prepDuration = 10;
     this.prepElapsed = 0;
     this._prepBeeped = new Set();
+    this.kind = 'segment';
     this.build();
+    liveTimers.push(this);
   }
+  /* Distinguishes real work rounds from rest segments so the round counter
+     never counts a "Descanso" as if it were an exercise round. Segments
+     without any `rest:true` flag behave exactly as before (every segment
+     counts as a round — e.g. plain EMOMs). */
   buildRoundInfo(){
     const hasRest = this.segments.some(s=>s.rest);
     const workPerCycle = hasRest ? this.segments.filter(s=>!s.rest).length : this.segments.length;
@@ -1070,6 +1539,7 @@ class SegmentTimer{
   start(){
     if(this.running) return;
     unlockAudio();
+    lastStartedTimer = this;
     if(this.phase==='done') this.reset();
     this.running = true;
     WakeLockManager.acquire();
@@ -1139,7 +1609,7 @@ class SegmentTimer{
    STOPWATCH
 ========================================================= */
 class Stopwatch{
-  constructor(root){ this.root = root; this.elapsed = 0; this.running = false; this.build(); }
+  constructor(root){ this.root = root; this.elapsed = 0; this.running = false; this.kind = 'stopwatch'; this.build(); liveTimers.push(this); }
   build(){
     this.root.insertAdjacentHTML('beforeend', `
       <div class="timer-phase-tag phase-work">For Time</div>
@@ -1163,6 +1633,7 @@ class Stopwatch{
   start(){
     if(this.running) return;
     unlockAudio();
+    lastStartedTimer = this;
     this.running = true;
     WakeLockManager.acquire();
     this.btnToggle.textContent = '⏸'; this.btnToggle.classList.add('is-running'); this.btnToggle.title = 'Parar';
@@ -1238,7 +1709,7 @@ const main = document.getElementById('mainContent');
 function isRestForAthlete(day){ return day.availability[state.athlete] === 'rest'; }
 
 function renderTabs(){
-  tabsWrap.innerHTML = WEEK.map(d=>`
+  tabsWrap.innerHTML = getWeek().map(d=>`
     <div class="day-tab" data-day="${d.id}">
       <span class="tab-name">${d.short}</span>
       <span class="tab-label">${d.label}</span>
@@ -1256,7 +1727,7 @@ function renderTabs(){
 
 function refreshTabs(){
   tabsWrap.querySelectorAll('.day-tab').forEach(tab=>{
-    const day = WEEK.find(d=>d.id===tab.dataset.day);
+    const day = getWeek().find(d=>d.id===tab.dataset.day);
     tab.classList.toggle('active', tab.dataset.day === state.currentDay);
     const restForAthlete = day.rest || (isRestForAthlete(day) && !state.overrideRest[day.id]);
     tab.classList.toggle('rest-day', restForAthlete);
@@ -1355,7 +1826,7 @@ function renderDay(day){
       </div>
     </div>`;
   } else if(rest && override){
-    restBanner = `<div class="rest-banner" style="background:rgba(0,191,165,.08);border-color:rgba(0,191,165,.3);">
+    restBanner = `<div class="rest-banner" style="background:rgba(0,191,165,.05);border-color:rgba(0,191,165,.25);">
       <span class="rb-icon">✅</span>
       <div>
         <p class="rest-banner-title" style="color:var(--teal);">Entrenando igual hoy</p>
@@ -1386,7 +1857,7 @@ function renderDay(day){
         <h2>Día de Descanso Completo</h2>
         <p>Especialmente importante esta semana por el cuadro gripal reciente — el sistema inmune y nervioso todavía se están recuperando.</p>
         <div class="rest-checklist">
-          <div class="rest-check-item">💧 <span>Hidratación reinforced durante todo el día</span></div>
+          <div class="rest-check-item">💧 <span>Hidratación reforzada durante todo el día</span></div>
           <div class="rest-check-item">😴 <span>Dormir 7-9h, priorizar sueño de calidad</span></div>
           <div class="rest-check-item">🥩 <span>Buena ingesta proteica (~1.6-2g/kg)</span></div>
         </div>
@@ -1418,7 +1889,7 @@ function renderDay(day){
 }
 
 function renderAll(){
-  main.innerHTML = WEEK.map(renderDay).join('');
+  main.innerHTML = getWeek().map(renderDay).join('');
   wireBlockHeaders();
   wireBlockChecks();
   wireOverrideChecks();
@@ -1441,7 +1912,17 @@ function wireBlockChecks(){
     chk.addEventListener('click', e=>e.stopPropagation());
     chk.addEventListener('change', ()=>{
       state.completed[chk.dataset.key] = chk.checked;
-      chk.closest('.block').classList.toggle('block-done', chk.checked);
+      const blockEl = chk.closest('.block');
+      blockEl.classList.toggle('block-done', chk.checked);
+      if(chk.checked){
+        blockEl.classList.remove('block-flash');
+        void blockEl.offsetWidth; /* reinicia la animación aunque ya tenga la clase */
+        blockEl.classList.add('block-flash');
+        blockEl.addEventListener('animationend', function onFlashEnd(){
+          blockEl.classList.remove('block-flash');
+          blockEl.removeEventListener('animationend', onFlashEnd);
+        });
+      }
       updateProgress();
       refreshTabs();
       updateDayButton(chk.dataset.key.split('__')[0]);
@@ -1461,7 +1942,7 @@ function wireOverrideChecks(){
 function wireDayCompleteButtons(){
   document.querySelectorAll('.day-complete-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const day = WEEK.find(d=>d.id===btn.dataset.day);
+      const day = getWeek().find(d=>d.id===btn.dataset.day);
       const total = day.blocks.length;
       const doneCount = day.blocks.filter(b=>state.completed[day.id+'__'+b.id]).length;
       const setTo = !(total>0 && doneCount===total);
@@ -1472,7 +1953,7 @@ function wireDayCompleteButtons(){
 }
 
 function updateDayButton(dayId){
-  const day = WEEK.find(d=>d.id===dayId);
+  const day = getWeek().find(d=>d.id===dayId);
   if(!day) return;
   const btn = document.querySelector(`.day-complete-btn[data-day="${dayId}"]`);
   if(!btn) return;
@@ -1491,7 +1972,7 @@ function refreshDayVisibility(){
 
 function updateProgress(){
   let totalAll=0, doneAll=0;
-  WEEK.forEach(day=>{
+  getWeek().forEach(day=>{
     if(day.rest) return;
     const applicable = !isRestForAthlete(day) || state.overrideRest[day.id];
     if(!applicable) return;
@@ -1521,7 +2002,7 @@ const HERO_COPY = {
   },
   ceci: {
     title: 'Reingreso <em>Post-Gripe.</em>',
-    sub: 'Misma estructura del bloque original, cargas recalibradas para el reingreso. Ceci arranca gradual — Lunes, Miércoles y Viernes.'
+    sub: 'Musculación de martes a sábado, con jueves de descanso. Lunes (pecho + tríceps) ya está completado — el foco ahora es espalda, pierna y torso, con RPE 6-8 y descansos de 1.5 a 2 minutos entre series.'
   }
 };
 function updateHero(){
@@ -1533,15 +2014,20 @@ function updateHero(){
 document.querySelectorAll('.athlete-pill').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     state.athlete = btn.dataset.athlete;
+    const week = getWeek();
+    if(!week.find(d=>d.id===state.currentDay)){
+      state.currentDay = week[0].id;
+    }
     refreshAthleteButtons();
     updateHero();
+    renderTabs();
     renderAll();
     refreshDayVisibility();
   });
 });
 
 /* =========================================================
-   1RM CALCULATOR
+   % 1RM CALCULATOR MODAL
 ========================================================= */
 const calcModal = document.getElementById('calcModal');
 document.getElementById('calcBtn').addEventListener('click', ()=>{ calcModal.classList.add('open'); computeCalc(); });
@@ -1549,6 +2035,52 @@ document.getElementById('calcClose').addEventListener('click', ()=>{ calcModal.c
 calcModal.addEventListener('click', (e)=>{ if(e.target===calcModal) calcModal.classList.remove('open'); });
 document.getElementById('calcInput').addEventListener('input', computeCalc);
 document.getElementById('calcRound').addEventListener('change', computeCalc);
+
+/* =========================================================
+   VIDEO POPUP — técnica de ejercicio (Ceci)
+========================================================= */
+function isVideoPopupOpen(){
+  const wrap = document.getElementById('video-popup-wrap');
+  return !!(wrap && wrap.classList.contains('open'));
+}
+function openVideoPopup(videoId){
+  if(!videoId) return;
+  const wrap = document.getElementById('video-popup-wrap');
+  const iframe = document.getElementById('video-popup-iframe');
+  const fallbackLink = document.getElementById('video-popup-fallback-link');
+  iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1';
+  if(fallbackLink) fallbackLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+  wrap.classList.add('open');
+}
+function closeVideoPopup(){
+  const wrap = document.getElementById('video-popup-wrap');
+  const iframe = document.getElementById('video-popup-iframe');
+  if(!wrap || !wrap.classList.contains('open')) return;
+  iframe.src = '';
+  wrap.classList.remove('open');
+}
+document.getElementById('video-popup-close').addEventListener('click', closeVideoPopup);
+document.addEventListener('click', function(e){
+  const link = e.target.closest('.video-link');
+  if(!link) return;
+  e.preventDefault();
+  e.stopPropagation();
+  openVideoPopup(link.getAttribute('data-yt'));
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && isVideoPopupOpen()) closeVideoPopup();
+});
+
+/* =========================================================
+   MODO DE ALTA LEGIBILIDAD (toggle interior/exterior de box)
+========================================================= */
+const hcToggle = document.getElementById('hcToggle');
+if(hcToggle){
+  hcToggle.addEventListener('click', ()=>{
+    const on = document.body.classList.toggle('hc-mode');
+    hcToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
 
 function computeCalc(){
   const oneRM = parseFloat(document.getElementById('calcInput').value);
@@ -1567,47 +2099,59 @@ function computeCalc(){
 }
 
 /* =========================================================
-   HEAVY DUTY GYM PARALLAX ENGINE (SCROLL EFFECT)
+   PARALLAX BACKGROUND (blobs + fibras + mural, respeta reduced-motion)
 ========================================================= */
-(function initHeavyDutyParallax(){
-  const layerConcrete = document.getElementById('layerConcrete');
-  const layerStructure = document.getElementById('layerStructure');
-  const layerLights = document.getElementById('layerLights');
-
-  if (!layerConcrete || !layerStructure || !layerLights) return;
-
+(function initParallax(){
+  const layers = document.querySelectorAll('.parallax-layer[data-depth]');
+  if(!layers.length) return;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) return;
-
+  if(reduceMotion) return; // capas quedan estáticas, sin transform
+  const MAX_SHIFT = 46; // px — límite seguro dentro del margen de overscan del contenedor
   let ticking = false;
-
-  function updateParallax(){
-    const scrollY = window.scrollY;
-
-    // Velocidades multicapa para crear profundidad 3D real de gimnasio
-    const depthConcrete = scrollY * 0.05;
-    const depthStructure = scrollY * 0.12;
-    const depthLights = scrollY * 0.18;
-
-    layerConcrete.style.transform = `translate3d(0, ${depthConcrete}px, 0)`;
-    layerStructure.style.transform = `translate3d(0, ${depthStructure}px, 0)`;
-    layerLights.style.transform = `translate3d(0, ${depthLights}px, 0)`;
-
+  function update(){
+    const y = window.scrollY;
+    layers.forEach(layer=>{
+      const depth = parseFloat(layer.dataset.depth) || 0;
+      const shift = Math.max(-MAX_SHIFT, Math.min(MAX_SHIFT, y * depth));
+      layer.style.transform = 'translate3d(0,' + shift + 'px,0)';
+    });
     ticking = false;
   }
-
   window.addEventListener('scroll', ()=>{
-    if(!ticking){
-      requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
   }, { passive: true });
-
-  updateParallax();
+  update();
 })();
 
 /* =========================================================
-   STICKY BAR REVEAL
+   CHALK / MAGNESIO — partículas flotantes (capa "layer-chalk")
+========================================================= */
+(function initChalkParticles(){
+  const layer = document.getElementById('chalkLayer');
+  if(!layer) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return; // sin partículas animadas si el usuario prefiere menos movimiento
+  const COUNT = 22;
+  for(let i=0;i<COUNT;i++){
+    const el = document.createElement('div');
+    el.className = 'chalk-speck';
+    const size = 2 + Math.random()*4;
+    const left = Math.random()*100;
+    const top = 15 + Math.random()*75;
+    const duration = 14 + Math.random()*18;
+    const delay = -(Math.random()*duration);
+    const driftX = (Math.random()*60-30).toFixed(1)+'px';
+    const driftY = -(80+Math.random()*160).toFixed(1)+'px';
+    const op = (0.25+Math.random()*0.35).toFixed(2);
+    el.style.cssText = 'left:'+left+'%; top:'+top+'%; width:'+size+'px; height:'+size+'px; ' +
+      'animation-duration:'+duration+'s; animation-delay:'+delay+'s; ' +
+      '--drift-x:'+driftX+'; --drift-y:'+driftY+'; --speck-op:'+op+';';
+    layer.appendChild(el);
+  }
+})();
+
+/* =========================================================
+   STICKY BAR REVEAL (aparece solo al scrollear más allá del masthead)
 ========================================================= */
 (function initStickyBar(){
   const masthead = document.querySelector('.masthead');
@@ -1626,6 +2170,75 @@ function computeCalc(){
   window.addEventListener('resize', measure);
   measure();
   update();
+})();
+
+/* =========================================================
+   MINI-HUD DE CRONÓMETRO FLOTANTE (Sticky Timer Player)
+   Aparece cuando un timer en ejecución (SegmentTimer o Stopwatch)
+   sale del viewport. Es un espejo de solo-lectura del timer real:
+   los controles del HUD disparan un click sobre los botones
+   originales, así que la lógica de audio/wake-lock/fases no se
+   duplica en ningún lado.
+========================================================= */
+function timerHudSnapshot(t){
+  if(t.kind === 'stopwatch'){
+    return { phase:'FOR TIME', cls:'hud-work', time: t.elTime.textContent };
+  }
+  const cls = t.root.classList.contains('tb-rest') ? 'hud-rest'
+    : t.root.classList.contains('tb-prep') ? 'hud-prep'
+    : t.root.classList.contains('tb-done') ? 'hud-done'
+    : 'hud-work';
+  return { phase: (t.elPhase.textContent || '').toUpperCase(), cls, time: t.elTime.textContent };
+}
+(function initTimerHUD(){
+  const hud = document.getElementById('timerHud');
+  const hudInfo = hud && hud.querySelector('.hud-info');
+  const hudPhase = document.getElementById('hudPhase');
+  const hudTime = document.getElementById('hudTime');
+  const hudPlay = document.getElementById('hudPlay');
+  const hudReset = document.getElementById('hudReset');
+  const hudClose = document.getElementById('hudClose');
+  if(!hud || !hudInfo || !hudPhase || !hudTime || !hudPlay || !hudReset || !hudClose) return;
+
+  let visible = false;
+  let currentTarget = null;
+  let dismissedFor = null;
+
+  function pickCandidate(){
+    if(lastStartedTimer && lastStartedTimer.running) return lastStartedTimer;
+    return liveTimers.find(t=>t.running) || null;
+  }
+  function show(t){
+    currentTarget = t;
+    const snap = timerHudSnapshot(t);
+    hud.className = 'timer-hud show ' + snap.cls;
+    hudPhase.textContent = snap.phase;
+    hudTime.textContent = snap.time;
+    hudPlay.textContent = t.running ? '⏸' : '▶';
+    hud.setAttribute('aria-hidden', 'false');
+    visible = true;
+  }
+  function hide(){
+    if(visible){ hud.className = 'timer-hud'; hud.setAttribute('aria-hidden', 'true'); }
+    visible = false;
+  }
+  function loop(){
+    const candidate = pickCandidate();
+    if(!candidate){ hide(); dismissedFor = null; currentTarget = null; requestAnimationFrame(loop); return; }
+    if(candidate !== currentTarget) currentTarget = candidate;
+    const rect = candidate.root.getBoundingClientRect();
+    const outOfView = rect.bottom < 80 || rect.top > window.innerHeight - 40;
+    if(!outOfView) dismissedFor = null;
+    if(outOfView && dismissedFor !== candidate) show(candidate); else hide();
+    requestAnimationFrame(loop);
+  }
+  hudPlay.addEventListener('click', ()=>{ if(currentTarget && currentTarget.btnToggle) currentTarget.btnToggle.click(); });
+  hudReset.addEventListener('click', ()=>{ if(currentTarget && currentTarget.btnReset) currentTarget.btnReset.click(); });
+  hudClose.addEventListener('click', ()=>{ dismissedFor = currentTarget; hide(); });
+  hudInfo.addEventListener('click', ()=>{
+    if(currentTarget) currentTarget.root.scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+  requestAnimationFrame(loop);
 })();
 
 /* =========================================================
