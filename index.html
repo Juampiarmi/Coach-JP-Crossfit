@@ -879,7 +879,6 @@ const VIDEO_MAP = {
   'Sentadilla trasera (Barbell Back Squat)': 'dW3zj79xfrc',
   'Extensiones de cuádriceps en máquina (Leg Extension Machine)': 'uM86QE59Tgc',
   'Zancadas caminando con mancuernas (Dumbbell Walking Lunges)': 'L8fvypPrzzs',
-  'Elevación de talones de pie en máquina Smith (Smith Machine Standing Calf Raise)': '-IURfiupLoE',
   'Elevación de talones sentado en máquina (Seated Calf Raise Machine)': '8BkvUI5i3EY',
   'Press Pallof en polea (Cable Pallof Press)': '-0N2xTi69t8',
   'Hollow Body isométrico (Hollow Body Isometric Hold)': 'EsnM8eBtazU',
@@ -935,10 +934,11 @@ function videoLinkHtml(name){
   if(!ytid) return '';
   return ' <a class="video-link" href="javascript:void(0)" data-yt="' + ytid + '">▶ Ver técnica</a>';
 }
-function exNameWithVideo(name){
-  const link = videoLinkHtml(name);
-  if(link) return name + link;
-  return name + ' <span class="no-video-tag">✕ sin video en la biblioteca</span>';
+function exNameWithVideo(displayText, lookupKey){
+  lookupKey = lookupKey || displayText;
+  const link = videoLinkHtml(lookupKey);
+  if(link) return displayText + link;
+  return displayText + ' <span class="no-video-tag">✕ sin video en la biblioteca</span>';
 }
 /* =========================================================
    DÍAS DE ENTRENAMIENTO — JP (base). Ceci se deriva más abajo
@@ -968,10 +968,10 @@ const DAYS_JP = [
       tips:'Banco a 30°, las mancuernas bajan hasta el estiramiento del pectoral sin que el hombro se hunda hacia adelante. Con mancuerna cada brazo se mueve independiente — mejor control que la barra para un primer día de vuelta.',
       objective:'Reintroducción del empuje horizontal con menor demanda sistémica que el press de banca con barra.'
     },
-    { id:'blockB2', category:'strength', icon:'🎯', title:'Bloque B · Remo Articulado en Máquina', subtitle:'Ancla de Tracción (máquina, cuidado articular) · Aproximación + Series Efectivas', isBlock:true,
-      exerciseName:'Remo articulado en máquina (Iso-Lateral Row Machine)', hasApprox:true, approxSets:1, efSets:3, reps:'8-10', tempo:'2011', restSeconds:110,
-      tips:'La máquina articulada sigue el recorrido natural del hombro sin pedirte estabilización extra — apretás el omóplato en cada tracción, ideal para reconstruir el hábito de tracción sin arriesgar la técnica.',
-      objective:'Reintroducción de la tracción horizontal en un patrón guiado y de bajo riesgo articular.'
+    { id:'blockB2', category:'strength', icon:'🎯', title:'Bloque B · Remo Unilateral con Mancuerna', subtitle:'Ancla de Tracción (mancuerna, cuidado articular) · Aproximación + Series Efectivas', isBlock:true,
+      exerciseName:'Remo unilateral a una mano (Single-Arm Dumbbell Row)', hasApprox:true, approxSets:1, efSets:3, reps:'8-10 por lado', tempo:'2011', restSeconds:110,
+      tips:'Apoyo de mano y rodilla en el banco, espalda neutra, tirás con el codo pegado al cuerpo apretando el omóplato arriba — un brazo a la vez te permite corregir cualquier compensación sin depender de una máquina que este gimnasio no tiene.',
+      objective:'Reintroducción de la tracción horizontal en un patrón unilateral de bajo riesgo articular.'
     },
     { id:'blockB3', category:'strength', icon:'🎯', title:'Bloque B · Biset — Hombro Lateral + Bíceps', subtitle:'Accesorio · sin descanso entre ejercicios', isSuperset:true,
       exercises:[
@@ -981,16 +981,16 @@ const DAYS_JP = [
       tips:'Liderás la lateral con el codo, sin subir el brazo por encima de la línea del hombro. En el curl, codos fijos pegados al torso — nada de balanceo.',
       objective:'Cierre del Bloque B con densidad moderada, sin comprometer la energía que necesitás para el Bloque C.'
     },
-    { id:'blockC1', category:'strength', icon:'🏋️', title:'Bloque C · OLY — Push Press con Barra', subtitle:'Técnica y Potencia @ 65-70% · Aproximaciones + Series Efectivas', isBlock:true,
-      exerciseName:'Push Press con barra (Barbell Push Press)', hasApprox:true, approxSets:2, efSets:5, reps:'3', tempo:'Explosivo', restSeconds:150,
+    { id:'blockC1', category:'strength', icon:'🏋️', title:'Bloque C · OLY — Barbell Push Press', subtitle:'Técnica y Potencia @ 65-70% · Aproximaciones + Series Efectivas', isBlock:true,
+      exerciseName:'Push Press con barra (Barbell Push Press)', displayName:'Barbell Push Press', hasApprox:true, approxSets:2, efSets:5, reps:'3', tempo:'Explosivo', restSeconds:150,
       tips:'La pierna inicia el impulso con un pequeño quiebre de rodilla, la barra sube en línea recta cerca de la cara. Buscás velocidad de barra, no la última repetición posible — si se lentifica, bajá el peso en la próxima serie.',
       objective:'Primer contacto de la semana con trabajo de potencia de tren superior a intensidad controlada.'
     },
-    { id:'blockC2', category:'strength', icon:'🎯', title:'Bloque C · Técnica OLY (primer liviano)', subtitle:'Posiciones y velocidad — sin carga significativa', flagVideos:true,
+    { id:'blockC2', category:'strength', icon:'🎯', title:'Bloque C · OLY — High Hang Snatch Pull', subtitle:'Técnica y Potencia @ 60-75% · 5x5', flagVideos:true,
       items:[
-        'Tirón de arrancada con barra vacía (Empty Barbell Snatch Pull Technique) — 3x5, técnica liviana'
+        'High Hang Snatch Pull — 5x5 @ 60-75%'
       ],
-      tips:'Barra vacía o casi vacía — esto es pura posición: hombros por delante de la barra, tirón desde el piso con la espalda neutra, extensión completa de cadera-rodilla-tobillo. Coach JP demuestra en vivo antes de la primera serie.'
+      tips:'Arrancás desde la posición de "high hang" (barra a la altura de la cadera/mitad del muslo, rodillas ligeramente flexionadas). Extensión explosiva de cadera-rodilla-tobillo terminando en encogimiento de hombros, la barra se mantiene pegada al cuerpo todo el recorrido — sin tirar todavía con los brazos. Arrancá en el 60% y subí dentro del rango solo si la barra sale rápida y en línea recta. Coach JP demuestra la posición en vivo antes de la primera serie.'
     },
     { id:'blockD', category:'metcon', icon:'⏱️', title:'Bloque D · Metcon EMOM 8\'', subtitle:'Formato EMOM — descanso programado, sin AMRAP continuo', isEmom:true, emomMinutes:8,
       oddMinute:{ name:'Swing con pesa rusa (Kettlebell Swing)', reps:'10 (carga liviana-moderada)' },
@@ -1006,7 +1006,7 @@ const DAYS_JP = [
       tips:'La respiración diafragmática al cierre ayuda a bajar el pulso más rápido que quedarte sentado sin más — es parte del protocolo de esta semana, no un extra opcional.'
     }
   ],
-  summary:'8 series efectivas en las anclas de Bloque B (Press inclinado + Remo articulado, ambos de bajo impacto articular) + 2 rondas de biset accesorio + 5 series efectivas de Push Press al 65-70% + primer técnico de arrancada + EMOM de 8 minutos con descanso programado. Primer día de vuelta: volumen moderado, foco en confirmar que todo responde bien.',
+  summary:'8 series efectivas en las anclas de Bloque B (Press inclinado + Remo unilateral con mancuerna, ambos de bajo impacto articular) + 2 rondas de biset accesorio + 5 series efectivas de Barbell Push Press al 65-70% + 5x5 de High Hang Snatch Pull al 60-75% + EMOM de 8 minutos con descanso programado. Primer día de vuelta: volumen moderado, foco en confirmar que todo responde bien.',
   cooldown:['Estiramiento de pectoral en marco de puerta — 2x25s por lado','Estiramiento de dorsal ancho en polea — 2x25s','Respiración diafragmática — 2 min']
 },
 {
@@ -1038,9 +1038,9 @@ const DAYS_JP = [
     { id:'blockB3', category:'strength', icon:'🎯', title:'Bloque B · Biset — Zancada + Gemelo', subtitle:'Accesorio · sin descanso entre ejercicios', isSuperset:true,
       exercises:[
         { name:'Zancadas caminando con mancuernas (Dumbbell Walking Lunges)', reps:'10 por pierna', tempo:'2011' },
-        { name:'Elevación de talones de pie en máquina Smith (Smith Machine Standing Calf Raise)', reps:'15', tempo:'2012' }
+        { name:'Elevación de talones sentado en máquina (Seated Calf Raise Machine)', reps:'15', tempo:'2012' }
       ], efSets:2, restSeconds:80,
-      tips:'En la zancada, paso amplio y torso erguido. En el gemelo, pausa de 2s arriba antes de bajar controlado hasta el estiramiento completo.',
+      tips:'En la zancada, paso amplio y torso erguido. En el gemelo sentado (con la rodilla flexionada trabajás más el soleo), pausa de 2s arriba antes de bajar controlado hasta el estiramiento completo — esta máquina reemplaza la de gemelo de pie en Smith, que este gimnasio no tiene.',
       objective:'Trabajo unilateral de pierna más volumen dedicado de gemelo.'
     },
     { id:'blockC1', category:'strength', icon:'🏋️', title:'Bloque C · OLY — Sentadilla Frontal', subtitle:'Técnica y Potencia @ 70-75% · Aproximaciones + Series Efectivas', isBlock:true,
@@ -1136,7 +1136,7 @@ const DAYS_JP = [
 {
   id:'dia4', short:'DÍA 4', label:'Tirón', dayNum:4, optional:false,
   title:'Tirón — Espalda y Bíceps',
-  metaChips:['🫁 EMOM 10\' con KB + remo','🎯 Tirón Dedicado (barra)'],
+  metaChips:['🫁 30s ON/OFF · Toes to Bar + Swing','🎯 Tirón Dedicado (barra)'],
   focusTitle:'Foco Técnico del Día',
   focusText:'Día dedicado de tracción con barra. El Peso Muerto Convencional del Bloque C es el levantamiento de mayor carga absoluta de toda la semana — la técnica de bisagra de cadera con la espalda neutra manda por encima de cualquier otra prioridad hoy.',
   blocks:[
@@ -1178,10 +1178,11 @@ const DAYS_JP = [
       ],
       tips:'Desde la altura de la rodilla: tirón alto, encogimiento de hombros, y recepción en cuclillas parcial con los codos rotando rápido hacia adelante. Peso simbólico — esto es 100% patrón de movimiento. Coach JP demuestra en vivo.'
     },
-    { id:'blockD', category:'metcon', icon:'⏱️', title:'Bloque D · Metcon EMOM 10\'', subtitle:'Formato EMOM — descanso programado, sin AMRAP continuo', isEmom:true, emomMinutes:10,
-      oddMinute:{ name:'Swing con pesa rusa (Kettlebell Swing)', reps:'10' },
-      evenMinute:{ name:'Remo unilateral a una mano (Single-Arm Dumbbell Row)', reps:'8 por lado, carga liviana-moderada' },
-      tips:'Con la espalda ya trabajada en el peso muerto, priorizá técnica prolija por encima de carga en el remo — es densidad de tracción, no un test de fuerza máxima.'
+    { id:'blockD', category:'metcon', icon:'⏱️', title:'Bloque D · Metcon EMOM 10\' (30s ON / 30s OFF)', subtitle:'Formato de intervalo 1:1 — descanso programado, sin AMRAP continuo', isEmom:true, emomMinutes:10, directiveText:'30s ON / 30s OFF · 10 minutos — parás a los 30s estés en la rep que estés, descansás los otros 30s',
+      oddMinute:{ name:'Toes to Bar', reps:'10-15 en los 30s de trabajo' },
+      evenMinute:{ name:'Russian Swing (Swing con pesa rusa) 16kg', lookupName:'Swing con pesa rusa (Kettlebell Swing)', reps:'15-20 en los 30s de trabajo' },
+      oddLabel:'minuto 1, 3, 5, 7, 9', evenLabel:'minuto 2, 4, 6, 8, 10',
+      tips:'Es un corte duro a los 30 segundos, no "hasta terminar la serie" — paráte ahí estés y usá los 30s de descanso completos. Con la espalda ya trabajada en el peso muerto, priorizá agarre y técnica prolija por encima de velocidad, sobre todo en el Toes to Bar.'
     },
     { id:'blockE', category:'accessory', icon:'🧘', title:'Bloque E · Vuelta a la Calma', subtitle:'Movilidad y respiración (5 min)',
       items:[
@@ -1192,7 +1193,7 @@ const DAYS_JP = [
       tips:'Priorizá isquiotibiales y zona lumbar hoy — son los grupos más exigidos por el peso muerto.'
     }
   ],
-  summary:'6 series efectivas en las anclas de Bloque B (Remo con barra + Jalón al pecho) + 2 rondas de biset accesorio + 5 series efectivas de Peso Muerto Convencional al 70-75% (el levantamiento de mayor carga de la semana) + drill de cargada colgante + EMOM de 10 minutos.',
+  summary:'6 series efectivas en las anclas de Bloque B (Remo con barra + Jalón al pecho) + 2 rondas de biset accesorio + 5 series efectivas de Peso Muerto Convencional al 70-75% (el levantamiento de mayor carga de la semana) + drill de cargada colgante + cierre en formato 30s ON / 30s OFF durante 10 minutos con Toes to Bar y Russian Swing (16kg). El Toes to Bar no tiene video en la biblioteca — demostración en vivo antes de la primera ronda.',
   cooldown:['Estiramiento de isquiotibiales de pie o sentado — 2x25s por lado','Estiramiento de dorsal ancho en polea — 2x25s','Respiración diafragmática — 2 min']
 },
 {
@@ -1268,7 +1269,7 @@ const DAYS_JP = [
    de barra donde el patrón todavía se está consolidando.
 ========================================================= */
 const CECI_TIP_OVERRIDES = {
-  dia1: { blockC1:'La pierna inicia el impulso con un pequeño quiebre de rodilla. Arrancá con la barra vacía en la aproximación y sumá disco de a poco solo si la barra sube rápido y en línea recta — hoy el objetivo es que el patrón se sienta cómodo, no llegar al 70%.', blockC2:'Barra vacía siempre. Practicás la posición de hombros por delante de la barra y el tirón desde el piso — sin apuro, Coach JP te va guiando posición por posición.' },
+  dia1: { blockC1:'La pierna inicia el impulso con un pequeño quiebre de rodilla. Arrancá con la barra vacía en la aproximación y sumá disco de a poco solo si la barra sube rápido y en línea recta — hoy el objetivo es que el patrón se sienta cómodo, no llegar al 70%.', blockC2:'Arrancá las 5 series en el 60%, el extremo bajo del rango — subís dentro del 60-75% solo si la barra sale rápida y en línea recta hasta la cadera. No hace falta llegar al 75% hoy si la técnica no acompaña. Coach JP te guía la posición de "high hang" antes de la primera serie.' },
   dia2: { blockC1:'Codos altos, barra apoyada en los deltoides. Si en algún momento los codos empiezan a caer, es la señal para bajar el peso ya mismo — priorizá terminar las 5 series con buena posición antes que llegar al 75%.', blockC2:'Practicá la caída a la posición de recepción sin barra primero (solo brazos cruzados al pecho simulando el agarre), y recién después sumás la barra vacía.' },
   dia3: { blockB1:'Si el hombro se siente distinto hoy, quedate en el rango de aproximación un par de series más antes de pasar a las efectivas — no hay apuro en sumar disco.', blockC1:'Mismo patrón del Día 1: arrancá liviana la aproximación y solo subís si la barra se mueve rápido y derecha. La progresión de carga puede esperar a la semana que viene.', blockC2:'Practicá el salto de pies despacio y sin barra las primeras rondas — metés la barra vacía recién cuando el pie de adelante y el de atrás caen parejo y estable.' },
   dia4: { blockC1:'La técnica de bisagra manda hoy por sobre cualquier otra cosa. Arrancá la aproximación bien liviana y subí de a poco — si en algún momento la espalda pierde la posición neutra, esa fue tu última serie efectiva por hoy.', blockC2:'Con barra vacía o incluso con un palo de PVC primero: tirón alto, encogimiento, codos rotando rápido. La velocidad de los codos importa más que el peso.' },
@@ -1442,14 +1443,14 @@ function renderLine(text){
   }
   return '<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">' + text + videoLinkHtml(text) + '</span></div>';
 }
-function renderFlaggedLine(text){
+function renderFlaggedLine(text, lookupName){
   const dashSplit = text.split(' — ');
   if(dashSplit.length >= 2){
     const name = dashSplit[0];
     const detail = dashSplit.slice(1).join(' — ');
-    return '<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">' + exNameWithVideo(name) + '</span><span class="ex-detail">' + detail + '</span></div>';
+    return '<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">' + exNameWithVideo(name, lookupName) + '</span><span class="ex-detail">' + detail + '</span></div>';
   }
-  return '<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">' + exNameWithVideo(text) + '</span></div>';
+  return '<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">' + exNameWithVideo(text, lookupName) + '</span></div>';
 }
 /* =========================================================
    QUICK TIMER (cuenta regresiva simple, un solo tramo)
@@ -1714,7 +1715,7 @@ function renderBlockInner(block, day, weekIdx){
   let html = '';
   if(block.isBlock){
     const wd = weekDetail(block, weekIdx);
-    html += '<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">' + exNameWithVideo(block.exerciseName) + '</span>' +
+    html += '<div class="ex-row"><div class="ex-bullet"></div><span class="ex-name">' + exNameWithVideo(block.displayName || block.exerciseName, block.exerciseName) + '</span>' +
       '<span class="ex-detail"><strong>' + wd.setsLabel + '</strong>' + block.reps + ' · Tempo ' + block.tempo + '</span></div>';
     html += renderSetRows(weekIdx, day.id, block.id, 0, wd.efSets, block.reps);
     html += '<div class="coach-note"><strong>Coach Note</strong>' + block.tips + '</div>';
@@ -1739,16 +1740,16 @@ function renderBlockInner(block, day, weekIdx){
     }
     html += '<div class="timer-slot" data-rounds="' + sd.rounds + '" data-rest="' + block.restSeconds + '"></div>';
   } else if(block.isEmom){
-    html += '<div class="directive-chip round-chip">EMOM ' + block.emomMinutes + ' minutos — arrancás el trabajo apenas empieza el minuto, descansás lo que sobra</div>';
+    html += '<div class="directive-chip round-chip">' + (block.directiveText || ('EMOM ' + block.emomMinutes + ' minutos — arrancás el trabajo apenas empieza el minuto, descansás lo que sobra')) + '</div>';
     if(block.cycle){
       block.cycle.forEach(function(m, i){
         const minutes = [];
         for(let k=i+1; k<=block.emomMinutes; k+=block.cycle.length) minutes.push(k);
-        html += renderLine(m.name + ' — ' + m.reps + ' (minuto ' + minutes.join(', ') + ')');
+        html += renderFlaggedLine(m.name + ' — ' + m.reps + ' (minuto ' + minutes.join(', ') + ')', m.lookupName);
       });
     } else {
-      html += renderLine(block.oddMinute.name + ' — ' + block.oddMinute.reps + ' (minutos impares: 1,3,5...)');
-      html += renderLine(block.evenMinute.name + ' — ' + block.evenMinute.reps + ' (minutos pares: 2,4,6...)');
+      html += renderFlaggedLine(block.oddMinute.name + ' — ' + block.oddMinute.reps + ' (' + (block.oddLabel || 'minutos impares: 1,3,5...') + ')', block.oddMinute.lookupName);
+      html += renderFlaggedLine(block.evenMinute.name + ' — ' + block.evenMinute.reps + ' (' + (block.evenLabel || 'minutos pares: 2,4,6...') + ')', block.evenMinute.lookupName);
     }
     html += '<div class="coach-note"><strong>Coach Note</strong>' + block.tips + '</div>';
     html += '<div class="timer-slot" data-rounds="' + block.emomMinutes + '" data-rest="60" data-emom="1"></div>';
