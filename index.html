@@ -115,15 +115,12 @@
 
   .ex-row { display: flex; gap: 10px; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: center; }
   .ex-name { font-size: 0.95rem; font-weight: 600; flex: 1; color: var(--text-primary); }
-  .ex-detail { font-size: 13px; font-weight: 600; color: var(--gold); text-align: right; }
   .video-link { color: var(--gold); font-weight: 700; text-decoration: none; font-size: 11px; margin-left: 6px; cursor: pointer; border-bottom: 1px solid rgba(255,214,0,0.3); }
 
-  .coach-note { background: rgba(0,191,165,0.05); border-left: 2px solid var(--teal); padding: 0.65rem 0.9rem; margin-top: 0.75rem; font-size: 12.5px; color: #A0A0A0; border-radius: 0 8px 8px 0; }
-  .coach-note strong { color: var(--teal); display: block; margin-bottom: 2px; text-transform: uppercase; font-size: 11px; }
-
-  .timer-box { background: var(--bg-elevated); border: 2px solid var(--border); border-radius: var(--radius-md); padding: 16px; text-align: center; margin-top: 1rem; }
-  .timer-display { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 3.5rem; color: var(--text-primary); line-height: 1; }
-  .tbtn-play { width: 60px; height: 60px; border-radius: 50%; border: none; background: var(--red); color: #fff; font-size: 1.4rem; cursor: pointer; margin-top: 8px; }
+  .coach-note { background: rgba(0,191,165,0.05); border-left: 2px solid var(--teal); padding: 0.85rem 1rem; margin-top: 0.85rem; font-size: 13px; color: #B0B0B0; border-radius: 0 8px 8px 0; }
+  .coach-note strong { color: var(--teal); display: block; margin-bottom: 4px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; }
+  .coach-note-section { margin-top: 6px; }
+  .coach-note-title { color: var(--gold); font-weight: 700; font-size: 11px; text-transform: uppercase; margin-right: 4px; }
 
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 600; padding: 20px; }
   .modal-overlay.open { display: flex; }
@@ -169,7 +166,7 @@
 
 <section class="hero">
   <h1>Programa Híbrido Dual — <em>JP &amp; Ceci ✦</em></h1>
-  <p class="hero-sub" id="heroSubText">Estructura estricta de 5 bloques: Warm-Up ➔ Accessories &amp; PAP ➔ Musculación ➔ Weightlifting ➔ CrossFit WOD.</p>
+  <p class="hero-sub">Estructura estricta de 5 bloques: Warm-Up ➔ Accessories &amp; PAP ➔ Musculación ➔ Weightlifting ➔ CrossFit WOD.</p>
 </section>
 
 <div class="week-tabs-wrap">
@@ -198,7 +195,7 @@
   <div class="modal">
     <div class="modal-head"><h2>🩹 Protocolo Cero Dolor</h2><button class="modal-close" id="painClose">&times;</button></div>
     <p><b>Paso 1:</b> Diferenciar ardor muscular de molestia articular aguda.</p>
-    <p><b>Paso 2:</b> Ajustar rango de movimiento o reducir carga 20-30%.</p>
+    <p><b>Paso 2:</b> Ajustar rango de movimiento o reducir intensidad (RPE).</p>
     <p><b>Paso 3:</b> Si el dolor persiste, discontinuar el ejercicio puntual.</p>
   </div>
 </div>
@@ -207,7 +204,7 @@
 <div id="calcModal" class="modal-overlay">
   <div class="modal">
     <div class="modal-head"><h2>% Calculadora 1RM (Epley)</h2><button class="modal-close" id="calcClose">&times;</button></div>
-    <input type="number" id="calcWeight" placeholder="Peso (kg)" style="width:100%; padding:8px; margin-bottom:8px; background:#1A1A1B; border:1px solid #333; color:#fff;" />
+    <input type="number" id="calcWeight" placeholder="Peso de prueba" style="width:100%; padding:8px; margin-bottom:8px; background:#1A1A1B; border:1px solid #333; color:#fff;" />
     <input type="number" id="calcReps" placeholder="Repeticiones" style="width:100%; padding:8px; margin-bottom:8px; background:#1A1A1B; border:1px solid #333; color:#fff;" />
     <div id="calcResult" style="font-size:1.2rem; color:var(--gold); font-weight:700; text-align:center;"></div>
   </div>
@@ -223,79 +220,231 @@
 
 <script>
 const VIDEO_MAP = {
-  'Press de banca plano con barra (Barbell Bench Press)': 'SCVCLChPQFY',
-  'Remo con barra inclinado (Bent-Over Barbell Row)': 'xgVMZm-Q0X4',
-  'Nordic Curls': 'qwXUU0JPYnY',
-  'Sentadilla trasera (Barbell Back Squat)': 'dW3zj79xfrc',
-  'Press militar de pie (Standing Barbell Overhead Press)': 'zoN5EH50Dro',
-  'Peso muerto convencional (Conventional Barbell Deadlift)': 'xNwpvDuZJ3k',
-  'Sentadilla frontal (Barbell Front Squat)': 'uM86QE59Tgc',
-  'Elevaciones laterales con mancuernas (Dumbbell Lateral Raises)': 'Kl3LEzQ5Zqs',
   'Face Pull con cuerda (Cable Face Pull)': 'IeOqdw9WI90',
+  'Rotación externa manguito rotador (Dumbbell External Rotation)': 'U_tax4v-gSw',
+  'Remo con barra inclinado (Bent-Over Barbell Row)': 'xgVMZm-Q0X4',
+  'Remo unilateral a una mano (Single-Arm Dumbbell Row)': 'vu_YDt9nGv4',
+  'Dominadas lastradas (Weighted Pull-ups)': 'qwXUU0JPYnY',
+  'Curl de bíceps con barra Z (EZ-Bar Biceps Curl)': 'pT-wvBPSMZU',
+  'Jalón al pecho con agarre ancho (Wide-Grip Lat Pulldown)': 'e3gQM9iHxrU',
   'Curl martillo (Dumbbell Hammer Curl)': 'fM0TQLoesLs',
+  'Curl 21s con mancuernas (21s Dumbbell Curl)': 'SUEkPT8ufec',
+  'Swing con pesa rusa (Kettlebell Swing)': 'ao4TqSb0zxQ',
+  'Caminata del granjero (Farmer Carry)': 'p5MNNosenJc',
+  'Sentadilla con peso corporal (Bodyweight Air Squat)': 'hOzIP_sDfU0',
+  'Zancada estática con apoyo de mano (Hand-Supported Split Squat)': 'C3UGTxApK-w',
+  'Sentadilla trasera (Barbell Back Squat)': 'dW3zj79xfrc',
+  'Extensiones de cuádriceps en máquina (Leg Extension Machine)': 'uM86QE59Tgc',
+  'Zancadas caminando con mancuernas (Dumbbell Walking Lunges)': 'L8fvypPrzzs',
+  'Elevación de talones sentado en máquina (Seated Calf Raise Machine)': '8BkvUI5i3EY',
+  'Press Pallof en polea (Cable Pallof Press)': '-0N2xTi69t8',
+  'Hollow Body isométrico (Hollow Body Isometric Hold)': 'EsnM8eBtazU',
+  'Sentadilla Goblet (Dumbbell Goblet Squat)': 'PP4XRTIIyRI',
+  'Flexiones de brazos (Push-ups)': '4Bc1tPaYkOo',
+  'Press de banca plano con barra (Barbell Bench Press)': 'SCVCLChPQFY',
+  'Press militar de pie (Standing Barbell Overhead Press)': 'zoN5EH50Dro',
+  'Press inclinado con mancuernas (Incline Dumbbell Press)': 'mTaiQemkEpU',
+  'Elevaciones laterales con mancuernas (Dumbbell Lateral Raises)': 'Kl3LEzQ5Zqs',
   'Extensión tríceps polea alta con cuerda (Rope Triceps Pushdown)': '1FoWlRS2Edc',
-  'Fondos en paralelas (Bar Dips)': 'eERwCQHZqfA'
+  'Aperturas en banco inclinado con poleas (Incline Bench Cable Flyes)': 'mBfDcocTj5Q',
+  'Pájaro / Elevaciones posteriores inclinado (Rear Delt Dumbbell Flyes)': 'mzDLADlLf9c',
+  'Extensión tríceps polea alta barra recta (Straight-Bar Triceps Pushdown)': '1FjkhpZsaxc',
+  'Patada de tríceps con mancuerna (Dumbbell Triceps Kickback)': '_r8lVisvg5E',
+  'Rollout con barra (Barbell Ab Rollout)': '6pTAoXD2X6c',
+  'Dead Bug / Bicho Muerto (Dead Bug)': 'XkTtXA3-IqU',
+  'Cruce de poleas a una mano (Single-Arm Cable Flye)': '4-xGj5HJobA',
+  'Push Press con barra (Barbell Push Press)': 'HKx22sWywxc',
+  'Puente de glúteo con banda en rodillas (Knee-Banded Glute Bridge)': 'Zr2RLjIjCN0',
+  'Peso muerto rumano (Barbell Romanian Deadlift - RDL)': 'bT5OOBgY4bc',
+  'Good Morning - Buenos días (Barbell Good Morning)': 'YA-h3n9L4YU',
+  'Curl de isquiotibiales tumbado en máquina (Lying Leg Curl Machine)': 'lGNeJsdqJwg',
+  'Abducción de cadera en máquina reclinado (Reclined Machine Hip Abduction)': 'oFLGX54QgpQ',
+  'Sentadilla Búlgara con mancuernas (Dumbbell Bulgarian Split Squat)': 'or1frhkjBDc',
+  'Curl de isquiotibiales de pie a una pierna en máquina (Standing Single-Leg Curl Machine)': 'UssXN7SnOHw',
+  'Elevaciones de piernas colgado (Hanging Leg Raises)': 'Gtv_pe0E42U',
+  'Plancha lateral (Side Plank)': '_R389Jk0tIo',
+  'Step-up enfocado en glúteo (Glute-Focused Step-Up)': 'Ey2H3-zmzSk',
+  'Curl de bíceps con barra recta (Straight Barbell Curl)': '-gSM-kqNlUw',
+  'Fondos de tríceps con peso (Weighted Triceps Dips)': 'dhDjKmTX8tU',
+  'Fondos en paralelas (Bar Dips)': 'eERwCQHZqfA',
+  'Elevaciones laterales inclinado en banco (Incline Bench Lateral Raises)': 'AhBIRzyMyw8',
+  'Elevación posterior a una mano en polea (Single-Arm Cable Rear Delt Flye)': 'FeERX9UwspY',
+  'Curl martillo cruzado al pecho (Cross-Body Hammer Curl)': '7EzglNaThZY',
+  'Extensión de tríceps Katana en polea (Katana Cable Extension)': 'o1xlNNja0Fg',
+  'Curl de muñeca con mancuerna (Dumbbell Wrist Curl)': 'MsDZpKT1x5E',
+  'Rueda abdominal (Ab Wheel Rollout)': 'RGSkthpaVOY',
+  'Postura de L sentado (L-Sit Hold)': 'zs0LzKj4HWw',
+  'Curl de bíceps con mancuernas (Dumbbell Biceps Curl)': 'MKWBV29S6c0',
+  'Extensión tríceps tras nuca a 2 manos (Overhead Dumbbell Triceps Extension)': 'b_r_LW4HEcM',
+  'Peso muerto convencional (Conventional Barbell Deadlift)': 'xNwpvDuZJ3k',
+  'Zancada lateral con mancuerna (Dumbbell Side Lunge)': 'pQKj6MOsnRA',
+  'Plancha abdominal tradicional (Plank)': 'xe2MXatLTUw',
+  'Escaladores (Mountain Climbers)': 'kLh-uczlPLg',
+  'Hip Thrust con barra (Barbell Hip Thrust)': 'CvuVYMFd11g',
+  'Press Arnold (Arnold Press)': 'pQDrcNoDNVM',
+  'Encogimientos de hombros con barra (Barbell Shrugs)': 'M_MjF5Nm_h4',
+  'Sentadilla frontal (Barbell Front Squat)': 'uM86QE59Tgc'
 };
 
 const DAYS_DATA = [
   {
     id: 'dia1', short: 'LUNES', title: 'Día 1 — Torso Heavy + Snatch Focus + WOD',
     blocks: [
-      { id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', items: ['Row 350m', 'Superman hold x 30s', 'Lunge walk x 20m', 'DB Overhead Squat x 10/arm'], note: 'Aumentar intensidad progresivamente.' },
-      { id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & SALUD ARTICULAR (10 min)', items: ['Nordic Curls — 4x8 (bajada 4s)', 'Weighted Sorenson hold — 4x30s', 'Cossack squats — 3x12', 'Tibialis raises — 3x20'], note: 'Post Warm-up PAP para lubricación articular e isquiotibiales.' },
-      { id: 'b2', icon: '💪', label: '3. MUSCULACIÓN / TENSIÓN MECÁNICA (15-20 min)', items: ['Press de banca plano con barra (Barbell Bench Press) — 4x6-8 (RPE 8.5) Tempo 2110', 'Remo con barra inclinado (Bent-Over Barbell Row) — 4x8 (RPE 8.5) Tempo 2011'], note: 'Descanso 110-120s entre series.' },
-      { id: 'b3', icon: '🏋️', label: '4. WEIGHTLIFTING / OLÍMPICO (15-20 min)', items: ['Snatch Balance + Overhead Squat — Every 90s x 5 sets @ 60-65% 1RM', 'Power Snatch + 2 Overhead Squats — Every 90s x 6 sets @ 70-75% 1RM'], note: 'Priorizar velocidad de caída y bloqueo de hombros.' },
-      { id: 'b4', icon: '⏱️', label: '5. METCON / CROSSFIT WOD (12-18 min)', items: ['Every 5:00 x 4 Sets (90s AMRAP / 3:30 Rest):', '10 Front squats (Rx JP: 70kg / Rx Ceci: 47.5kg)', '10 Box jumps (Rx JP: 60cm / Rx Ceci: 50cm)', 'Max Cals Bike en tiempo restante'], note: 'Front Squats unbroken. Mínimo 30s de sprint en la bici.' }
+      { 
+        id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', 
+        items: ['Remo ergómetro — 350m', 'Plancha abdominal tradicional (Plank) — 30s hold', 'Zancadas caminando con mancuernas (Dumbbell Walking Lunges) — 20m sin peso', 'Sentadilla Goblet (Dumbbell Goblet Squat) — 10 reps livianas'], 
+        note: 'OBJETIVO: Elevar temperatura corporal y lubricación articular.\nTIPS: Aumentar intensidad progresivamente en el remo.\nESTRATEGIA: Mantener cadencia fluida sin acumular fatiga respiratoria.' 
+      },
+      { 
+        id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & SALUD ARTICULAR (10 min)', 
+        items: ['Nordic Curls — 4x8 (bajada 4s)', 'Weighted Sorenson hold — 4x30s (RPE 7)', 'Zancada lateral con mancuerna (Dumbbell Side Lunge) — 3x12 (6/lado)', 'Elevación de talones sentado en máquina (Seated Calf Raise Machine) — 3x20'], 
+        note: 'OBJETIVO: Potenciación Post-Activación (PAP) de la cadena posterior y salud del tendón de Aquiles/patelar.\nTIPS: Control excentric de 4 segundos en Nordic Curls.\nESTRATEGIA: Usar este bloque como lubricante muscular antes del trabajo de hipertrofia y olimpismo.' 
+      },
+      { 
+        id: 'b2', icon: '💪', label: '3. MUSCULACIÓN / TENSIÓN MECÁNICA (15-20 min)', 
+        items: ['Press de banca plano con barra (Barbell Bench Press) — 4x6-8 (RPE 8.5 / RIR 1-2) Tempo 2110', 'Remo con barra inclinado (Bent-Over Barbell Row) — 4x8 (RPE 8.5 / RIR 1-2) Tempo 2011'], 
+        note: 'OBJETIVO: Tensión mecánica máxima e hipertrofia del pectoral y dorsal ancho.\nTIPS: Mantener escápulas retraídas en el banco. Pausa de 1s con la barra en el esternón en el remo.\nESTRATEGIA: Descansar 110-120s entre series para asegurar máxima fuerza en cada repetición.' 
+      },
+      { 
+        id: 'b3', icon: '🏋️', label: '4. WEIGHTLIFTING / OLÍMPICO (15-20 min)', 
+        items: ['Snatch Balance + Overhead Squat — Every 90s x 5 sets @ 60-65% 1RM', 'Power Snatch + 2 Overhead Squats — Every 90s x 6 sets @ 70-75% 1RM (RPE 8)'], 
+        note: 'OBJETIVO: Velocidad de caída y estabilidad del cinturón escapular bajo la barra.\nTIPS: La entrada debe ser violenta y el bloqueo de codos inmediato.\nESTRATEGIA: Si el Overhead Squat pierde estabilidad, no subir de porcentaje y pulir la recepción.' 
+      },
+      { 
+        id: 'b4', icon: '⏱️', label: '5. METCON / CROSSFIT WOD (12-18 min)', 
+        items: ['Every 5:00 x 4 Sets (90s AMRAP / 3:30 Rest):', '10 Sentadilla frontal (Barbell Front Squat) @ 70% 1RM (Carga Unbroken exigente)', '10 Box jumps (60/50cm)', 'Max Cals Bike en tiempo restante'], 
+        note: 'OBJETIVO: Tolerancia al lactato de alta densidad (Intervalos de Velocidad).\nTIPS: Las 10 Front Squats DEBEN ser unbroken. En los Box Jumps, paso hacia abajo (step-down) fluido sin pausar arriba.\nESTRATEGIA WOD: Los primeros 45 segundos deben ser fluidos para asegurar mínimo 30-35s de sprint máximo en la bicicleta en cada ronda. El dolor debe ser buscado en los pedales, no en la barra.' 
+      }
     ]
   },
   {
     id: 'dia2', short: 'MARTES', title: 'Día 2 — Pierna / Press & Pull Gymnastics + Core WOD',
     blocks: [
-      { id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', items: ['SkiErg 150m + 10 Down-ups + 20 Band Pull-Aparts', '6-10 Z-Press + 10s Chin-Over-Bar Hold'], note: 'Activación neuromuscular previa.' },
-      { id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & SALUD ARTICULAR (10 min)', items: ['Remo articulado en máquina — 4x10-12', 'Pájaro / Elevaciones posteriores inclinado — 4x12-15', 'Rotación externa manguito rotador — 4x12/lado'], note: 'Salud escapular y hombro posterior.' },
-      { id: 'b2', icon: '💪', label: '3. MUSCULACIÓN / TENSIÓN MECÁNICA (15-20 min)', items: ['Sentadilla trasera (Barbell Back Squat) — 6x3 @ 75% subiendo a 90% 1RM (Tempo 2110)'], note: 'Triple pesado en set 6 sin llegar al fallo.' },
-      { id: 'b3', icon: '🏋️', label: '4. GYMNASTICS & PUSH/PULL (15-20 min)', items: ['AMRAP 5m: 6 Press militar @ 70% + 6 Strict Pull-ups', 'AMRAP 5m: 4 Push Press @ 70% + 2 Rope Climbs', 'AMRAP 5m: 2 Push Jerks @ 70% + 1 Legless Rope Climb'], note: 'Rest 3m entre AMRAPs. Movimiento técnico controlado.' },
-      { id: 'b4', icon: '⏱️', label: '5. METCON / CROSSFIT WOD (12-18 min)', items: ['2m Work : 2m Rest x 5 Rondas:', '100 Double Unders + Max Reps Core (TTB / Sit-ups / GHD / V-ups / K2E)'], note: 'DU en menos de 60s para asegurar 60s de core puro.' }
+      { 
+        id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', 
+        items: ['Plancha abdominal tradicional (Plank) — 10 Down-ups', 'Rotación externa manguito rotador (Dumbbell External Rotation) — 20 reps con banda', 'Press militar de pie (Standing Barbell Overhead Press) — 6-10 Z-Press con barra vacía'], 
+        note: 'OBJETIVO: Movilidad de tobillo, cadera y activación de deltoides/core.\nTIPS: Controlar la postura del tronco en el Z-Press sin arquear zona lumbar.' 
+      },
+      { 
+        id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & SALUD ARTICULAR (10 min)', 
+        items: ['Remo unilateral a una mano (Single-Arm Dumbbell Row) — 4x10-12 (RPE 8)', 'Pájaro / Elevaciones posteriores inclinado (Rear Delt Dumbbell Flyes) — 4x12-15', 'Rotación externa manguito rotador (Dumbbell External Rotation) — 4x12/lado'], 
+        note: 'OBJETIVO: Estabilidad escapular y prevención de lesiones en hombros.\nTIPS: Mantener el codo alto en las elevaciones posteriores.\nESTRATEGIA: Preparar la espalda alta para soportar la carga axial de la sentadilla.' 
+      },
+      { 
+        id: 'b2', icon: '💪', label: '3. MUSCULACIÓN / TENSIÓN MECÁNICA (15-20 min)', 
+        items: ['Sentadilla trasera (Barbell Back Squat) — 6x3 @ 75% 1RM subiendo a 90% 1RM (RPE 9) Tempo 2110'], 
+        note: 'OBJETIVO: Fuerza pura e hipertrofia de cuádriceps.\nTIPS: Iniciar el movimiento desde la cadera y rodillas en simultáneo. Mantener el tórax inflado.\nESTRATEGIA: Construir carga cada 2 minutos hasta un triple pesado pero técnico en la sexta serie.' 
+      },
+      { 
+        id: 'b3', icon: '🏋️', label: '4. GYMNASTICS & PUSH/PULL (15-20 min)', 
+        items: ['AMRAP 5m: 6 Press militar de pie (Standing Barbell Overhead Press) @ 70% 1RM + 6 Dominadas lastradas (Weighted Pull-ups)', 'AMRAP 5m: 4 Push Press con barra (Barbell Push Press) @ 70% 1RM + 2 Rope Climbs', 'AMRAP 5m: 2 Push Jerks @ 70% 1RM + 1 Legless Rope Climb'], 
+        note: 'OBJETIVO: Eficiencia mecánica en gimnásticos y empuje de potencia bajo fatiga muscular.\nTIPS: Moverse con ritmo pero sin acelerarse (Quality Focus).\nESTRATEGIA: Buscar entre 4 y 6 rondas limpias por AMRAP con 3 minutos de descanso entre bloques.' 
+      },
+      { 
+        id: 'b4', icon: '⏱️', label: '5. METCON / CROSSFIT WOD (12-18 min)', 
+        items: ['2m Work : 2m Rest x 5 Rondas:', '100 Double Unders + Max Reps Core (Elevaciones de piernas colgado / Ab-Mat Sit-ups / GHD Sit-ups / V-ups / Knees-to-Elbows)'], 
+        note: 'OBJETIVO: Capacidad cardiovascular e hipertrofia funcional del core bajo fatiga.\nTIPS: Los 100 DU deben completarse unbroken o en 2 cortes rápidos (cap de 60s).\nESTRATEGIA WOD: Mantener exactamente 60s libres para acumular repeticiones en el ejercicio de abdomen. Regular el ritmo respiratorio en los saltos dobles.' 
+      }
     ]
   },
   {
     id: 'dia3', short: 'MIÉRCOLES', title: 'Día 3 — Heavy Cleans + Deadlift + Cardio Brutal',
     blocks: [
-      { id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', items: ['Echo Bike 15/12 Cals x 5 sets', '5 Jefferson Curls + 10 Goblet Lunges'], note: 'Aumentar velocidad progresivamente.' },
-      { id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & CORE (10 min)', items: ['Press Pallof en polea — 3x12/lado', 'Flexiones de brazos con pausa — 3x12-15', 'Dead Bug / Bicho Muerto — 3x12/lado'], note: 'Control lumbo-pélvico antes del peso muerto.' },
-      { id: 'b2', icon: '💪', label: '3. MUSCULACIÓN / TENSIÓN MECÁNICA (15-20 min)', items: ['Peso muerto convencional — 6x3 @ 72-78% 1RM (Tempo 2110)'], note: 'Pausa 90-120s entre series.' },
-      { id: 'b3', icon: '🏋️', label: '4. WEIGHTLIFTING / OLÍMPICO (15-20 min)', items: ['In 15m build to max: 1 Hang Power Clean + 1 Hang Squat Clean (@ 85-90% 1RM)', '2 Drop-off sets @ 80% del máximo diario'], note: 'Fuerza explosiva de tracción.' },
-      { id: 'b4', icon: '⏱️', label: '5. METCON / CROSSFIT WOD (12-18 min)', items: ['4 Rondas por Tiempo (Rest 2:00 entre rondas):', '25/20 Cal SkiErg', '25 Wall Balls (9/6kg)', '25 American KB Swings (24/16kg)', '25 DB Walking Lunges'], note: 'Mantener un ritmo repetible sin desfallecer.' }
+      { 
+        id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', 
+        items: ['Echo Bike — 15/12 Cals x 5 sets', 'Good Morning - Buenos días (Barbell Good Morning) — 5 Jefferson Curls', 'Zancadas caminando con mancuernas (Dumbbell Walking Lunges) — 10 Goblet Lunges'], 
+        note: 'OBJETIVO: Potenciación del sistema cardiovascular y rango de bisagra de cadera.' 
+      },
+      { 
+        id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & CORE (10 min)', 
+        items: ['Press Pallof en polea (Cable Pallof Press) — 3x12/lado', 'Flexiones de brazos (Push-ups) — 3x12-15 con pausa abajo', 'Dead Bug / Bicho Muerto (Dead Bug) — 3x12/lado'], 
+        note: 'OBJETIVO: Rigidez lumbo-pélvica y estabilidad del core antirrotacional.\nTIPS: Exhalar fuerte en el punto de máxima extensión.\nESTRATEGIA: Proteger la columna antes del trabajo pesado de peso muerto.' 
+      },
+      { 
+        id: 'b2', icon: '💪', label: '3. MUSCULACIÓN / TENSIÓN MECÁNICA (15-20 min)', 
+        items: ['Peso muerto convencional (Conventional Barbell Deadlift) — 6x3 @ 72-78% 1RM (RPE 8 / RIR 2) Tempo 2110'], 
+        note: 'OBJETIVO: Fuerza de tracción pura en cadena posterior.\nTIPS: Barra pegada a las espinillas. Empujar el piso con los pies, no "tirar" con la espalda baja.\nESTRATEGIA: Series constantes a velocidad de barra uniforme.' 
+      },
+      { 
+        id: 'b3', icon: '🏋️', label: '4. WEIGHTLIFTING / OLÍMPICO (15-20 min)', 
+        items: ['In 15m build to max: 1 Hang Power Clean + 1 Hang Squat Clean (@ 85-90% 1RM / RPE 9)', '2 Drop-off sets @ 80% del máximo diario'], 
+        note: 'OBJETIVO: Potencia de tirón y codos rápidos en la recepción.\nTIPS: Extensión completa de cadera antes de meterse bajo la barra.\nESTRATEGIA: Escalar cargas progresivamente sin fallar ninguna repetición.' 
+      },
+      { 
+        id: 'b4', icon: '⏱️', label: '5. METCON / CROSSFIT WOD (12-18 min)', 
+        items: ['4 Rondas por Tiempo (Rest 2:00 entre rondas):', '25/20 Cal SkiErg', '25 Wall Balls', '25 Swing con pesa rusa (Kettlebell Swing) (Carga Moderada-Pesada / American Swing)', '25 Zancadas caminando con mancuernas (Dumbbell Walking Lunges)'], 
+        note: 'OBJETIVO: Resistencia mental y capacidad metabólica de volumen (Basic but Brutal).\nTIPS: Mantener los 25 Kettlebell Swings unbroken siempre.\nESTRATEGIA WOD: No salir al 100% en el SkiErg de la ronda 1. Mantener un ritmo sostenible en el SkiErg que permita tomar la pelota de pared inmediatamente.' 
+      }
     ]
   },
   {
     id: 'dia4', short: 'JUEVES', title: 'REST DAY — DESCANSO TOTAL',
     blocks: [
-      { id: 'b0', icon: '🛌', label: 'RECUPERACIÓN ACTIVA', items: ['Descanso total o 30 min de movilidad ligera.', 'Hidratación óptima y nutrición de regeneración.'], note: 'Recuperación del SNC.' }
+      { 
+        id: 'b0', icon: '🛌', label: 'RECUPERACIÓN ACTIVA', 
+        items: ['Descanso total o 30 min de movilidad ligera.', 'Hidratación óptima y nutrición de regeneración.'], 
+        note: 'OBJETIVO: Supercompensación del Sistema Nervioso Central (SNC).\nTIPS: Evitar actividades de alto impacto.' 
+      }
     ]
   },
   {
     id: 'dia5', short: 'VIERNES', title: 'Día 5 — Snatch Ladder + Front Squat & GHD + Sprint WOD',
     blocks: [
-      { id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', items: ['3 Sets: 45s Ski + 45s Bike', 'Drills de arrancada con barra vacía'], note: 'Preparación articular de cadera y hombro.' },
-      { id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & SALUD ARTICULAR (10 min)', items: ['Elevaciones laterales con mancuernas — 3x12', 'Face Pull con cuerda — 3x15-20', 'Curl martillo — 3x12', 'Extensión tríceps polea alta con cuerda — 3x15'], note: 'Salud de hombro y codos.' },
-      { id: 'b2', icon: '💪', label: '3. MUSCULACIÓN / TENSIÓN MECÁNICA (15-20 min)', items: ['Every 3:00 x 5 sets:', '5 Sentadillas Frontales @ 75-80% 1RM', '15 Weighted GHD Hip Extensions'], note: 'Cuádriceps erguido y potenciación de glúteos.' },
-      { id: 'b3', icon: '🏋️', label: '4. WEIGHTLIFTING / OLÍMPICO (15-20 min)', items: ['EMOM 21 min: 1 Squat Snatch', 'Subiendo 5% cada 3 min de 65% a 90%+ 1RM'], note: 'Escalera de carga progresiva.' },
-      { id: 'b4', icon: '⏱️', label: '5. METCON / CROSSFIT WOD (12-18 min)', items: ['For Time (21-15-9 reps):', 'Dual KB Hang-to-Overhead (24/16kg)', 'Lateral Burpee Box Jump Overs (60/50cm)'], note: 'Sprint WOD. Cap Time: 10 Minutos.' }
+      { 
+        id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', 
+        items: ['3 Sets: 45s SkiErg + 45s Bike', 'Drills de arrancada con barra vacía'], 
+        note: 'OBJETIVO: Preparación de la articulación glenohumeral y cadera para el Snatch.' 
+      },
+      { 
+        id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & SALUD ARTICULAR (10 min)', 
+        items: ['Elevaciones laterales con mancuernas (Dumbbell Lateral Raises) — 3x12 (RPE 8)', 'Face Pull con cuerda (Cable Face Pull) — 3x15-20', 'Curl martillo (Dumbbell Hammer Curl) — 3x12', 'Extensión tríceps polea alta con cuerda (Rope Triceps Pushdown) — 3x15'], 
+        note: 'OBJETIVO: Hipertrofia estética y salud del codo/manguito rotador.\nTIPS: Control concéntrico y excentric sin balanceo torso.' 
+      },
+      { 
+        id: 'b2', icon: '💪', label: '3. MUSCULACIÓN / TENSIÓN MECÁNICA (15-20 min)', 
+        items: ['Every 3:00 x 5 sets:', '5 Sentadilla frontal (Barbell Front Squat) @ 75-80% 1RM (RPE 8)', '15 Puente de glúteo con banda en rodillas (Knee-Banded Glute Bridge) / GHD Extensions'], 
+        note: 'OBJETIVO: Fuerza de cuádriceps y estabilidad de glúteos.\nTIPS: Mantener codos arriba todo el recorrido en la sentadilla frontal.' 
+      },
+      { 
+        id: 'b3', icon: '🏋️', label: '4. WEIGHTLIFTING / OLÍMPICO (15-20 min)', 
+        items: ['EMOM 21 min: 1 Squat Snatch', 'Subiendo 5% cada 3 min de 65% a 90%+ 1RM (RPE 9.5 en bloque final)'], 
+        note: 'OBJETIVO: Consistencia técnica bajo fatiga progresiva de carga.\nTIPS: Mantener la barra pegada al cuerpo en el primer y segundo tirón.\nESTRATEGIA: Moverse con técnica impecable en los bloques livianos para guardar energía para el 90%+.' 
+      },
+      { 
+        id: 'b4', icon: '⏱️', label: '5. METCON / CROSSFIT WOD (12-18 min)', 
+        items: ['For Time (21-15-9 reps):', 'Dual KB Hang-to-Overhead (Carga Moderada-Pesada / Rx)', 'Escaladores (Mountain Climbers) / Burpee Box Jump Overs (60/50cm)'], 
+        note: 'OBJETIVO: Sprint anaeróbico lactácido (Cap Time: 10 Minutos).\nTIPS: En los Burpees mantené el cuerpo paralelo al cajón en todo momento.\nESTRATEGIA WOD: La serie de 21 KB Hang-to-Overhead se parte como máximo en 2 sets (12+9). Moverse rápido en las transiciones.' 
+      }
     ]
   },
   {
     id: 'dia6', short: 'SÁBADO', title: 'Día 6 — Heavy EMOM + Threshold Cardio + Gymnastics Density',
     blocks: [
-      { id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', items: ['Row 40s ON : 20s OFF x 6 sets', '8 Muscle Cleans + 8 Kipping Pull-ups + 12 Push-ups'], note: 'Activación general para el EMOM.' },
-      { id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & GYMNASTICS PREP (10 min)', items: ['Fondos en paralelas / Dips — 3x5-8', 'Plancha lateral — 3x30s/lado', 'Hollow Body isométrico — 3x30s'], note: 'Fortalecimiento de triceps y core.' },
-      { id: 'b2', icon: '💪', label: '3. MUSCULACIÓN & WEIGHTLIFTING EMOM (20 min)', items: ['Alternating EMOM 20 min:', 'Min 1: 3 Power Cleans @ 75-80% 1RM', 'Min 2: 2-10 Bar Muscle-Ups', 'Min 3: 3 Power Cleans @ 75-80% 1RM', 'Min 4: 10 Press de banca plano con mancuernas (RPE 8)'], note: 'Densidad pesada bajo fatiga.' },
-      { id: 'b3', icon: '⏱️', label: '4. METCON / THRESHOLD CARDIO (30 min)', items: ['30 Minutos Reloj Continuo:', 'Min 0-10 Row: Alt EMOM 1m MAX Cals / 1m REST', 'Min 10-20 Bike: Alt EMOM 1m MAX Cals / 1m REST', 'Min 20-30 Ski: Alt EMOM 1m MAX Cals / 1m REST'], note: 'Capacidad aeróbica en ergómetros.' }
+      { 
+        id: 'b0', icon: '🔥', label: '1. WARM-UP ESPECÍFICO (5 min)', 
+        items: ['Remo ergómetro — 40s ON : 20s OFF x 6 sets', 'Flexiones de brazos (Push-ups) — 12 reps + Kipping Pull-ups'], 
+        note: 'OBJETIVO: Potenciación del ritmo cardiaco previo al EMOM pesado.' 
+      },
+      { 
+        id: 'b1', icon: '🛡️', label: '2. FINISHERS ACCESORIOS & GYMNASTICS PREP (10 min)', 
+        items: ['Fondos en paralelas (Bar Dips) — 3x5-8 (RPE 8)', 'Plancha lateral (Side Plank) — 3x30s/lado', 'Hollow Body isométrico (Hollow Body Isometric Hold) — 3x30s'], 
+        note: 'OBJETIVO: Fortalecimiento de tríceps, pectoral inferior y rigidez del abdomen.\nTIPS: Rango completo en los fondos manteniendo hombros sanos.' 
+      },
+      { 
+        id: 'b2', icon: '💪', label: '3. MUSCULACIÓN & WEIGHTLIFTING EMOM (20 min)', 
+        items: ['Alternating EMOM 20 min:', 'Min 1: 3 Power Cleans @ 75-80% 1RM', 'Min 2: 2-10 Bar Muscle-Ups (o Dominadas lastradas)', 'Min 3: 3 Power Cleans @ 75-80% 1RM', 'Min 4: 10 Press de banca plano con mancuernas (Barbell Bench Press / DB Bench Press @ RPE 8)'], 
+        note: 'OBJETIVO: Densidad de fuerza y potencia bajo fatiga acumulada semanal.\nTIPS: En los Power Cleans realizar repeticiones rápidas de una en una (singles).\nESTRATEGIA: Guardar consistencia en el Bench Press para no ahogar los Bar Muscle-Ups.' 
+      },
+      { 
+        id: 'b3', icon: '⏱️', label: '4. METCON / THRESHOLD CARDIO (30 min)', 
+        items: ['30 Minutos Reloj Continuo (Engine Threshold):', 'Min 0-10 Remo ergómetro: Alt EMOM 1m MAX Cals / 1m REST', 'Min 10-20 Echo Bike: Alt EMOM 1m MAX Cals / 1m REST', 'Min 20-30 SkiErg: Alt EMOM 1m MAX Cals / 1m REST'], 
+        note: 'OBJETIVO: Desarrollo de la capacidad aeróbica pura y ritmo de recuperación.\nTIPS: Mantener los mismos Watts/Pace desde la ronda 1 a la 5 en cada máquina.\nESTRATEGIA WOD: No quemarse en los primeros 10 minutos de Remo. Sostener un promedio idéntico de calorías en cada intervalo de 1 minuto.' 
+      }
     ]
   }
 ];
 
-const state = { athlete: 'jp', week: 0, currentDay: 'dia1', completed: {}, loads: {} };
+const state = { athlete: 'jp', week: 0, currentDay: 'dia1', completed: {} };
 
 function saveState() { localStorage.setItem('coachjp_hybrid_state', JSON.stringify(state)); }
 function loadState() {
@@ -338,6 +487,15 @@ function selectDay(id) {
   renderMain();
 }
 
+function formatNote(noteText) {
+  return noteText.split('\n').map(line => {
+    if(line.startsWith('OBJETIVO:')) return `<div class="coach-note-section"><span class="coach-note-title">🎯 OBJETIVO:</span>${line.replace('OBJETIVO:', '')}</div>`;
+    if(line.startsWith('TIPS:')) return `<div class="coach-note-section"><span class="coach-note-title">💡 TIPS BIOMECÁNICOS:</span>${line.replace('TIPS:', '')}</div>`;
+    if(line.startsWith('ESTRATEGIA:') || line.startsWith('ESTRATEGIA WOD:')) return `<div class="coach-note-section"><span class="coach-note-title">⚡ ESTRATEGIA & PACING:</span>${line.replace(/ESTRATEGIA WOD:|ESTRATEGIA:/, '')}</div>`;
+    return line;
+  }).join('');
+}
+
 function renderMain() {
   const main = document.getElementById('mainContent');
   const day = DAYS_DATA.find(d => d.id === state.currentDay);
@@ -372,7 +530,10 @@ function renderMain() {
           </div>
           <div class="block-body">
             ${b.items.map(it => `<div class="ex-row"><span class="ex-name">${renderVideoLink(it)}</span></div>`).join('')}
-            <div class="coach-note"><strong>Coach Note &amp; Biomecánica:</strong> ${b.note}</div>
+            <div class="coach-note">
+              <strong>COACH NOTE — ANÁLISIS DEL BLOQUE</strong>
+              ${formatNote(b.note)}
+            </div>
           </div>
         </div>
       `).join('')}
@@ -423,7 +584,7 @@ document.getElementById('calcReps').oninput = () => {
   const r = parseFloat(document.getElementById('calcReps').value);
   if(w && r) {
     const rm = Math.round(w * (1 + r / 30));
-    document.getElementById('calcResult').innerHTML = `1RM Estimado: ${rm} kg<br><small style="font-size:0.8rem; color:#888;">70%: ${Math.round(rm*0.7)}kg | 80%: ${Math.round(rm*0.8)}kg | 90%: ${Math.round(rm*0.9)}kg</small>`;
+    document.getElementById('calcResult').innerHTML = `1RM Estimado: ${rm} Unidades de Peso<br><small style="font-size:0.8rem; color:#888;">70%: ${Math.round(rm*0.7)} | 80%: ${Math.round(rm*0.8)} | 90%: ${Math.round(rm*0.9)}</small>`;
   }
 };
 
