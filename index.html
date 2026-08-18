@@ -455,8 +455,58 @@
   .bl-cardio { color: #FF7EC4; text-shadow: 0 0 20px rgba(255,31,143,0.32); }
   .bl-accessory { color: #CBD5DC; text-shadow: 0 0 16px rgba(176,190,197,0.24); }
   .block-subtitle { font-size: clamp(0.95rem, 1.6vw, 1.08rem); font-weight: 600; color: #D1D5DB; margin-top: 4px; letter-spacing: 0.005em; line-height: 1.35; }
-  .block-check { flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
-  .block-check input { width: 20px; height: 20px; accent-color: var(--teal); cursor: pointer; padding: 12px; margin: -12px; box-sizing: content-box; }
+  .block-check {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 4px 0 0;
+  }
+  .block-check input.block-done-cb,
+  input.block-done-cb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
+    min-height: 26px !important;
+    max-width: 26px !important;
+    max-height: 26px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+    cursor: pointer;
+    display: grid !important;
+    place-content: center;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box !important;
+    position: relative;
+  }
+  .block-check input.block-done-cb:hover,
+  input.block-done-cb:hover {
+    border-color: rgba(0, 230, 118, 0.6) !important;
+    background: rgba(0, 230, 118, 0.08) !important;
+  }
+  .block-check input.block-done-cb:checked,
+  input.block-done-cb:checked {
+    background: rgba(0, 230, 118, 0.15) !important;
+    border: 1.5px solid #00E676 !important;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.25);
+  }
+  .block-check input.block-done-cb:checked::after,
+  input.block-done-cb:checked::after {
+    content: '✓';
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 900;
+    color: #00E676;
+    line-height: 1;
+    text-align: center;
+  }
   .block-chevron { color: var(--text-muted); font-size: 12px; transition: transform 0.22s ease; flex-shrink: 0; }
   .block.collapsed .block-chevron { transform: rotate(-90deg); }
   .block-body { padding: 0.9rem 1.1rem; display: flex; flex-direction: column; gap: 0; }
@@ -805,7 +855,7 @@ html.jp-cargando body > *:not(#jpSplash){visibility:hidden !important}
     <div class="in">
       <p class="hero-eyebrow hd-eyebrow" id="heroEyebrow">SESSIONS BY JP · CrossFit Competitivo (Semana a Semana) — Semana 1 · Acumulación</p>
       <h1>Fuerza , Rendimiento,  <em>Densidad Metabólica.</em></h1>
-      <p class="hero-sub sub">Mesociclo de 4 semanas — planificación personalizada, bloques de fuerza, densidad y acondicionamiento metabólico.</p>
+      <p class="hero-sub sub">Planificación de Crossfit, bloques de fuerza, densidad y acondicionamiento metabólico.</p>
       <div class="hd-rule"></div>
     </div>
   </section>
